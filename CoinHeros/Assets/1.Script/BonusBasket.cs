@@ -7,9 +7,14 @@ public class BonusBasket : MonoBehaviour
     public float startX = -30f;     // a값
     public float endX = -12f;        // b값
 
-    public float period = 5f;  // 왕복에 걸리는 전체 시간 (속도 조절용)
+    public float period = 6f;  // 왕복에 걸리는 전체 시간 (속도 조절용)
 
     private float timer = 0f;
+    Rigidbody rig;
+    public void Start()
+    {
+        rig = GetComponent<Rigidbody>();
+    }
 
     void FixedUpdate()
     {
@@ -20,6 +25,7 @@ public class BonusBasket : MonoBehaviour
         float t = Mathf.SmoothStep(0f, 1f, normalizedTime);
 
         float x = Mathf.Lerp(startX, endX, t);
-        transform.position = new Vector3(x, transform.position.y, transform.position.z);
+
+        rig.MovePosition(new Vector3(x, transform.position.y, transform.position.z));
     }
 }
