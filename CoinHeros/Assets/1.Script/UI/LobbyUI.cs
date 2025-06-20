@@ -10,6 +10,11 @@ public class LobbyUI : MonoBehaviour
 
     Camera cam;
 
+    public LobbyBattleUI BattleUI;
+    public LobbyUnitListUI UnitListUI;
+    public CharacterUI UnitUI;
+
+
     public void Awake()
     {
         cam = Camera.main; PosInit();

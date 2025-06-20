@@ -1,0 +1,32 @@
+fileFormatVersion: 2
+guid: 656905442f636654c9bce5c4bd152cc3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Rank: {fileID: 11400000, guid: 303dfbf5a13acae4397e24ba947fd3dd, type: 2}
+  - LV: {fileID: 11400000, guid: c064a6ccbd6daa8419d27e8b51e74fa7, type: 2}
+  - EXP: {fileID: 11400000, guid: 1e849b65647dd8c48ae6b337420a53ca, type: 2}
+  - STR: {fileID: 11400000, guid: 47d07b84a2bd4c242a3d11c8dc51ee78, type: 2}
+  - Grade_STR: {fileID: 11400000, guid: 9258d959670cd68409d62c5cf19539bb, type: 2}
+  - MAG: {fileID: 11400000, guid: 0b8122735ee444f4f869dca80d51c925, type: 2}
+  - Grade_MAG: {fileID: 11400000, guid: 5c2279cbfeb4c8c4697a76f70904f0ff, type: 2}
+  - CON: {fileID: 11400000, guid: 6ee24b421174a8947b99eff7e8585ed7, type: 2}
+  - Grade_CON: {fileID: 11400000, guid: 45ba0d811abae074b993898f39b7de5f, type: 2}
+  - AGI: {fileID: 11400000, guid: 7e93d77d10f3a2146b86ef8f5ec9e99b, type: 2}
+  - Grade_AGI: {fileID: 11400000, guid: 009146122eb3d1044b8977f4e331afb1, type: 2}
+  - SPR: {fileID: 11400000, guid: 711c4790a71ae9140bde9b97ff403a96, type: 2}
+  - Grade_SPR: {fileID: 11400000, guid: d0c4341905ca4274485e109c673a47ac, type: 2}
+  - LCK: {fileID: 11400000, guid: 31f3718626c2a2e42984494e4417873e, type: 2}
+  - Grade_LCK: {fileID: 11400000, guid: 96eca001613c234489e34814c2f09c6c, type: 2}
+  - HP: {fileID: 11400000, guid: d7abc294a1efcda4f8e979255e026762, type: 2}
+  - ActionCoin: {fileID: 11400000, guid: cc4342c82b9cdfe459e32fb0df4c4284, type: 2}
+  - AttackDamage: {fileID: 11400000, guid: d80670adb576e2941a70840023503164, type: 2}
+  - AttackDefence: {fileID: 11400000, guid: f13e41840fea50249b7234b9d65100c2, type: 2}
+  - MagicDamage: {fileID: 11400000, guid: 5f6cac36311220348ac4ec85426c27a9, type: 2}
+  - MagicDefence: {fileID: 11400000, guid: 7d1e0ab62709414478b96edc89de99ff, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

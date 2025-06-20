@@ -6,11 +6,13 @@ public class GASAttributeSetComponent : DefinitionComponent<AttributeDefSO>
 {
     public class Modifier
     {
-        public Modifier(float value)
+        public Modifier(float value, StackPolicy policy)
         {
             magnitude = value;
+            stackingPolicy = policy;
         }
         public float magnitude;
+        public StackPolicy stackingPolicy;
     }
     Dictionary<AttributeDefSO, float> baseValues;
     Dictionary<AttributeDefSO, List<Modifier>> mods;
@@ -28,7 +30,7 @@ public class GASAttributeSetComponent : DefinitionComponent<AttributeDefSO>
         float val = baseValues[def];
         foreach (var m in mods[def])
         {
-            switch (def.stackingPolicy)
+            switch (m.stackingPolicy)
             {
                 case StackPolicy.Add: val += m.magnitude; break;
                 case StackPolicy.Multiply: val *= m.magnitude; break;
@@ -38,9 +40,9 @@ public class GASAttributeSetComponent : DefinitionComponent<AttributeDefSO>
         return Mathf.Clamp(val, def.MinValue, def.MaxValue);
     }
 
-    public void ModifyValue(AttributeDefSO def, float delta)
+    public void ModifyValue(AttributeDefSO def, float delta, StackPolicy policy)
     {
-        mods[def].Add(new Modifier(delta));
+        mods[def].Add(new Modifier(delta, policy));
     }
     public bool HasEnough(List<AttributeCost> costs)
     {
@@ -51,6 +53,6 @@ public class GASAttributeSetComponent : DefinitionComponent<AttributeDefSO>
     public void Pay(List<AttributeCost> costs)
     {
         foreach (var c in costs)
-            mods[c.attribute].Add(new Modifier(-c.amount));
+            mods[c.attribute].Add(new Modifier(-c.amount,StackPolicy.Add));
     }
 }
