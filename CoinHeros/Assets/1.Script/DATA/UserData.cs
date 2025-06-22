@@ -2,7 +2,6 @@ using NaughtyAttributes;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UserData : Singleton<UserData>
@@ -50,7 +49,7 @@ public class UserData : Singleton<UserData>
     {
         RenderTexture currentRT = RenderTexture.active;
         RenderTexture.active = texture;
-        Texture2D tex = new Texture2D(texture.width, texture.height, TextureFormat.RGB24, false);
+        Texture2D tex = new Texture2D(texture.width, texture.height, TextureFormat.RGBAFloat, false);
         tex.ReadPixels(new Rect(0, 0, texture.width, texture.height), 0, 0);
         tex.Apply();
         RenderTexture.active = currentRT;

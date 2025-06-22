@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,8 +31,10 @@ public class LobbyBattleUI : MonoBehaviour
             }
         }
     }
-    public void SetItem()
+    public async void SetItem()
     {
+        await WaitUntilAsync(() => UserData.Instance);
+
         var BattleUnits = UserData.Instance.BattleUnit;
         for(int i=0;i< Item.Length;i++)
         {
@@ -41,4 +43,11 @@ public class LobbyBattleUI : MonoBehaviour
         SetStartBtnInteract();
     }
 
+    public async Task WaitUntilAsync(Func<bool> condition, int checkIntervalMs = 100)
+    {
+        while (!condition())
+        {
+            await Task.Delay(checkIntervalMs);
+        }
+    }
 }
