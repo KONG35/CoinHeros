@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour
+public class Coin : MonoBehaviour, IPoolable
 {
     private bool isFixed;
     private  float fixRotX;
@@ -56,5 +56,19 @@ public class Coin : MonoBehaviour
         {
             isFixed = false;
         }
+        if(col.gameObject.tag=="Spin")
+        {
+
+        }
+    }
+
+    public void OnSpawn()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnDespawn()
+    {
+        throw new System.NotImplementedException();
     }
 }
