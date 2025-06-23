@@ -26,6 +26,10 @@ public class CharacterUI : MonoBehaviour
     public TextMeshProUGUI AttackDefence;
     public TextMeshProUGUI MagicDefence;
 
+
+    public Button Employ_Btn;
+
+
     public void Start()
     {
         etc_S_UI.GradeBack.transform.gameObject.SetActive(false);
