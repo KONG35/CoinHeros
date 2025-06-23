@@ -4,13 +4,28 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    Rigidbody rigid;
-
+    private bool isFixed;
+    private  float fixRotX;
+    
+    private Rigidbody rigid;
     private void Awake()
     {
         rigid = gameObject.GetComponent<Rigidbody>();
-        //rigid.AddForce(Vector3.down * 50f, ForceMode.Force);
         rigid.velocity = new Vector3(0, -35f, 0);
+        fixRotX = transform.eulerAngles.x;
+        Init(true);
+    }
+    public void Init(bool _isFixNeed)
+    {
+        if(_isFixNeed)
+        {
+            isFixed = true;
+        }
+        else
+        {
+            isFixed = false;
+
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -19,24 +34,27 @@ public class Coin : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        //rigid.AddForce(Vector3.down * 10f, ForceMode.Acceleration);
+        if(isFixed)
+        {
+            Vector3 rot = transform.rotation.eulerAngles;
+            rot.x = fixRotX;
+            transform.rotation = Quaternion.Euler(rot);
+        }
     }
     private void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.tag == "Slider")
+        if (col.gameObject.tag == "Basket")
         {
-            rigid.constraints = RigidbodyConstraints.None;
-
-            rigid.velocity = Vector3.zero;
-            rigid.angularVelocity = Vector3.zero;
+            isFixed = false;
         }
-        else if (col.gameObject.tag == "Basket")
+    }
+    private void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject.tag=="Slider")
         {
-            rigid.velocity = Vector3.zero;
-            rigid.angularVelocity = Vector3.zero;
+            isFixed = false;
         }
     }
 }
