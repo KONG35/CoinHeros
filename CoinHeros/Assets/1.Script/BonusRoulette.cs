@@ -31,14 +31,23 @@ public class BonusRoulette : MonoBehaviour
         }
     }
     [Button]
-    public void Spin()
+    //public void Spin()
+    //{
+    //    int addIdx = Random.Range(30, 35);
+    //    selectIdx = (selectIdx + addIdx) % items.Length;
+    //    targetTr = items[selectIdx].recTr;
+    //    float period = Random.Range(3f, 3.5f);
+
+    //    StartCoroutine(SpinCor(period, Mathf.Abs(targetTr.position.x - arrowRectTr.position.x)));
+    //}
+    public IEnumerator SpinCor()
     {
         int addIdx = Random.Range(30, 35);
         selectIdx = (selectIdx + addIdx) % items.Length;
         targetTr = items[selectIdx].recTr;
         float period = Random.Range(3f, 3.5f);
 
-        StartCoroutine(SpinCor(period, Mathf.Abs(targetTr.position.x - arrowRectTr.position.x)));
+        yield return StartCoroutine(SpinCor(period, Mathf.Abs(targetTr.position.x - arrowRectTr.position.x)));
     }
     private IEnumerator SpinCor(float duration, float len)
     {
