@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66cf22d085277ba43ad29dcc46155713, type: 3}
   m_Name: CopperCoin
   m_EditorClassIdentifier: 
-  poolKey: 
-  prefab: {fileID: 0}
-  initSize: 0
-  componentTypeName: 
+  prefab: {fileID: 5922904662911170788, guid: 7491bb47145fddb4a8dffc1567fd3ae4, type: 3}
+  initSize: 50
+  componentToPool: {fileID: 6637596105276946124, guid: 7491bb47145fddb4a8dffc1567fd3ae4, type: 3}

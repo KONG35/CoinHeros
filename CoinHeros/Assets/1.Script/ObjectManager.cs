@@ -7,18 +7,19 @@ public class ObjectManager : Singleton<ObjectManager>
 {
     [SerializeField]
     private PoolDataSO[] poolDataArray;
-    private Dictionary<string, object> pools = new Dictionary<string, object>();
+    private Dictionary<PoolDataSO, object> pools = new Dictionary<PoolDataSO, object>();
 
-    public void CreatePool<T>(string key, T prefab, int size = 10) where T : MonoBehaviour, IPoolable
+    public void CreatePool<T>(PoolDataSO key, T prefab) where T : MonoBehaviour, IPoolable
     {
         if (!pools.ContainsKey(key))
         {
-            var pool = new GenericObjectPool<T>(prefab, size, this.transform);
+            var pool = new GenericObjectPool<T>(prefab, key.initSize, this.transform);
+            //var pool = new GenericObjectPool<T>(key.prefab as T, key.initSize, this.transform);
             pools.Add(key, pool);
         }
     }
 
-    public T Get<T>(string key) where T : MonoBehaviour, IPoolable
+    public T Get<T>(PoolDataSO key) where T : MonoBehaviour, IPoolable
     {
         if (pools.TryGetValue(key, out object obj) && obj is GenericObjectPool<T> pool)
         {
@@ -29,7 +30,7 @@ public class ObjectManager : Singleton<ObjectManager>
         return null;
     }
 
-    public void Return<T>(string key, T item) where T : MonoBehaviour, IPoolable
+    public void Return<T>(PoolDataSO key, T item) where T : MonoBehaviour, IPoolable
     {
         if (pools.TryGetValue(key, out object obj) && obj is GenericObjectPool<T> pool)
         {
@@ -49,32 +50,33 @@ public class ObjectManager : Singleton<ObjectManager>
     {
         foreach (var data in poolDataList)
         {
-            if (string.IsNullOrEmpty(data.poolKey) || data.prefab == null)
+            var mono = data.prefab.GetComponent<IPoolable>();
+            if (mono == null)
             {
-                Debug.LogWarning($"풀 데이터 누락: {data.name}");
+                Debug.LogError($"Prefab '{data.prefab.name}'은 IPoolable을 구현하지 않음");
+                continue;
+            }
+            //var componentType = data.componentToPool.GetType();
+            //if (componentType == null)
+            //{
+            //    Debug.LogError($"'{data.componentToPool.GetType()}' 타입을 찾을 수 없음");
+            //    continue;
+            //}
+
+            //var component = data.prefab.GetComponent(componentType);
+            //var createPoolMethod = typeof(ObjectManager).GetMethod(nameof(CreatePool)).MakeGenericMethod(componentType);
+
+            //createPoolMethod.Invoke(this, new object[] { data , component });
+            var componentType = Type.GetType(data.componentTypeName);
+            if (componentType == null)
+            {
+                Debug.LogError($"'{data.componentTypeName}' 타입을 찾을 수 없음");
                 continue;
             }
 
-            if (!pools.ContainsKey(data.poolKey))
-            {
-                var mono = data.prefab.GetComponent<IPoolable>();
-                if (mono == null)
-                {
-                    Debug.LogError($"Prefab '{data.prefab.name}'은 IPoolable을 구현하지 않음");
-                    continue;
-                }
-                var componentType = data.componentToPool.GetType();
-                if (componentType == null)
-                {
-                    Debug.LogError($"'{data.componentToPool.GetType()}' 타입을 찾을 수 없음");
-                    continue;
-                }
-                var createPoolMethod = typeof(ObjectManager).GetMethod(nameof(CreatePool)).MakeGenericMethod(componentType);
-
-                var component = data.prefab.GetComponent(componentType);
-                
-                createPoolMethod.Invoke(this, new object[] { data.poolKey, component, data.initSize });
-            }
+            var createPoolMethod = typeof(ObjectManager).GetMethod(nameof(CreatePool)).MakeGenericMethod(componentType);
+            var component = data.prefab.GetComponent(componentType);
+            createPoolMethod.Invoke(this, new object[] { data, component });
         }
     }
 }

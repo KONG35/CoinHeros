@@ -76112,7 +76112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28549a1f4bd2b2d4087dfc31c9231bf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolDataArray: []
+  poolDataArray:
+  - {fileID: 11400000, guid: fade858bbf8d0d349b574ade11151f05, type: 2}
+  - {fileID: 11400000, guid: e44fc1bda0d4a194ba62d5b32df3d1d9, type: 2}
 --- !u!4 &1520252569
 Transform:
   m_ObjectHideFlags: 0
