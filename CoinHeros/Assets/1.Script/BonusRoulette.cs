@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class BonusRaulette : MonoBehaviour
+public class BonusRoulette : MonoBehaviour
 {
     [SerializeField]
     private BonusItem[] items;
@@ -16,17 +16,22 @@ public class BonusRaulette : MonoBehaviour
 
     [SerializeField]
     private int selectIdx;
-    private Vector3 interval;
+
+    private Vector3 intervalVec;
     private int head;
     private int tail => (head + items.Length-1) % items.Length;
     private void Start()
     {
         head = 0;
         selectIdx = 2;
-        interval = items[1].recTr.position - items[0].recTr.position;
+        intervalVec = items[1].recTr.position - items[0].recTr.position;
+        for(int i=0;i<items.Length;i++)
+        {
+            items[i].SetIndex(i);
+        }
     }
     [Button]
-    private void Spin()
+    public void Spin()
     {
         int addIdx = Random.Range(30, 35);
         selectIdx = (selectIdx + addIdx) % items.Length;
@@ -66,7 +71,7 @@ public class BonusRaulette : MonoBehaviour
 
             if (items[head].recTr.position.x <= -200f)
             {
-                items[head].recTr.position = items[tail].recTr.position + interval;
+                items[head].recTr.position = items[tail].recTr.position + intervalVec;
                 head = (head + 1) % items.Length;
             }
             yield return new WaitForFixedUpdate();

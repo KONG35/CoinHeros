@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66cf22d085277ba43ad29dcc46155713, type: 3}
   m_Name: GoldCoin
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5922904662911170788, guid: 83fcef90717d38441b6c5059555647cb, type: 3}
+  prefab: {fileID: 5922904662911170788, guid: 9c811cb188b94ed44afe9280d88d53d8, type: 3}
   initSize: 50
-  componentToPool: {fileID: 6637596105276946124, guid: 83fcef90717d38441b6c5059555647cb, type: 3}
+  componentTypeName: Coin, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

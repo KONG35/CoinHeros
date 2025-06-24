@@ -42,7 +42,7 @@ public class ObjectManager : Singleton<ObjectManager>
         }
     }
 
-    override protected void Awake()
+    void Start()
     {
         InitializePools(poolDataArray);
     }
@@ -56,17 +56,7 @@ public class ObjectManager : Singleton<ObjectManager>
                 Debug.LogError($"Prefab '{data.prefab.name}'은 IPoolable을 구현하지 않음");
                 continue;
             }
-            //var componentType = data.componentToPool.GetType();
-            //if (componentType == null)
-            //{
-            //    Debug.LogError($"'{data.componentToPool.GetType()}' 타입을 찾을 수 없음");
-            //    continue;
-            //}
-
-            //var component = data.prefab.GetComponent(componentType);
-            //var createPoolMethod = typeof(ObjectManager).GetMethod(nameof(CreatePool)).MakeGenericMethod(componentType);
-
-            //createPoolMethod.Invoke(this, new object[] { data , component });
+            
             var componentType = Type.GetType(data.componentTypeName);
             if (componentType == null)
             {

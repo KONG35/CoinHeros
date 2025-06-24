@@ -71,21 +71,21 @@ public class CoinLaunchMachine : MonoBehaviour
         {
             case 1:
                 {
-                    var go = Instantiate(copperCoin.gameObject);
+                    var go = ObjectManager.Instance.Get<Coin>(copperCoin.PoolData);
                     go.transform.position = launchPointT.position;
                 }
                 break;
 
             case 2:
                 {
-                    var go = Instantiate(silverCoin.gameObject);
+                    var go = ObjectManager.Instance.Get<Coin>(silverCoin.PoolData);
                     go.transform.position = launchPointT.position;
                 }
                 break;
 
             case 3:
                 {
-                    var go = Instantiate(goldCoin.gameObject);
+                    var go = ObjectManager.Instance.Get<Coin>(goldCoin.PoolData);
                     go.transform.position = launchPointT.position;
 
                 }
@@ -93,7 +93,7 @@ public class CoinLaunchMachine : MonoBehaviour
 
             case 4:
                 {
-                    var go = Instantiate(diamondCoin.gameObject);
+                    var go = ObjectManager.Instance.Get<Coin>(diamondCoin.PoolData);
                     go.transform.position = launchPointT.position;
 
                 }

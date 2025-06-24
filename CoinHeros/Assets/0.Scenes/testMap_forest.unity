@@ -874,7 +874,7 @@ GameObject:
   - component: {fileID: 16868539}
   m_Layer: 0
   m_Name: Slider2
-  m_TagString: Untagged
+  m_TagString: Slider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56274,7 +56274,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Raulette
+  m_text: Roulette
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 26507f248a46cbf4fa958167f580e2ce, type: 2}
   m_sharedMaterial: {fileID: -5660775149628104760, guid: 26507f248a46cbf4fa958167f580e2ce, type: 2}
@@ -71558,7 +71558,7 @@ GameObject:
   - component: {fileID: 1428239783}
   m_Layer: 0
   m_Name: Slider
-  m_TagString: Untagged
+  m_TagString: Slider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76115,6 +76115,8 @@ MonoBehaviour:
   poolDataArray:
   - {fileID: 11400000, guid: fade858bbf8d0d349b574ade11151f05, type: 2}
   - {fileID: 11400000, guid: e44fc1bda0d4a194ba62d5b32df3d1d9, type: 2}
+  - {fileID: 11400000, guid: 7b7c5ce769bf02b4a8a991431efdb753, type: 2}
+  - {fileID: 11400000, guid: ff856e6effd3b8742977a2fb81c80238, type: 2}
 --- !u!4 &1520252569
 Transform:
   m_ObjectHideFlags: 0
@@ -79169,10 +79171,10 @@ GameObject:
   - component: {fileID: 1587233938}
   - component: {fileID: 1587233937}
   - component: {fileID: 1587233936}
-  - component: {fileID: 1587233935}
   - component: {fileID: 1587233939}
+  - component: {fileID: 1587233940}
   m_Layer: 5
-  m_Name: BonusRaulette
+  m_Name: BonusRoulette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79242,66 +79244,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -11.5}
   m_SizeDelta: {x: -40, y: -47}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1587233935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1587233933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 775492c3699188a4591fc08949cf2c79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  items:
-  - {fileID: 1208536981}
-  - {fileID: 745497852}
-  - {fileID: 1341074539}
-  - {fileID: 1913963089}
-  - {fileID: 668947111}
-  - {fileID: 803211465}
-  - {fileID: 1412424902}
-  - {fileID: 1111616512}
-  - {fileID: 934265803}
-  - {fileID: 1306983327}
-  - {fileID: 1776431348}
-  - {fileID: 244531582}
-  - {fileID: 2017195772}
-  - {fileID: 1980907449}
-  - {fileID: 164656888}
-  - {fileID: 2138381529}
-  - {fileID: 23285088}
-  - {fileID: 1625527799}
-  - {fileID: 173875610}
-  - {fileID: 2024233046}
-  - {fileID: 1681630521}
-  - {fileID: 546435274}
-  - {fileID: 2123046142}
-  - {fileID: 664559743}
-  - {fileID: 1390468317}
-  - {fileID: 251964939}
-  - {fileID: 484330690}
-  - {fileID: 2073009879}
-  - {fileID: 391860370}
-  - {fileID: 1923003240}
-  - {fileID: 461374598}
-  - {fileID: 911023807}
-  - {fileID: 1792414070}
-  - {fileID: 2061984888}
-  - {fileID: 1415209743}
-  - {fileID: 1842935181}
-  - {fileID: 982893115}
-  - {fileID: 1177098878}
-  - {fileID: 1994828620}
-  - {fileID: 856930891}
-  - {fileID: 1170122489}
-  - {fileID: 305592377}
-  - {fileID: 1708695207}
-  - {fileID: 414117444}
-  - {fileID: 1713456455}
-  arrowRectTr: {fileID: 159691537}
-  selectIdx: 0
 --- !u!222 &1587233936
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -79379,6 +79321,66 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &1587233940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587233933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de408f7e75d1c544a75516dd511d25c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 1208536981}
+  - {fileID: 745497852}
+  - {fileID: 1341074539}
+  - {fileID: 1913963089}
+  - {fileID: 668947111}
+  - {fileID: 803211465}
+  - {fileID: 1412424902}
+  - {fileID: 1111616512}
+  - {fileID: 934265803}
+  - {fileID: 1306983327}
+  - {fileID: 1776431348}
+  - {fileID: 244531582}
+  - {fileID: 2017195772}
+  - {fileID: 1980907449}
+  - {fileID: 164656888}
+  - {fileID: 2138381529}
+  - {fileID: 23285088}
+  - {fileID: 1625527799}
+  - {fileID: 173875610}
+  - {fileID: 2024233046}
+  - {fileID: 1681630521}
+  - {fileID: 546435274}
+  - {fileID: 2123046142}
+  - {fileID: 664559743}
+  - {fileID: 1390468317}
+  - {fileID: 251964939}
+  - {fileID: 484330690}
+  - {fileID: 2073009879}
+  - {fileID: 391860370}
+  - {fileID: 1923003240}
+  - {fileID: 461374598}
+  - {fileID: 911023807}
+  - {fileID: 1792414070}
+  - {fileID: 2061984888}
+  - {fileID: 1415209743}
+  - {fileID: 1842935181}
+  - {fileID: 982893115}
+  - {fileID: 1177098878}
+  - {fileID: 1994828620}
+  - {fileID: 856930891}
+  - {fileID: 1170122489}
+  - {fileID: 305592377}
+  - {fileID: 1708695207}
+  - {fileID: 414117444}
+  - {fileID: 1713456455}
+  arrowRectTr: {fileID: 159691537}
+  selectIdx: 0
 --- !u!1001 &1589443984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94217,6 +94219,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 767562868964138845, guid: 7baba197ce36c92439b423eabaad3737, type: 3}
   m_PrefabInstance: {fileID: 1875390544}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1875672014
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1875672016}
+  - component: {fileID: 1875672015}
+  m_Layer: 0
+  m_Name: RouletteManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1875672015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875672014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c17176eb0fff5a64bbb94cee0cc7031c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bonusRoul: {fileID: 1587233940}
+--- !u!4 &1875672016
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875672014}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1878051283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109483,7 +109530,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -109740,13 +109787,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2825006746996078861}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.86602545, y: -0, z: 0.49999994, w: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 48.9, z: 70}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 500906417}
-  m_LocalEulerAnglesHint: {x: 0, y: 120, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 180}
 --- !u!4 &3206457415214417565
 Transform:
   m_ObjectHideFlags: 0
@@ -110557,7 +110604,6 @@ GameObject:
   - component: {fileID: 7758755732730765687}
   - component: {fileID: 3147991485187160795}
   - component: {fileID: 2468696139013849047}
-  - component: {fileID: 9209664131788271660}
   m_Layer: 8
   m_Name: SpinCol
   m_TagString: Spin
@@ -111059,18 +111105,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5630906339408456833}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9209664131788271660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5729631184121932126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b84c2838a4a4b194d88742fbb9ceae09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -111078,9 +111112,10 @@ SceneRoots:
   - {fileID: 326649888}
   - {fileID: 165891326}
   - {fileID: 857515383}
-  - {fileID: 735487156}
-  - {fileID: 124421115}
   - {fileID: 1394388747}
   - {fileID: 1201650044}
   - {fileID: 5630906339408456833}
   - {fileID: 1520252569}
+  - {fileID: 1875672016}
+  - {fileID: 735487156}
+  - {fileID: 124421115}
