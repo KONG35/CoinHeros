@@ -7,15 +7,12 @@ public class RouletteManager : Singleton<RouletteManager>
 {
     [SerializeField]
     private BonusRoulette bonusRoul;
-
-    public int corCnt;
     private List<IEnumerator> corList;
-
+    public int remainBonusCnt { get; private set; }
     protected override void Awake()
     {
         base.Awake();
         corList = new List<IEnumerator>();
-        corCnt = corList.Count;
     }
     private void Start()
     {
@@ -27,17 +24,18 @@ public class RouletteManager : Singleton<RouletteManager>
         {
             if (corList != null && corList.Count > 0)
             {
+                remainBonusCnt--;
                 yield return StartCoroutine(corList[0]);
                 corList.RemoveAt(0);
-                corCnt = corList.Count;
             }
             yield return null;
         }
     }
-    public void InputCoin(CoinEnum _cEnum = CoinEnum.Copper)
+    public void InputCoin(CoinEnum _cEnum)
     {
         corList.Add(InputCor(_cEnum));
-        corCnt = corList.Count;
+        remainBonusCnt++;
+        bonusRoul.SetRemainCnt();
     }
     IEnumerator InputCor(CoinEnum _cEnum)
     {
@@ -45,7 +43,7 @@ public class RouletteManager : Singleton<RouletteManager>
         {
             default:
                 {
-                    yield return StartCoroutine(bonusRoul.SpinCor());
+                    yield return StartCoroutine(bonusRoul.SpinCor(_cEnum));
                 }
                 break;
         }

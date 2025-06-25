@@ -9,5 +9,4 @@ public class PoolDataSO : ScriptableObject
     public GameObject prefab;
     public int initSize;
 
-    public string componentTypeName;
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ObjectManager : Singleton<ObjectManager>
@@ -50,23 +51,34 @@ public class ObjectManager : Singleton<ObjectManager>
     {
         foreach (var data in poolDataList)
         {
-            var mono = data.prefab.GetComponent<IPoolable>();
-            if (mono == null)
+            if (data.prefab == null)
             {
-                Debug.LogError($"Prefab '{data.prefab.name}'은 IPoolable을 구현하지 않음");
+                Debug.LogError("Prefab is null");
                 continue;
             }
-            
-            var componentType = Type.GetType(data.componentTypeName);
-            if (componentType == null)
+            var poolables = data.prefab.GetComponents<MonoBehaviour>()
+           .Where(m => m is IPoolable)
+           .ToArray();
+
+            if (poolables.Length == 0)
             {
-                Debug.LogError($"'{data.componentTypeName}' 타입을 찾을 수 없음");
+                Debug.LogError($"Prefab '{data.prefab.name}'은 IPoolable을 구현한 컴포넌트를 포함하지 않음");
                 continue;
             }
 
-            var createPoolMethod = typeof(ObjectManager).GetMethod(nameof(CreatePool)).MakeGenericMethod(componentType);
-            var component = data.prefab.GetComponent(componentType);
-            createPoolMethod.Invoke(this, new object[] { data, component });
+            if (poolables.Length > 1)
+            {
+                Debug.LogWarning($"Prefab '{data.prefab.name}'에 IPoolable 구현체가 여러 개 있음. 첫 번째만 사용");
+            }
+
+            var poolable = poolables[0];
+            var type = poolable.GetType();
+
+            var createPoolMethod = typeof(ObjectManager)
+                .GetMethod(nameof(CreatePool))
+                .MakeGenericMethod(type);
+
+            createPoolMethod.Invoke(this, new object[] { data, poolable });
         }
     }
 }

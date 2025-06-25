@@ -17,7 +17,6 @@ public class Coin : MonoBehaviour, IPoolable
 
     [SerializeField]
     private CoinEnum coinEnum;
-    public CoinEnum CoinEnum => coinEnum;
 
     private Rigidbody rigid;
     private void Awake()
@@ -61,7 +60,7 @@ public class Coin : MonoBehaviour, IPoolable
         }
         if(col.gameObject.tag=="Spin")
         {
-            RouletteManager.Instance.InputCoin();
+            RouletteManager.Instance.InputCoin(coinEnum);
             ObjectManager.Instance.Return<Coin>(PoolData, this);
         }
     }

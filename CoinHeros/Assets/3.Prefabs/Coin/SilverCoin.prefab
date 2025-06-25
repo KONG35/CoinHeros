@@ -148,3 +148,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolDataSO: {fileID: 11400000, guid: fade858bbf8d0d349b574ade11151f05, type: 2}
+  coinEnum: 1

@@ -17,7 +17,6 @@ public class PoolDataSOEditor : Editor
             var comp = data.prefab.GetComponent<IPoolable>();
             if (comp != null)
             {
-                data.componentTypeName = comp.GetType().AssemblyQualifiedName;
                 EditorGUILayout.HelpBox($"자동 인식된 타입: {comp.GetType().Name}", MessageType.Info);
             }
             else
