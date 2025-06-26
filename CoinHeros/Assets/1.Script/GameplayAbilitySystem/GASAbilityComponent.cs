@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-class GASAbilityComponent : DefinitionComponent<AbilityDefSO>
+public class GASAbilityComponent : DefinitionComponent<AbilityDefSO>
 {
     List<AbilitySpec> specs;
     protected override void OnInitialized(List<AbilityDefSO> defs)

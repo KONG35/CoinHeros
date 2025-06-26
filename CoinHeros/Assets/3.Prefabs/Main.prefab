@@ -757,7 +757,7 @@ MonoBehaviour:
   copperCoin: {fileID: 6637596105276946124, guid: 7491bb47145fddb4a8dffc1567fd3ae4, type: 3}
   silverCoin: {fileID: 6637596105276946124, guid: 83fcef90717d38441b6c5059555647cb, type: 3}
   goldCoin: {fileID: 6637596105276946124, guid: 9c811cb188b94ed44afe9280d88d53d8, type: 3}
-  diamondCoin: {fileID: 6637596105276946124, guid: ff77b6e21aca9da4aa96c86bc513cb1b, type: 3}
+  diamondCoin: {fileID: 0}
   launchPoint: {fileID: 3920783889827134944}
   leftBarT: {fileID: 6805759170962924596}
   rightBarT: {fileID: 7086046005107921318}
@@ -3327,15 +3327,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2006667387973054441, guid: 92482f220345b4b429552dc5a78111e8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -20.82
       objectReference: {fileID: 0}
     - target: {fileID: 2006667387973054441, guid: 92482f220345b4b429552dc5a78111e8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 16.16
       objectReference: {fileID: 0}
     - target: {fileID: 2006667387973054441, guid: 92482f220345b4b429552dc5a78111e8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -58.7
       objectReference: {fileID: 0}
     - target: {fileID: 2006667387973054441, guid: 92482f220345b4b429552dc5a78111e8, type: 3}
       propertyPath: m_LocalRotation.w

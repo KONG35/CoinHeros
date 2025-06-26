@@ -13,7 +13,7 @@ public class UserData : Singleton<UserData>
 
     public Camera RenderTextureCamera;
     public RenderTexture texture;
-    public Queue<CharacterData> CopyQueue;
+    public Queue<CharacterBase> CopyQueue;
 
     private int _gold;
     public int Gold
@@ -41,7 +41,7 @@ public class UserData : Singleton<UserData>
         if (isInit)
             return;
         UnitList = new List<CharacterData>();
-        CopyQueue = new Queue<CharacterData>();
+        CopyQueue = new Queue<CharacterBase>();
 
         Gold = 10000;
 
@@ -100,7 +100,8 @@ public class UserData : Singleton<UserData>
 
         LobbyUI Lobby = FindObjectOfType<LobbyUI>();
 
-        Lobby.UnitListUI.SetListItem();
+        if(Lobby)
+            Lobby.UnitListUI.SetListItem();
         Unit.gameObject.SetActive(false);
     }
     public void AddCharacter(CharacterData data)

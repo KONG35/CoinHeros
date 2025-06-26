@@ -22,4 +22,9 @@ public abstract class DefinitionComponent<T> : MonoBehaviour
         OnInitialized(defs);
     }
     protected abstract void OnInitialized(List<T> defs);
+
+    protected void add(T o)
+    {
+        definitions.Add(o);
+    }
 }

@@ -68,4 +68,9 @@ public class GASAttributeSetComponent : DefinitionComponent<AttributeDefSO>
         foreach (var c in costs)
             mods[c.attribute].Add(new Modifier(key,-c.amount,StackPolicy.Add));
     }
+
+    public void AddDefinitionAttribute(AttributeDefSO so)
+    {
+        add(so);
+    }
 }

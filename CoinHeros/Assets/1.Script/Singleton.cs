@@ -9,6 +9,8 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         if (Instance == null)
         {
             Instance = this as T;
+            if (this.transform.parent)
+                DontDestroyOnLoad(this.transform.parent);
             DontDestroyOnLoad(this);
         }
         else
