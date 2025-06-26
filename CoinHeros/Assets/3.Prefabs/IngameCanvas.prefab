@@ -3327,9 +3327,8 @@ GameObject:
   - component: {fileID: 2401136213964156360}
   - component: {fileID: 9085232166946291498}
   - component: {fileID: 1858809917079075225}
-  - component: {fileID: 4318502898032656313}
   m_Layer: 5
-  m_Name: BonusRoulette
+  m_Name: BonusItemGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3476,75 +3475,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
---- !u!114 &4318502898032656313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4324488798564277204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9de408f7e75d1c544a75516dd511d25c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bonusInfos:
-  - bonus: 0
-    sprite: {fileID: 21300000, guid: b41359dae2fcbaa4bb7986b5ccb52980, type: 3}
-  - bonus: 1
-    sprite: {fileID: 21300000, guid: 40fa8cba670e85d4e9eeea2deb93c704, type: 3}
-  - bonus: 2
-    sprite: {fileID: 21300000, guid: bcd58c373a5afc744a72242541980538, type: 3}
-  items:
-  - {fileID: 1540253162507739733}
-  - {fileID: 1538864083941734673}
-  - {fileID: 4536319185198046451}
-  - {fileID: 3158989275748032952}
-  - {fileID: 9071212385987001252}
-  - {fileID: 1110848891903052141}
-  - {fileID: 2356174128176790551}
-  - {fileID: 8272518395476226233}
-  - {fileID: 547852715376899879}
-  - {fileID: 6259252225365320976}
-  - {fileID: 8982460035083782453}
-  - {fileID: 4477748994905222234}
-  - {fileID: 5761670419888101516}
-  - {fileID: 9072269003482333618}
-  - {fileID: 530595111276616199}
-  - {fileID: 6851100955178132699}
-  - {fileID: 5851692463964376612}
-  - {fileID: 5443099123804192947}
-  - {fileID: 8111468489356591791}
-  - {fileID: 6966546059740250615}
-  - {fileID: 5969574714946375880}
-  - {fileID: 647834793951627827}
-  - {fileID: 6940044250259125968}
-  - {fileID: 3522208734055024753}
-  - {fileID: 8786129882476229444}
-  - {fileID: 7235688148965500638}
-  - {fileID: 2184743124718596139}
-  - {fileID: 8100542913779037841}
-  - {fileID: 3678446944841503361}
-  - {fileID: 1896394367992220456}
-  - {fileID: 8215210499212391759}
-  - {fileID: 8474055573369697632}
-  - {fileID: 393589108006182072}
-  - {fileID: 4901070143464528682}
-  - {fileID: 4568861351390140253}
-  - {fileID: 5189918902351830818}
-  - {fileID: 8089284220116747488}
-  - {fileID: 1366015693542275670}
-  - {fileID: 2713783619080515684}
-  - {fileID: 5876114071271357923}
-  - {fileID: 8972191050672940216}
-  - {fileID: 8717448203164478890}
-  - {fileID: 7139913982422022406}
-  - {fileID: 4143911820848199788}
-  - {fileID: 2464379063855447373}
-  arrowRectTr: {fileID: 7032764048072636741}
-  remainCntTxt: {fileID: 7497124350559244560}
-  remainImgTr: {fileID: 444813105685699578}
-  selectIdx: 0
 --- !u!1 &4331177040448816974
 GameObject:
   m_ObjectHideFlags: 0
@@ -7277,8 +7207,9 @@ GameObject:
   - component: {fileID: 8894301370888425387}
   - component: {fileID: 1423250875128910846}
   - component: {fileID: 6525689344197444943}
+  - component: {fileID: 8689072403958798320}
   m_Layer: 5
-  m_Name: BonusPanel
+  m_Name: BonusRoulette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7345,6 +7276,76 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8689072403958798320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8164287837754032406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de408f7e75d1c544a75516dd511d25c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinMachine: {fileID: 0}
+  bonusInfos:
+  - bonus: 0
+    sprite: {fileID: 21300000, guid: b41359dae2fcbaa4bb7986b5ccb52980, type: 3}
+  - bonus: 1
+    sprite: {fileID: 21300000, guid: 40fa8cba670e85d4e9eeea2deb93c704, type: 3}
+  - bonus: 2
+    sprite: {fileID: 21300000, guid: bcd58c373a5afc744a72242541980538, type: 3}
+  items:
+  - {fileID: 1540253162507739733}
+  - {fileID: 1538864083941734673}
+  - {fileID: 4536319185198046451}
+  - {fileID: 3158989275748032952}
+  - {fileID: 9071212385987001252}
+  - {fileID: 1110848891903052141}
+  - {fileID: 2356174128176790551}
+  - {fileID: 8272518395476226233}
+  - {fileID: 547852715376899879}
+  - {fileID: 6259252225365320976}
+  - {fileID: 8982460035083782453}
+  - {fileID: 4477748994905222234}
+  - {fileID: 5761670419888101516}
+  - {fileID: 9072269003482333618}
+  - {fileID: 530595111276616199}
+  - {fileID: 6851100955178132699}
+  - {fileID: 5851692463964376612}
+  - {fileID: 5443099123804192947}
+  - {fileID: 8111468489356591791}
+  - {fileID: 6966546059740250615}
+  - {fileID: 5969574714946375880}
+  - {fileID: 647834793951627827}
+  - {fileID: 6940044250259125968}
+  - {fileID: 3522208734055024753}
+  - {fileID: 8786129882476229444}
+  - {fileID: 7235688148965500638}
+  - {fileID: 2184743124718596139}
+  - {fileID: 8100542913779037841}
+  - {fileID: 3678446944841503361}
+  - {fileID: 1896394367992220456}
+  - {fileID: 8215210499212391759}
+  - {fileID: 8474055573369697632}
+  - {fileID: 393589108006182072}
+  - {fileID: 4901070143464528682}
+  - {fileID: 4568861351390140253}
+  - {fileID: 5189918902351830818}
+  - {fileID: 8089284220116747488}
+  - {fileID: 1366015693542275670}
+  - {fileID: 2713783619080515684}
+  - {fileID: 5876114071271357923}
+  - {fileID: 8972191050672940216}
+  - {fileID: 8717448203164478890}
+  - {fileID: 7139913982422022406}
+  - {fileID: 4143911820848199788}
+  - {fileID: 2464379063855447373}
+  arrowRectTr: {fileID: 7032764048072636741}
+  remainCntTxt: {fileID: 7497124350559244560}
+  remainImgTr: {fileID: 444813105685699578}
+  selectIdx: 0
 --- !u!1 &8186116533123522484
 GameObject:
   m_ObjectHideFlags: 0

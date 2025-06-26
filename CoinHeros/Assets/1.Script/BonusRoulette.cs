@@ -9,6 +9,9 @@ using UnityEngine.UIElements;
 public class BonusRoulette : MonoBehaviour
 {
     [SerializeField]
+    private CoinLaunchMachine coinMachine;
+
+    [SerializeField]
     private BonusInfo[] bonusInfos;
 
     [SerializeField]
@@ -56,16 +59,16 @@ public class BonusRoulette : MonoBehaviour
                         float temp = UnityEngine.Random.Range(0f, 100f);
                         if (temp < 60f)
                         {
-                            items[n].SetBonus(bonusInfos[0]);
+                            items[n].SetBonus(bonusInfos[(int)BonusEnum.Coin3]);
                             
                         }
                         else if (temp < 90f)
                         {
-                            items[n].SetBonus(bonusInfos[1]);
+                            items[n].SetBonus(bonusInfos[(int)BonusEnum.Coin6]);
                         }
                         else
                         {
-                            items[n].SetBonus(bonusInfos[2]);
+                            items[n].SetBonus(bonusInfos[(int)BonusEnum.Coin9]);
                         }
                     }
                 }
@@ -93,6 +96,8 @@ public class BonusRoulette : MonoBehaviour
         remainCntTxt.text = RouletteManager.Instance.remainBonusCnt.ToString();
 
         yield return StartCoroutine(SpinCor(period, Mathf.Abs(targetTr.position.x - arrowRectTr.position.x)));
+
+        ShowBonus(items[selectIdx].bonus);
     }
     private IEnumerator SpinCor(float duration, float len)
     {
@@ -154,5 +159,17 @@ public class BonusRoulette : MonoBehaviour
     public void SetRemainCnt()
     {
         remainCntTxt.text = RouletteManager.Instance.remainBonusCnt.ToString();
+    }
+    [Button]
+    private void ShowBonus(BonusEnum _bonus)
+    {
+        switch(_bonus)
+        {
+            default:
+                {
+                    coinMachine.BonusCoin(_bonus, CoinEnum.Copper);
+                }
+                break;
+        }
     }
 }

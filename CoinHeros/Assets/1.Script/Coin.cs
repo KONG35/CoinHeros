@@ -4,10 +4,11 @@ using UnityEngine;
 
 public enum CoinEnum
 {
-    Copper,
+    Copper=0,
     Silver,
     Gold,
-    Diamond
+    Diamond,
+    Count
 }
 public class Coin : MonoBehaviour, IPoolable
 {
@@ -21,29 +22,8 @@ public class Coin : MonoBehaviour, IPoolable
     private Rigidbody rigid;
     private void Awake()
     {
-
         rigid = gameObject.GetComponent<Rigidbody>();
-        rigid.velocity = new Vector3(0, -35f, 0);
-    }
-    public void Init()
-    {
-        
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-
-    }
-
-    void LateUpdate()
-    {
-        //if(isFixed)
-        //{
-        //    Vector3 rot = transform.rotation.eulerAngles;
-        //    rot.x = fixRotX;
-        //    transform.rotation = Quaternion.Euler(rot);
-        //}
+        //rigid.velocity = new Vector3(0, -35f, 0);
     }
     private void OnCollisionEnter(Collision col)
     {
@@ -58,15 +38,20 @@ public class Coin : MonoBehaviour, IPoolable
         {
             rigid.constraints = RigidbodyConstraints.None;
         }
-        if(col.gameObject.tag=="Spin")
+        else if(col.gameObject.tag=="Spin")
         {
             RouletteManager.Instance.InputCoin(coinEnum);
             ObjectManager.Instance.Return<Coin>(PoolData, this);
         }
+        else if (col.gameObject.tag == "Outside")
+        {
+            ObjectManager.Instance.Return<Coin>(PoolData, this);
+        }
     }
-
     public void OnSpawn()
     {
+        rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
+        rigid.velocity = new Vector3(0, -35f, 0);
     }
 
     public void OnDespawn()
