@@ -12,7 +12,7 @@ public class LobbyUnitListUI : MonoBehaviour
     public List<UnitListItem> ListItem;
     public Transform ListPanel;
 
-    public void Awake()
+    public void Init()
     {
         ListItem = new List<UnitListItem>();
     }
@@ -24,6 +24,9 @@ public class LobbyUnitListUI : MonoBehaviour
             await WaitUntilAsync(() => UserData.Instance.isInit);
         SetListItem();
 
+
+        if (ListItem.Count != 0)
+            ListItem[0].SetCharacterData();
     }
 
     public void AddItem(CharacterData Data)

@@ -17,8 +17,8 @@ public class GASAttributeData : Singleton<GASAttributeData>
     public AttributeDefSO Grade_AGI;
     public AttributeDefSO SPR;
     public AttributeDefSO Grade_SPR;
-    public AttributeDefSO LCK;
-    public AttributeDefSO Grade_LCK;
+    public AttributeDefSO LUK;
+    public AttributeDefSO Grade_LUK;
     public AttributeDefSO HP;
     public AttributeDefSO ActionCoin;
     public AttributeDefSO AttackDamage;

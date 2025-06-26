@@ -13,7 +13,25 @@ public class UserData : Singleton<UserData>
 
     public Camera RenderTextureCamera;
     public RenderTexture texture;
+    public Queue<CharacterData> CopyQueue;
 
+    private int _gold;
+    public int Gold
+    {
+        get
+        {
+            return _gold;
+        }
+        set
+        {
+            _gold = value;
+            var lobby = FindObjectOfType<LobbyUI>();
+            if (lobby)
+                lobby.TextMoney.text = _gold.ToString();
+
+        }
+    }
+    public int BattleUnitMaxCount = 1;
     public void Start()
     {
         Init();
@@ -23,6 +41,15 @@ public class UserData : Singleton<UserData>
         if (isInit)
             return;
         UnitList = new List<CharacterData>();
+        CopyQueue = new Queue<CharacterData>();
+
+        Gold = 10000;
+
+        if(UnitList.Count==0)
+        {
+            AddCharacter();
+        }
+        isInit = true;
     }
 
     [Button]
@@ -34,15 +61,53 @@ public class UserData : Singleton<UserData>
         UnitList.Add(Unit);
 
         await WaitUntilAsync(() => Unit.isInit);
-        await Task.Delay(100);
-        var tex = RenderTextureCopy();
-        Unit.Image = tex;
-        Unit._name = UnityEngine.Random.Range(0,999999).ToString();
+        int grade = 0;
+        var DTM = DataTableManager.Instance;
+        Unit._name = DTM.CharNameList[UnityEngine.Random.Range(0, DTM.CharNameList.Count)];
+
+        //STR
+        float value = 100f * UnityEngine.Random.Range(0.5f, 1.2f);
+        float Grade = UnityEngine.Random.Range((int)grade, (int)grade + 3);
+        Unit.SetBaseState(GASAttributeData.Instance.STR, value);
+        Unit.SetBaseState(GASAttributeData.Instance.Grade_STR, Grade);
+        //MAG
+        value = 100f * UnityEngine.Random.Range(0.5f, 1.2f);
+        Grade = UnityEngine.Random.Range((int)grade, (int)grade + 3);
+        Unit.SetBaseState(GASAttributeData.Instance.MAG, value);
+        Unit.SetBaseState(GASAttributeData.Instance.Grade_MAG, Grade);
+        //CON
+        value = 100f * UnityEngine.Random.Range(0.5f, 1.2f);
+        Grade = UnityEngine.Random.Range((int)grade, (int)grade + 3);
+        Unit.SetBaseState(GASAttributeData.Instance.CON, value);
+        Unit.SetBaseState(GASAttributeData.Instance.Grade_CON, Grade);
+        //AGI
+        value = 100f * UnityEngine.Random.Range(0.5f, 1.2f);
+        Grade = UnityEngine.Random.Range((int)grade, (int)grade + 3);
+        Unit.SetBaseState(GASAttributeData.Instance.AGI, value);
+        Unit.SetBaseState(GASAttributeData.Instance.Grade_AGI, Grade);
+        //SPR
+        value = 100f * UnityEngine.Random.Range(0.5f, 1.2f);
+        Grade = UnityEngine.Random.Range((int)grade, (int)grade + 3);
+        Unit.SetBaseState(GASAttributeData.Instance.SPR, value);
+        Unit.SetBaseState(GASAttributeData.Instance.Grade_SPR, Grade);
+        //LCK
+        value = 100f * UnityEngine.Random.Range(0.5f, 1.2f);
+        Grade = UnityEngine.Random.Range((int)grade, (int)grade + 3);
+        Unit.SetBaseState(GASAttributeData.Instance.LUK, value);
+        Unit.SetBaseState(GASAttributeData.Instance.Grade_LUK, Grade);
+
+        Unit.SetCalcBaseStateToDetailState();
 
         LobbyUI Lobby = FindObjectOfType<LobbyUI>();
 
         Lobby.UnitListUI.SetListItem();
         Unit.gameObject.SetActive(false);
+    }
+    public void AddCharacter(CharacterData data)
+    {
+        LobbyUI Lobby = FindObjectOfType<LobbyUI>();
+        UnitList.Add(data);
+        Lobby.UnitListUI.SetListItem();
     }
 
     public Texture2D RenderTextureCopy()

@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +9,29 @@ public class LobbyBattleUI : MonoBehaviour
     public LobbyBattleUnitItem[] Item = new LobbyBattleUnitItem[6];
 
     public Button StartButton;
+
+    public TextMeshProUGUI BattleUnitText;
     public void Awake()
     {
         StartButton.onClick.AddListener(OnClickStart); 
         SetItem();
 
+    }
+
+    public void OnEnable()
+    {
+        var ud = UserData.Instance;
+        if (ud)
+        {
+            int battleUnitCount = 0;
+            for(int i=0;i<ud.BattleUnit.Length;i++)
+            {
+                if (ud.BattleUnit[i] == null)
+                    continue;
+                battleUnitCount++;
+            }
+            BattleUnitText.text = battleUnitCount.ToString() + "/" + ud.BattleUnitMaxCount.ToString();
+        } 
     }
 
     public void OnClickStart()

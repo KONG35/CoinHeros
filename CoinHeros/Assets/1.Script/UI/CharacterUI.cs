@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class CharacterUI : MonoBehaviour
 {
+    public CharacterData curCharacter;
     public RawImage image;
     public TextMeshProUGUI Name;
     public TextMeshProUGUI LV;
@@ -28,30 +29,64 @@ public class CharacterUI : MonoBehaviour
 
 
     public Button Employ_Btn;
-
+    public Transform EmployStamp;
+    public int EmployPrice;
 
     public void Start()
     {
         etc_S_UI.GradeBack.transform.gameObject.SetActive(false);
+        Employ_Btn.onClick.AddListener(EmployBtnClick);
     }
 
 
 
-    public void SetCharacterData(CharacterData data)
+    public void SetCharacterData(CharacterData data,int price)
     {
+        curCharacter = data;
         image.texture = data.Image;
         Name.text = data._name;
+        EmployPrice = price;
         int curLv = (int)data.GetState(GASAttributeData.Instance.LV);
         LV.text = curLv.ToString()+ "/" + 
             DataTableManager.Instance.RankMaxLvTable[(int)data.GetState(GASAttributeData.Instance.Rank)];
-        Exp.text = ((int)data.GetState(GASAttributeData.Instance.EXP) - DataTableManager.Instance.GetTotalPrevExp(curLv)).ToString() + "/" +
+        Exp.text = ((long)data.GetState(GASAttributeData.Instance.EXP) - DataTableManager.Instance.GetTotalPrevExp(curLv)).ToString() + "/" +
             DataTableManager.Instance.ExpTable[(int)data.GetState(GASAttributeData.Instance.Rank)];
         StateUI[(int)eStateUI.STR].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.STR), (int)data.GetState(GASAttributeData.Instance.Grade_STR)), this);
         StateUI[(int)eStateUI.MAG].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.MAG), (int)data.GetState(GASAttributeData.Instance.Grade_MAG)), this);
         StateUI[(int)eStateUI.CON].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.CON), (int)data.GetState(GASAttributeData.Instance.Grade_CON)), this);
         StateUI[(int)eStateUI.AGI].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.AGI), (int)data.GetState(GASAttributeData.Instance.Grade_AGI)), this);
         StateUI[(int)eStateUI.SPR].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.SPR), (int)data.GetState(GASAttributeData.Instance.Grade_SPR)), this);
-        StateUI[(int)eStateUI.LCK].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.LCK), (int)data.GetState(GASAttributeData.Instance.Grade_LCK)), this);
+        StateUI[(int)eStateUI.LUK].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.LUK), (int)data.GetState(GASAttributeData.Instance.Grade_LUK)), this);
+
+
+        HP.text = ((int)data.GetState(GASAttributeData.Instance.HP)).ToString();
+        ActionCoin.text = ((int)data.GetState(GASAttributeData.Instance.ActionCoin)).ToString();
+        AttackDamage.text = ((int)data.GetState(GASAttributeData.Instance.AttackDamage)).ToString();
+        MagicDamage.text = ((int)data.GetState(GASAttributeData.Instance.MagicDamage)).ToString();
+        AttackDefence.text = ((int)data.GetState(GASAttributeData.Instance.AttackDefence)).ToString();
+        MagicDefence.text = ((int)data.GetState(GASAttributeData.Instance.MagicDefence)).ToString();
+
+        bool isEmploy = UserData.Instance.UnitList.Exists(x => x == data);
+        
+        EmployStamp.gameObject.SetActive(isEmploy);
+        Employ_Btn.gameObject.SetActive(!isEmploy);
+    }
+    public void SetCharacterData(CharacterData data)
+    {
+        curCharacter = data;
+        image.texture = data.Image;
+        Name.text = data._name;
+        int curLv = (int)data.GetState(GASAttributeData.Instance.LV);
+        LV.text = curLv.ToString() + "/" +
+            DataTableManager.Instance.RankMaxLvTable[(int)data.GetState(GASAttributeData.Instance.Rank)];
+        Exp.text = ((long)data.GetState(GASAttributeData.Instance.EXP) - DataTableManager.Instance.GetTotalPrevExp(curLv)).ToString() + "/" +
+            DataTableManager.Instance.ExpTable[(int)data.GetState(GASAttributeData.Instance.Rank)];
+        StateUI[(int)eStateUI.STR].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.STR), (int)data.GetState(GASAttributeData.Instance.Grade_STR)), this);
+        StateUI[(int)eStateUI.MAG].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.MAG), (int)data.GetState(GASAttributeData.Instance.Grade_MAG)), this);
+        StateUI[(int)eStateUI.CON].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.CON), (int)data.GetState(GASAttributeData.Instance.Grade_CON)), this);
+        StateUI[(int)eStateUI.AGI].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.AGI), (int)data.GetState(GASAttributeData.Instance.Grade_AGI)), this);
+        StateUI[(int)eStateUI.SPR].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.SPR), (int)data.GetState(GASAttributeData.Instance.Grade_SPR)), this);
+        StateUI[(int)eStateUI.LUK].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.LUK), (int)data.GetState(GASAttributeData.Instance.Grade_LUK)), this);
 
 
         HP.text = ((int)data.GetState(GASAttributeData.Instance.HP)).ToString();
@@ -62,11 +97,22 @@ public class CharacterUI : MonoBehaviour
         MagicDefence.text = ((int)data.GetState(GASAttributeData.Instance.MagicDefence)).ToString();
 
 
+        EmployStamp.gameObject.SetActive(false);
+        Employ_Btn.gameObject.SetActive(false);
     }
 
+    public void EmployBtnClick()
+    {
+        if (UserData.Instance.Gold < EmployPrice)
+            return;
 
+        UserData.Instance.Gold -= EmployPrice;
+        UserData.Instance.AddCharacter(curCharacter);
+        Employ_Btn.gameObject.SetActive(false);
+        EmployStamp.gameObject.SetActive(true);
 
-
+        FindObjectOfType<LobbyUI>().UnitShopUI.RefreshList();
+    }
 
 
     [System.Serializable]
@@ -152,9 +198,9 @@ public class CharacterUI : MonoBehaviour
         StateUI[(int)eStateUI.SPR].GradeBack.color = E_Image;
         StateUI[(int)eStateUI.SPR].GradeValue.color = E_Text;
         StateUI[(int)eStateUI.SPR].GradeValue.text = "E";
-        StateUI[(int)eStateUI.LCK].GradeBack.color = F_Image;
-        StateUI[(int)eStateUI.LCK].GradeValue.color = F_Text;
-        StateUI[(int)eStateUI.LCK].GradeValue.text = "F";
+        StateUI[(int)eStateUI.LUK].GradeBack.color = F_Image;
+        StateUI[(int)eStateUI.LUK].GradeValue.color = F_Text;
+        StateUI[(int)eStateUI.LUK].GradeValue.text = "F";
 
         etc_S_UI.GradeBack.color = S_Image;
         etc_S_UI.GradeValue.color = S_Text;
@@ -169,7 +215,7 @@ public class CharacterUI : MonoBehaviour
         CON,
         AGI,
         SPR,
-        LCK,
+        LUK,
         COUNT
 
     }

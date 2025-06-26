@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ public class UnitListItem : MonoBehaviour
     public RawImage Image;
     public TextMeshProUGUI Name;
     public TextMeshProUGUI LV;
+    public Image BattleIndex;
+    public TextMeshProUGUI CurBattleIndex;
     public List<Image> ItemImageList;
 
     public Button Battle;
@@ -26,7 +29,10 @@ public class UnitListItem : MonoBehaviour
         Rest.onClick.AddListener(UnitRestGo);
         me.onClick.AddListener(SetCharacterData);
     }
-
+    private void OnEnable()
+    {
+        ButtonActiveSet();
+    }
     public void SetCharacterData()
     {
         var lobby = FindObjectOfType<LobbyUI>();
@@ -48,16 +54,18 @@ public class UnitListItem : MonoBehaviour
         var BattleUnits = UserData.Instance.BattleUnit;
 
         bool isFull = true;
-
+        int CurBattleUnitCount = 0;
         foreach (var unit in BattleUnits)
         {
             if (!unit)
             {
                 isFull = false;
-                break;
+            }else
+            {
+                CurBattleUnitCount++;
             }
         }
-        if(isFull)
+        if(isFull|| UserData.Instance.BattleUnitMaxCount<=CurBattleUnitCount)
         {
             return;
         }
@@ -91,8 +99,17 @@ public class UnitListItem : MonoBehaviour
         Battle.gameObject.SetActive(!isBattle);
         Rest.gameObject.SetActive(isBattle);
 
+        BattleIndex.gameObject.SetActive(isBattle);
+        int index = Array.IndexOf(BattleUnits, UnitData) +1;
+        CurBattleIndex.text = index.ToString();
         var LobbyUI = FindObjectOfType<LobbyUI>();
         LobbyUI.BattleUI.SetItem();
+
+        if(LobbyUI.curStep != LobbyUI.eUIStep.Battle)
+        {
+            Battle.gameObject.SetActive(false);
+            Rest.gameObject.SetActive(false);
+        }
     }
 
 

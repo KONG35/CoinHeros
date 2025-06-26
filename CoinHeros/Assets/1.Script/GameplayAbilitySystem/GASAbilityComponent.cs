@@ -64,7 +64,7 @@ class AbilitySpec
         if (!tags.HasAll(def.requiredTags) || tags.HasAny(def.blockedTags)) 
             return;
         if (!attriSet.HasEnough(State.costs)) return;
-        attriSet.Pay(State.costs);
+        attriSet.Pay("Cost",State.costs);
 
         executor.Execute(new AbilityContext { Caster = owner, AbilityLevel = Level, Definition = def, Attributes = attriSet, Tags = tags });
     }

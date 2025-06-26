@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LobbyUI : MonoBehaviour
 {
@@ -9,15 +12,29 @@ public class LobbyUI : MonoBehaviour
     public List<RectTransform> ObjectUIPanel;
 
     Camera cam;
+    LobbyObjectClick objectUI;
+
+    public TextMeshProUGUI TextMoney;
 
     public LobbyBattleUI BattleUI;
     public LobbyUnitListUI UnitListUI;
     public CharacterUI UnitUI;
+    public LobbyUnitShopUI UnitShopUI;
 
+    public Button BackBtn;
+
+    public eUIStep curStep;
+    public List<UIPanelStep> Step;
 
     public void Awake()
     {
         cam = Camera.main; PosInit();
+        objectUI = FindObjectOfType<LobbyObjectClick>();
+        BackBtn.onClick.AddListener(btnBack);
+
+        btnBack();
+        UnitShopUI.Init();
+        UnitListUI.Init();
     }
 
 
@@ -32,4 +49,49 @@ public class LobbyUI : MonoBehaviour
         } 
     }
 
+    public void btnBack()
+    {
+        BackBtn.gameObject.SetActive(false);
+        BattleUI.gameObject.SetActive(false);
+        UnitListUI.gameObject.SetActive(false);
+        UnitUI.gameObject.SetActive(false);
+        UnitShopUI.gameObject.SetActive(false);
+        objectUI.enabled = true;
+    }
+    [System.Serializable]
+    public struct UIPanelStep
+    {
+        public string Name;
+        public List<GameObject> panels;
+        public List<Transform> pos;
+    }
+
+    public void SetUIStep(eUIStep step)
+    {
+        curStep = step;
+        if (Step.Count <= (int)step)
+            return;
+        var items = Step[(int)step];
+
+        for(int i=0;i<items.panels.Count;i++)
+        {
+            items.panels[i].gameObject.SetActive(true);
+            items.panels[i].transform.position = items.pos[i].position;
+        }
+        BackBtn.gameObject.SetActive(true);
+        objectUI.enabled = false;
+    }
+
+    public enum eUIStep
+    {
+        UnitState,
+        UnitShop,
+        Battle,
+        ItemShop,
+        Quest,
+        Attribute,
+        Forge,
+
+        Count
+    }
 }

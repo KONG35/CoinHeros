@@ -6,11 +6,13 @@ public class GASAttributeSetComponent : DefinitionComponent<AttributeDefSO>
 {
     public class Modifier
     {
-        public Modifier(float value, StackPolicy policy)
+        public Modifier(string key, float value, StackPolicy policy)
         {
+            this.key = key;
             magnitude = value;
             stackingPolicy = policy;
         }
+        public string key;
         public float magnitude;
         public StackPolicy stackingPolicy;
     }
@@ -28,21 +30,32 @@ public class GASAttributeSetComponent : DefinitionComponent<AttributeDefSO>
     private float GetFinalValue(AttributeDefSO def)
     {
         float val = baseValues[def];
-        foreach (var m in mods[def])
+        for (int i = 0; i<mods[def].Count;i++)
         {
-            switch (m.stackingPolicy)
+            switch (mods[def][i].stackingPolicy)
             {
-                case StackPolicy.Add: val += m.magnitude; break;
-                case StackPolicy.Multiply: val *= m.magnitude; break;
-                case StackPolicy.Override: val = m.magnitude; break;
+                case StackPolicy.Add: val += mods[def][i].magnitude; break;
+                case StackPolicy.Multiply: val *= mods[def][i].magnitude; break;
+                case StackPolicy.Override: val = mods[def][i].magnitude; break;
             }
         }
         return Mathf.Clamp(val, def.MinValue, def.MaxValue);
     }
 
-    public void ModifyValue(AttributeDefSO def, float delta, StackPolicy policy)
+    public void SetBaseValue(AttributeDefSO def, float value)
     {
-        mods[def].Add(new Modifier(delta, policy));
+        baseValues[def] = value;
+    }
+
+    public void ModifyValue(AttributeDefSO def,string key, float delta, StackPolicy policy)
+    {
+        if (policy == StackPolicy.Override)
+            mods[def].Clear();
+        mods[def].Add(new Modifier(key,delta, policy));
+    }
+    public void RemoveValue(AttributeDefSO def, string key)
+    {
+        mods[def].Remove(mods[def].Find(x => x.key == key));
     }
     public bool HasEnough(List<AttributeCost> costs)
     {
@@ -50,9 +63,9 @@ public class GASAttributeSetComponent : DefinitionComponent<AttributeDefSO>
             if (GetFinalValue(c.attribute) < c.amount) return false;
         return true;
     }
-    public void Pay(List<AttributeCost> costs)
+    public void Pay(string key,List<AttributeCost> costs)
     {
         foreach (var c in costs)
-            mods[c.attribute].Add(new Modifier(-c.amount,StackPolicy.Add));
+            mods[c.attribute].Add(new Modifier(key,-c.amount,StackPolicy.Add));
     }
 }
