@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class Slider : MonoBehaviour
 {
-    [Header("Position Settings")]
+    [Header("Position Z Settings")]
     [SerializeField]
-    private Transform startPoint;
-    public Transform endPoint;
+    private float startZ;
+    [SerializeField]
+    private float endZ;
 
     private float duration = 2f;  // 편도에 걸리는 시간 (속도 조절용)
     private float stopDuration = 0.5f; // 양 끝에서 멈추는 시간
 
+    private Vector3 startpos;
+    private Vector3 endpos;
     Rigidbody rig;
     public void Awake()
     {
         rig = GetComponent<Rigidbody>();
+        startpos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, startZ);
+        endpos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, endZ);
     }
     private void Start()
     {
@@ -28,13 +34,13 @@ public class Slider : MonoBehaviour
         while (true)
         {
             // 이동: start → end
-            yield return MoveOverTime(startPoint.position, endPoint.position, duration);
+            yield return MoveOverTime(startpos, endpos, duration);
 
             // 정지
             yield return new WaitForSeconds(stopDuration);
 
             // 이동: end → start
-            yield return MoveOverTime(endPoint.position, startPoint.position, duration);
+            yield return MoveOverTime(endpos, startpos, duration);
 
             // 정지
             yield return new WaitForSeconds(stopDuration);
@@ -56,6 +62,8 @@ public class Slider : MonoBehaviour
 
             yield return new WaitForFixedUpdate();
             elapsed += Time.fixedDeltaTime;
+
+            Debug.Log(rig.velocity.magnitude);
         }
 
         // 정확히 도착지점으로 보정
