@@ -2371,6 +2371,7 @@ GameObject:
   - component: {fileID: 8610407546142559148}
   - component: {fileID: -7443096627915557042}
   - component: {fileID: 2494267067839909542}
+  - component: {fileID: 889985266201713402}
   m_Layer: 10
   m_Name: MaleCharacterPBR
   m_TagString: Untagged
@@ -2408,7 +2409,7 @@ Animator:
   m_GameObject: {fileID: 8189980434977739222}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0308cf4e83cf517488b60af58b290fe0, type: 3}
-  m_Controller: {fileID: 9100000, guid: 2be64f57d7d213648aa9b2e5e8e0a39b, type: 2}
+  m_Controller: {fileID: 22100000, guid: 05efc127cd6e0af46a68b5656588c0f7, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -2506,6 +2507,34 @@ MonoBehaviour:
   isInit: 0
   _name: 
   Image: {fileID: 0}
+  jobAnims: []
+--- !u!54 &889985266201713402
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8189980434977739222}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!1 &8206070634150816031
 GameObject:
   m_ObjectHideFlags: 0

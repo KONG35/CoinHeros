@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -10,14 +11,13 @@ using UnityEngine.UI;
 
 public class CharacterData : CharacterBase
 {
-
+    public Animator[] jobAnims;
 
     protected override void Start()
     {
         base.Start();
     }
 
-    
 
     public void SetCalcBaseStateToDetailState()
     {

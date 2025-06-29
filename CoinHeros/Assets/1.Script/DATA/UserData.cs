@@ -32,6 +32,9 @@ public class UserData : Singleton<UserData>
         }
     }
     public int BattleUnitMaxCount = 1;
+
+    public int MaxStage = 1;
+
     public void Start()
     {
         Init();
