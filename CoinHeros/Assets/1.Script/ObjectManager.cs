@@ -45,7 +45,7 @@ public class ObjectManager : Singleton<ObjectManager>
 
     void Start()
     {
-        InitializePools(poolDataArray);
+        //InitializePools(poolDataArray);
     }
     public void InitializePools(PoolDataSO[] poolDataList)
     {

@@ -20,7 +20,7 @@ public class DataTableManager : Singleton<DataTableManager>
     public List<string> CharNameList;
 
     public List<CharacterData> characterPrefabList;
-
+    public List<MonsterData> MonsterPrefabList;
 
     public void Start()
     {

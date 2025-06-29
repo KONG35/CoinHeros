@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(GASAttributeSetComponent))]
 [RequireComponent(typeof(GASAbilityComponent))]
 [RequireComponent(typeof(GASCueComponent))]
+[RequireComponent(typeof(Rigidbody))]
 public class CharacterBase : MonoBehaviour
 {
     public bool isInit = false;
@@ -17,6 +19,8 @@ public class CharacterBase : MonoBehaviour
     protected GASAttributeSetComponent _state;
     protected GASCueComponent _cue;
     protected GASTagComponent _tag;
+    protected Rigidbody _rig;
+    protected Animator _anim;
 
     protected virtual void Start()
     {
@@ -24,7 +28,11 @@ public class CharacterBase : MonoBehaviour
         _state = GetComponent<GASAttributeSetComponent>();
         _cue = GetComponent<GASCueComponent>();
         _tag = GetComponent<GASTagComponent>();
+        _anim = GetComponent<Animator>();
+        _rig = GetComponent<Rigidbody>();
 
+        _rig.useGravity = false;
+        _anim.applyRootMotion = false;
 
         isInit = false;
 
@@ -33,6 +41,58 @@ public class CharacterBase : MonoBehaviour
             UserData.Instance.CopyQueue.Enqueue(this);
         }
         StartCoroutine(TextureInit());
+    }
+
+    public void Update()
+    {
+        _anim.SetFloat("Speed", _rig.velocity.magnitude); 
+    }
+    public void toMove(Vector3 Pos,float Speed)
+    {
+        StartCoroutine(eMove(Pos, Speed));
+    }
+    IEnumerator eMove(Vector3 Pos,float Speed)
+    {
+        while (true)
+        {
+            Vector3 toTarget = Pos - _rig.position;
+            if (toTarget.sqrMagnitude < 0.01f)
+            {
+                _rig.velocity = Vector3.zero;
+                _rig.position = Pos;
+                break;
+            }
+            Vector3 direction = toTarget.normalized;
+            _rig.velocity = direction * Speed;
+            yield return new WaitForFixedUpdate();
+        }
+    }
+    public void PlayAnim(eAnimState State)
+    {
+        switch (State)
+        {
+            case eAnimState.Attack:
+                _anim.CrossFade("Attack",0.1f);
+                break;
+            case eAnimState.Ability:
+                _anim.CrossFade("Ability", 0.1f);
+                break;
+            case eAnimState.Defence:
+                _anim.CrossFade("Defence", 0.1f);
+                break;
+            case eAnimState.Hit:
+                _anim.CrossFade("Hit", 0.1f);
+                break;
+            case eAnimState.Dizzy:
+                _anim.CrossFade("Dizzy", 0.1f);
+                break;
+            case eAnimState.Die:
+                _anim.CrossFade("Die", 0.1f);
+                break;
+            case eAnimState.COUNT:
+                _anim.CrossFade("Idle", 0.1f);
+                break;
+        }
     }
 
     public IEnumerator TextureInit()
@@ -72,5 +132,17 @@ public class CharacterBase : MonoBehaviour
         Image.ReadPixels(new Rect(0, 0, texture.width, texture.height), 0, 0);
         Image.Apply();
         RenderTexture.active = currentRT;
+    }
+
+
+    public enum eAnimState
+    {
+        Attack,
+        Ability,
+        Defence,
+        Hit,
+        Dizzy,
+        Die,
+        COUNT
     }
 }
