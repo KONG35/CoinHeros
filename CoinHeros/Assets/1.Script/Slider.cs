@@ -63,7 +63,6 @@ public class Slider : MonoBehaviour
             yield return new WaitForFixedUpdate();
             elapsed += Time.fixedDeltaTime;
 
-            Debug.Log(rig.velocity.magnitude);
         }
 
         // 정확히 도착지점으로 보정
