@@ -6,14 +6,14 @@ using System.Net;
 using Unity.VisualScripting;
 public class CoinLaunchMachine : MonoBehaviour
 {
-    [SerializeField]
-    private Coin copperCoin;
-    [SerializeField]
-    private Coin silverCoin;
-    [SerializeField]
-    private Coin goldCoin;
-    [SerializeField]
-    private Coin diamondCoin;
+    //[SerializeField]
+    //private Coin copperCoin;
+    //[SerializeField]
+    //private Coin silverCoin;
+    //[SerializeField]
+    //private Coin goldCoin;
+    //[SerializeField]
+    //private Coin diamondCoin;
 
     [Space(5)]
     [SerializeField]
@@ -30,7 +30,7 @@ public class CoinLaunchMachine : MonoBehaviour
     private Transform rightPoint;
 
     [Space(5)]
-    [Header("º¸³Ê½º")]
+    [Header("·ê·¿ º¸³Ê½º")]
     [SerializeField]
     private Transform[] bonusStartTr;
     [SerializeField]
@@ -61,63 +61,30 @@ public class CoinLaunchMachine : MonoBehaviour
 
         if (Input.GetKeyDown("1"))
         {
-            InsertCoin(1);
+            InsertCoin(CoinEnum.Copper);
         }
         else if (Input.GetKeyDown("2"))
         {
-            InsertCoin(2);
+            InsertCoin(CoinEnum.Silver);
         }
         else if (Input.GetKeyDown("3"))
         {
-            InsertCoin(3);
+            InsertCoin(CoinEnum.Gold);
         }
         else if (Input.GetKeyDown("4"))
         {
-            InsertCoin(4);
+            InsertCoin(CoinEnum.Diamond);
         }
     }
     [Button]
-    private void InsertCoin(int num = 1)
+    private void InsertCoin(CoinEnum _cEnum)
     {
-        switch (num)
-        {
-            case 1:
-                {
-                    var go = ObjectManager.Instance.Get<Coin>(copperCoin.PoolData);
-                    go.transform.position = launchPoint.position;
-                }
-                break;
-
-            case 2:
-                {
-                    var go = ObjectManager.Instance.Get<Coin>(silverCoin.PoolData);
-                    go.transform.position = launchPoint.position;
-                }
-                break;
-
-            case 3:
-                {
-                    var go = ObjectManager.Instance.Get<Coin>(goldCoin.PoolData);
-                    go.transform.position = launchPoint.position;
-
-                }
-                break;
-
-            case 4:
-                {
-                    var go = ObjectManager.Instance.Get<Coin>(diamondCoin.PoolData);
-                    go.transform.position = launchPoint.position;
-
-                }
-                break;
-
-        }
-
+        var coin = CoinSpawnManager.Instance.GetCoin(_cEnum);
+        coin.transform.position = launchPoint.position;
     }
     public void BonusCoin(BonusEnum _bonus, CoinEnum _coin)
     {
         int count = 0;
-        PoolDataSO coinData = copperCoin.PoolData;
         switch (_bonus)
         {
             case BonusEnum.Coin3:
@@ -130,26 +97,11 @@ public class CoinLaunchMachine : MonoBehaviour
                 count = 9;
                 break;
         }
-        switch(_coin)
-        {
-            case CoinEnum.Copper:
-                coinData = copperCoin.PoolData;
-                break;
-            case CoinEnum.Silver:
-                coinData = silverCoin.PoolData;
-                break;
-            case CoinEnum.Gold:
-                coinData = goldCoin.PoolData;
-                break;
-            case CoinEnum.Diamond:
-                coinData = diamondCoin.PoolData;
-                break;
-        }
         int temp = (int)Random.Range(0, bonusStartTr.Length);
         for (int i = 0; i < count; i++)
         {
             int idx = (temp + i) % bonusStartTr.Length;
-            var coin = ObjectManager.Instance.Get<Coin>(coinData);
+            var coin = CoinSpawnManager.Instance.GetCoin(_coin);
             var rb = coin.GetComponent<Rigidbody>();
 
             rb.constraints = RigidbodyConstraints.None;

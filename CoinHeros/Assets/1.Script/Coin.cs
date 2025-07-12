@@ -41,11 +41,13 @@ public class Coin : MonoBehaviour, IPoolable
         else if(col.gameObject.tag=="Spin")
         {
             RouletteManager.Instance.InputCoin(coinEnum);
-            ObjectManager.Instance.Return<Coin>(PoolData, this);
+            CoinSpawnManager.Instance.ReturnCoin(PoolData, this);
+            //ObjectManager.Instance.Return<Coin>(PoolData, this);
         }
         else if (col.gameObject.tag == "Outside")
         {
-            ObjectManager.Instance.Return<Coin>(PoolData, this);
+            CoinSpawnManager.Instance.ReturnCoin(PoolData, this);
+            //ObjectManager.Instance.Return<Coin>(PoolData, this);
         }
     }
     public void OnSpawn()

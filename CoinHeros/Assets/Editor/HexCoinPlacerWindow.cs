@@ -9,10 +9,11 @@ public class HexCoinPlacerWindow : EditorWindow
     Transform parent;
     float spacingMultiplier = 1.0f;
 
-    [MenuItem("Tools/육각 구조 Coin 배치")]
+    // 중앙에서 시작하여 육각형 링 형태로 확장되는 계층적 배치 도구
+    [MenuItem("Tools/육각 구조 링 형 Coin 배치")]
     public static void ShowWindow()
     {
-        GetWindow<HexCoinPlacerWindow>("육각 구조 Coin 배치");
+        GetWindow<HexCoinPlacerWindow>("육각 구조 링 형 Coin 배치");
     }
 
     void OnGUI()
@@ -26,66 +27,8 @@ public class HexCoinPlacerWindow : EditorWindow
         parent = (Transform)EditorGUILayout.ObjectField("부모 오브젝트", parent, typeof(Transform), true);
 
         EditorGUILayout.Space();
-        if (GUILayout.Button("배치하기")) PlaceObjects();
+        if (GUILayout.Button("배치하기")) CoinMaker.PlaceHexObjects(prefab, parent, layerCount, coinsPerLayer, spacingMultiplier);
         if (GUILayout.Button("모두 삭제")) ClearAll();
-    }
-
-    void PlaceObjects()
-    {
-        if (prefab == null)
-        {
-            Debug.LogError("프리팹이 지정되지 않았습니다.");
-            return;
-        }
-
-        // 오브젝트 크기 측정
-        GameObject preview = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-        float objectWidth = GetObjectWidth(preview);
-        float objectDepth = GetObjectDepthZ(preview);
-        DestroyImmediate(preview);
-
-        Vector3 baseCenter = parent != null ? parent.position : Vector3.zero;
-
-        for (int layer = 0; layer < layerCount; layer++)
-        {
-            // 층 그룹
-            GameObject layerGroup = new GameObject($"Layer_{layer}");
-            if (parent != null) layerGroup.transform.SetParent(parent);
-            // Y축 위치
-            layerGroup.transform.position = baseCenter + Vector3.up * (layer * objectDepth);
-            // 10°씩 회전 오프셋
-            layerGroup.transform.rotation = Quaternion.Euler(0, layer * 10f, 0);
-
-            int placed = 0;
-            int ring = 0;
-            while (placed < coinsPerLayer)
-            {
-                int countInRing = (ring == 0) ? 1 : 6 * ring;
-                float radius = objectWidth * spacingMultiplier * ring;
-                float angleStep = 360f / countInRing;
-
-                for (int i = 0; i < countInRing && placed < coinsPerLayer; i++)
-                {
-                    float angleDeg = angleStep * i;
-                    float rad = Mathf.Deg2Rad * angleDeg;
-
-                    Vector3 localPos = new Vector3(
-                        Mathf.Cos(rad) * radius,
-                        0f,
-                        Mathf.Sin(rad) * radius
-                    );
-
-                    GameObject obj = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-                    obj.transform.SetParent(layerGroup.transform);
-                    obj.transform.localPosition = localPos;
-                    obj.transform.localRotation = Quaternion.identity;
-
-                    Undo.RegisterCreatedObjectUndo(obj, "Place Coin Object");
-                    placed++;
-                }
-                ring++;
-            }
-        }
     }
 
     void ClearAll()
