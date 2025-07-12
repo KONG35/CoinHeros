@@ -176,22 +176,14 @@ public static class CoinMaker
     {
         Bounds b = new Bounds(go.transform.position, Vector3.zero);
         foreach (var r in go.GetComponentsInChildren<Renderer>())
-        //b.Encapsulate(r.bounds);
-        {
-            Vector3 scaledSize = Vector3.Scale(r.localBounds.size, r.transform.lossyScale);
-            b.Encapsulate(new Bounds(r.bounds.center, scaledSize));
-        }
+            b.Encapsulate(r.bounds);
         return Mathf.Max(b.size.x, b.size.z);
     }
     static float GetObjectDepthZ(GameObject go)
     {
         Bounds b = new Bounds(go.transform.position, Vector3.zero);
         foreach (var r in go.GetComponentsInChildren<Renderer>())
-        //b.Encapsulate(r.bounds);
-        {
-            Vector3 scaledSize = Vector3.Scale(r.localBounds.size, r.transform.lossyScale);
-            b.Encapsulate(new Bounds(r.bounds.center, scaledSize));
-        }
+            b.Encapsulate(r.bounds);
         return b.size.z;
     }
 }
