@@ -122,6 +122,22 @@ public class CharacterBase : MonoBehaviour
     {
         _state.SetBaseValue(SO, value);
     }
+    public void SetBaseState(
+        AttributeDefSO strSO, float strvalue, 
+        AttributeDefSO magSO, float magvalue, 
+        AttributeDefSO conSO, float convalue, 
+        AttributeDefSO agiSO, float agivalue, 
+        AttributeDefSO sprSO, float sprvalue, 
+        AttributeDefSO lukSO, float lukvalue)
+    {
+        _state.SetBaseValue(strSO, strvalue);
+        _state.SetBaseValue(magSO, magvalue);
+        _state.SetBaseValue(conSO, convalue);
+        _state.SetBaseValue(agiSO, agivalue);
+        _state.SetBaseValue(sprSO, sprvalue);
+        _state.SetBaseValue(lukSO, lukvalue);
+        SetCalcBaseStateToDetailState();
+    }
     public void SetTextureCopyToImage()
     {
         var texture = UserData.Instance.texture;
@@ -156,10 +172,17 @@ public class CharacterBase : MonoBehaviour
         //HP
         value = (GetState(gasSOdata.STR) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_STR)] * 0.25f)
             + (GetState(gasSOdata.CON) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_CON)] * 1.0f);
-        SetModifyState(gasSOdata.HP, "CalcBase", value, StackPolicy.Override);
+        SetModifyState(gasSOdata.MaxHP, "CalcBase", value, StackPolicy.Override);
         //ActionCoin
         value = 4f;
         SetModifyState(gasSOdata.ActionCoin, "CalcBase", value, StackPolicy.Override);
+    }
+    public void battleInit()
+    {
+        var gasSOdata = GASAttributeData.Instance;
+        SetModifyState(gasSOdata.HP, "CalcBase", GetState(gasSOdata.MaxHP), StackPolicy.Override);
+        SetModifyState(gasSOdata.MP, "CalcBase", 0, StackPolicy.Override);
+        SetModifyState(gasSOdata.ActionCoin, "CalcBase", 0, StackPolicy.Override);
     }
 
     public enum eAnimState

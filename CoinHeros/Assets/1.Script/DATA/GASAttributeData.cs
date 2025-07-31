@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,8 +20,12 @@ public class GASAttributeData : Singleton<GASAttributeData>
     public AttributeDefSO Grade_SPR;
     public AttributeDefSO LUK;
     public AttributeDefSO Grade_LUK;
+    public AttributeDefSO MaxHP;
     public AttributeDefSO HP;
+    public AttributeDefSO MaxMP;
+    public AttributeDefSO MP;
     public AttributeDefSO ActionCoin;
+    public AttributeDefSO MaxActionCoin;
     public AttributeDefSO AttackDamage;
     public AttributeDefSO AttackDefence;
     public AttributeDefSO MagicDamage;

@@ -153,8 +153,12 @@ MonoBehaviour:
   Grade_SPR: {fileID: 11400000, guid: d0c4341905ca4274485e109c673a47ac, type: 2}
   LUK: {fileID: 11400000, guid: 31f3718626c2a2e42984494e4417873e, type: 2}
   Grade_LUK: {fileID: 11400000, guid: 96eca001613c234489e34814c2f09c6c, type: 2}
+  MaxHP: {fileID: 11400000, guid: 0312d6ea6ef06d042934d35093221954, type: 2}
   HP: {fileID: 11400000, guid: d7abc294a1efcda4f8e979255e026762, type: 2}
-  ActionCoin: {fileID: 11400000, guid: cc4342c82b9cdfe459e32fb0df4c4284, type: 2}
+  MaxMP: {fileID: 11400000, guid: 4e96a5f006634b54d94248d09eba26f3, type: 2}
+  MP: {fileID: 11400000, guid: 5f07ec100cd5cfe44be610caa7a9aac4, type: 2}
+  ActionCoin: {fileID: 11400000, guid: ee036f7a723db1342bd45d2249c260b9, type: 2}
+  MaxActionCoin: {fileID: 11400000, guid: cc4342c82b9cdfe459e32fb0df4c4284, type: 2}
   AttackDamage: {fileID: 11400000, guid: d80670adb576e2941a70840023503164, type: 2}
   AttackDefence: {fileID: 11400000, guid: f13e41840fea50249b7234b9d65100c2, type: 2}
   MagicDamage: {fileID: 11400000, guid: 5f6cac36311220348ac4ec85426c27a9, type: 2}
@@ -343,58 +347,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e44fc1bda0d4a194ba62d5b32df3d1d9, type: 2}
   - {fileID: 11400000, guid: 7b7c5ce769bf02b4a8a991431efdb753, type: 2}
   - {fileID: 11400000, guid: ff856e6effd3b8742977a2fb81c80238, type: 2}
---- !u!1 &6266017728760265286
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2421097418912718820}
-  - component: {fileID: 1733451171593236965}
-  m_Layer: 0
-  m_Name: Battle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2421097418912718820
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6266017728760265286}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7890601985095640694}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1733451171593236965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6266017728760265286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4711801332e48dd4e89175411d3f9e1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurStage: 1
-  UnitPositions: {fileID: 0}
-  test_SetUnit: {fileID: -6995890468030562147, guid: 57afc98a9486fd94db1965e854a296e9, type: 3}
-  Pos: 0
-  TargetCharacter: {fileID: 0}
-  Speed: 10
-  anim: 0
-  testStagenumber: 0
 --- !u!1 &6475441428266375739
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,8 +740,8 @@ Transform:
   - {fileID: 469184097023852610}
   - {fileID: 6669395434495149569}
   - {fileID: 8169742066811725770}
-  - {fileID: 2421097418912718820}
   - {fileID: 2446623293735991470}
+  - {fileID: 976919113077189345}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8094674902294961642
@@ -837,6 +789,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bonusRoul: {fileID: 0}
+--- !u!1 &8161361777240269615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 976919113077189345}
+  - component: {fileID: 233991061537133810}
+  m_Layer: 0
+  m_Name: Battle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &976919113077189345
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8161361777240269615}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7890601985095640694}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &233991061537133810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8161361777240269615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4711801332e48dd4e89175411d3f9e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurStage: 1
+  UnitPositions: {fileID: 0}
+  test_SetUnit: {fileID: -6995890468030562147, guid: 57afc98a9486fd94db1965e854a296e9, type: 3}
+  Pos: 0
+  TargetCharacter: {fileID: 0}
+  Speed: 10
+  anim: 0
+  testStagenumber: 0
 --- !u!1 &8549816309140194109
 GameObject:
   m_ObjectHideFlags: 0
