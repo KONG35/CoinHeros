@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,6 @@ public class Coin : MonoBehaviour, IPoolable
     private void Awake()
     {
         rigid = gameObject.GetComponent<Rigidbody>();
-        //rigid.velocity = new Vector3(0, -35f, 0);
     }
     private void OnCollisionEnter(Collision col)
     {
@@ -42,12 +42,11 @@ public class Coin : MonoBehaviour, IPoolable
         {
             RouletteManager.Instance.InputCoin(coinEnum);
             CoinSpawnManager.Instance.ReturnCoin(PoolData, this);
-            //ObjectManager.Instance.Return<Coin>(PoolData, this);
         }
         else if (col.gameObject.tag == "Outside")
         {
+            BattleManager.Instance.CharacterAction((int)coinEnum);
             CoinSpawnManager.Instance.ReturnCoin(PoolData, this);
-            //ObjectManager.Instance.Return<Coin>(PoolData, this);
         }
     }
     public void OnSpawn()
