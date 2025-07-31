@@ -4,17 +4,10 @@ using UnityEngine;
 using NaughtyAttributes;
 using System.Net;
 using Unity.VisualScripting;
+using UnityEngine.Purchasing;
 public class CoinLaunchMachine : MonoBehaviour
 {
-    //[SerializeField]
-    //private Coin copperCoin;
-    //[SerializeField]
-    //private Coin silverCoin;
-    //[SerializeField]
-    //private Coin goldCoin;
-    //[SerializeField]
-    //private Coin diamondCoin;
-
+    
     [Space(5)]
     [SerializeField]
     private Transform launchPoint;
@@ -38,17 +31,18 @@ public class CoinLaunchMachine : MonoBehaviour
     [SerializeField]
     private Transform bonusEndTr;
 
-
+    private List<Vector3> velocityPoints;
     private float swingAngle = 45f;
     private Quaternion initRot;
+    
     private void Awake()
     {
         initRot = leftBarT.rotation;
-
+        InitVelocity();
     }
     private void Start()
     {
-
+        
     }
     private void Update()
     {
@@ -102,19 +96,21 @@ public class CoinLaunchMachine : MonoBehaviour
         {
             int idx = (temp + i) % bonusStartTr.Length;
             var coin = CoinSpawnManager.Instance.GetCoin(_coin);
-            var rb = coin.GetComponent<Rigidbody>();
-
-            rb.constraints = RigidbodyConstraints.None;
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            coin.ResetRigidbody();
 
             coin.transform.position = bonusStartTr[idx].position;
 
-            Vector3 v = CalculateVelocityFromThreePoints(bonusStartTr[idx].position, bonusApexTr.position, bonusEndTr.position);
-            rb.velocity = v;
+            coin.SetVelocity(velocityPoints[idx]);
         }
     }
-    
+    private void InitVelocity()
+    {
+        velocityPoints = new List<Vector3>();
+        for(int i=0;i<bonusStartTr.Length;i++)
+        {
+            velocityPoints.Add(CalculateVelocityFromThreePoints(bonusStartTr[i].position, bonusApexTr.position, bonusEndTr.position));
+        }
+    }
     private Vector3 CalculateVelocityFromThreePoints(Vector3 start, Vector3 apex, Vector3 end)
     {
         float gravity = Mathf.Abs(Physics.gravity.y);

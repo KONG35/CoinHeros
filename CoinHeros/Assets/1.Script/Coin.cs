@@ -58,4 +58,14 @@ public class Coin : MonoBehaviour, IPoolable
     public void OnDespawn()
     {
     }
+    public void ResetRigidbody()
+    {
+        rigid.constraints = RigidbodyConstraints.None;
+        rigid.velocity = Vector3.zero;
+        rigid.angularVelocity = Vector3.zero;
+    }
+    public void SetVelocity(Vector3 vec)
+    {
+        rigid.velocity = vec;
+    }
 }

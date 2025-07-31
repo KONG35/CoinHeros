@@ -16,7 +16,7 @@ public class AdditionalPrefab
 public static class CoinMaker
 {
     // grid 구조, 
-    public static void PlaceGridObject(GameObject defaultPrefab, List<AdditionalPrefab> additionalPrefabs, Transform parent, float columns, float rows, int layerCount, float spacingMultiplier = 1f)
+    public static void PlaceGridObject(GameObject defaultPrefab, List<AdditionalPrefab> additionalPrefabs, Transform parent, int columns,int rows, int layerCount, float spacingMultiplier, bool isHalfUnder = false)
     {
         if (defaultPrefab == null)
         {
@@ -29,7 +29,7 @@ public static class CoinMaker
         float spacingX = objectWidth * spacingMultiplier;
         float spacingZ = objectWidth * sin60 * spacingMultiplier;
 
-        float objectDepth = GetObjectDepthZ(defaultPrefab);
+        float objectDepth = GetObjectDepth(defaultPrefab);
 
         Vector3 origin = parent != null ? parent.position : Vector3.zero;
 
@@ -37,9 +37,12 @@ public static class CoinMaker
         {
             // 층 그룹
             GameObject layerGroup = new GameObject($"Layer_{layer}");
+            
             if (parent != null) layerGroup.transform.SetParent(parent);
+
             // Y축 위치
             layerGroup.transform.position = origin + Vector3.up * (layer * objectDepth);
+
             // 셀 좌표 생성
             List<Vector3> cellPositions = new List<Vector3>();
 
@@ -47,11 +50,12 @@ public static class CoinMaker
             {
                 for (int r = 0; r < rows; r++)
                 {
-                    float z = origin.z + c * spacingZ;
+                    float z = origin.z + c * spacingZ - (isHalfUnder ? spacingZ * 0.5f : 0f);
                     float x = origin.x - r * spacingX;
                     float y = layerGroup.transform.position.y;
                     if (c % 2 == 1)
                         x -= spacingX * 0.5f;
+
                     cellPositions.Add(new Vector3(x, y, z));
                 }
             }
@@ -87,25 +91,32 @@ public static class CoinMaker
             for (int i = 0; i < cellPositions.Count; i++)
             {
                 GameObject prefabToUse = prefabPool[i];
-#if UNITY_EDITOR
-                GameObject obj = (GameObject)PrefabUtility.InstantiatePrefab(prefabToUse);
-                obj.transform.localPosition = cellPositions[i];
-                obj.transform.localRotation = Quaternion.identity;
 
-                if (parent != null) obj.transform.SetParent(layerGroup.transform);
-                Undo.RegisterCreatedObjectUndo(obj, "Place Coin Object");
-#else
+                if(Application.isPlaying)
+                {
                     GameObject obj = GameObject.Instantiate(prefabToUse);
                     obj.transform.localPosition = cellPositions[i];
                     obj.transform.localRotation = Quaternion.identity;
 
                     if (parent != null) obj.transform.SetParent(layerGroup.transform);
+
+                    // 땅에 붙이기
+                    LayerMask mask = LayerMask.GetMask("Slider", "Coin");
+                    PlacedOn(obj, obj.transform.position, mask);
+                }
+                else
+                {
+                    GameObject obj = (GameObject)PrefabUtility.InstantiatePrefab(prefabToUse);
+                    obj.transform.localPosition = cellPositions[i];
+                    obj.transform.localRotation = Quaternion.identity;
+
+                    if (parent != null) obj.transform.SetParent(layerGroup.transform);
                     Undo.RegisterCreatedObjectUndo(obj, "Place Coin Object");
-#endif
+                }
             }
         }
-        
-        
+
+
     }
     // 육각 구조
     public static void PlaceHexObjects(GameObject defaultPrefab, Transform parent, int layerCount, int coinsPerLayer, float spacingMultiplier = 1f)
@@ -118,7 +129,7 @@ public static class CoinMaker
 
         // 오브젝트 크기 측정
         float objectWidth = GetObjectWidth(defaultPrefab);
-        float objectDepth = GetObjectDepthZ(defaultPrefab);
+        float objectDepth = GetObjectDepth(defaultPrefab);
 
         Vector3 baseCenter = parent != null ? parent.position : Vector3.zero;
 
@@ -150,21 +161,25 @@ public static class CoinMaker
                         0f,
                         Mathf.Sin(rad) * radius
                     );
-#if UNITY_EDITOR
-                    GameObject obj = (GameObject)PrefabUtility.InstantiatePrefab(defaultPrefab);
-                    obj.transform.SetParent(layerGroup.transform);
-                    obj.transform.localPosition = localPos;
-                    obj.transform.localRotation = Quaternion.identity;
 
-                    Undo.RegisterCreatedObjectUndo(obj, "Place Coin Object");
-#else
-                    GameObject obj = GameObject.Instantiate(defaultPrefab);
-                    obj.transform.SetParent(layerGroup.transform);
-                    obj.transform.localPosition = localPos;
-                    obj.transform.localRotation = Quaternion.identity;
+                    if(Application.isPlaying)
+                    {
+                        GameObject obj = GameObject.Instantiate(defaultPrefab);
+                        obj.transform.SetParent(layerGroup.transform);
+                        obj.transform.localPosition = localPos;
+                        obj.transform.localRotation = Quaternion.identity;
 
-                    Undo.RegisterCreatedObjectUndo(obj, "Place Coin Object");
-#endif
+                        Undo.RegisterCreatedObjectUndo(obj, "Place Coin Object");
+                    }
+                    else
+                    {
+                        GameObject obj = (GameObject)PrefabUtility.InstantiatePrefab(defaultPrefab);
+                        obj.transform.SetParent(layerGroup.transform);
+                        obj.transform.localPosition = localPos;
+                        obj.transform.localRotation = Quaternion.identity;
+
+                        Undo.RegisterCreatedObjectUndo(obj, "Place Coin Object");
+                    }
                     placed++;
                 }
                 ring++;
@@ -172,18 +187,44 @@ public static class CoinMaker
         }
     }
 
-    static float GetObjectWidth(GameObject go)
+    static public float GetObjectWidth(GameObject go)
     {
         Bounds b = new Bounds(go.transform.position, Vector3.zero);
         foreach (var r in go.GetComponentsInChildren<Renderer>())
             b.Encapsulate(r.bounds);
-        return Mathf.Max(b.size.x, b.size.z);
+        return Mathf.Max(b.size.x, b.size.y);
     }
-    static float GetObjectDepthZ(GameObject go)
+    static public float GetObjectDepth(GameObject go)
     {
         Bounds b = new Bounds(go.transform.position, Vector3.zero);
         foreach (var r in go.GetComponentsInChildren<Renderer>())
             b.Encapsulate(r.bounds);
         return b.size.z;
+    }
+    static public void PlacedOn(GameObject toPlace, Vector3 abovePosition, LayerMask targetLayer)
+    {
+        Vector3 rayStart = abovePosition + Vector3.up * 10f;
+        Vector3 rayDir = Vector3.down;
+
+        if (Physics.Raycast(rayStart, rayDir, out RaycastHit hit, 100f, targetLayer))
+        {
+            toPlace.transform.position = hit.point;
+            toPlace.transform.rotation = Quaternion.identity;
+        }
+        else
+        {
+            Debug.LogWarning("Ray 충돌 실패: 해당 위치에 Collider + 지정 Layer 없음");
+        }
+    }
+
+    static float GetMeshBoundsCenterOffsetZ(GameObject go)
+    {
+        Renderer r = go.GetComponentInChildren<Renderer>();
+        if (r == null) return 0f;
+
+        Bounds bounds = r.bounds;
+        // 중앙에서 바닥까지 거리
+        float pivotOffset = bounds.extents.z;
+        return pivotOffset;
     }
 }
