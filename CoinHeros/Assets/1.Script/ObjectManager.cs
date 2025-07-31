@@ -43,8 +43,10 @@ public class ObjectManager : Singleton<ObjectManager>
         }
     }
 
-    void Start()
+    protected override void Awake()
     {
+        base.Awake();
+
         InitializePools(poolDataArray);
     }
     public void InitializePools(PoolDataSO[] poolDataList)
