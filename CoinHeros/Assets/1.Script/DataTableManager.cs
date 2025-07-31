@@ -22,6 +22,13 @@ public class DataTableManager : Singleton<DataTableManager>
     public List<CharacterData> characterPrefabList;
     public List<MonsterData> MonsterPrefabList;
 
+
+    public int MaxStage = 1000;
+
+
+    public float minMonsterState = 400f;
+    public float maxMonsterState = 2000f;
+
     public void Start()
     {
     }

@@ -3,49 +3,67 @@ using System.Collections;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Unity.VisualScripting;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UI;
 
 
 
 
+[RequireComponent(typeof(TinyCharacterController))]
 public class CharacterData : CharacterBase
 {
-    public Animator[] jobAnims;
-
+    public AnimatorOverrideController[] jobAnims;
+    public TinyCharacterController _controller;
     protected override void Start()
     {
         base.Start();
     }
 
 
-    public void SetCalcBaseStateToDetailState()
-    {
-        var table = DataTableManager.Instance;
-        var gasSOdata = GASAttributeData.Instance;
-        float value = 0.0f;
+    
 
-        //AttackDamage
-        value = GetState(gasSOdata.STR) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_STR)] * 0.3f;
-        SetModifyState(gasSOdata.AttackDamage, "CalcBase", value, StackPolicy.Override);
-        //MagicDamage
-        value = GetState(gasSOdata.MAG) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_MAG)] * 0.3f;
-        SetModifyState(gasSOdata.MagicDamage, "CalcBase", value, StackPolicy.Override);
-        //AttackDefence
-        value = (GetState(gasSOdata.STR) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_STR)] *0.1f)
-            + (GetState(gasSOdata.CON) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_CON)] *0.2f);
-        SetModifyState(gasSOdata.AttackDefence, "CalcBase", value, StackPolicy.Override);
-        //MagicDefence
-        value = (GetState(gasSOdata.MAG) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_MAG)] * 0.1f)
-            + (GetState(gasSOdata.AGI) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_AGI)] * 0.2f);
-        SetModifyState(gasSOdata.MagicDefence, "CalcBase", value, StackPolicy.Override);
-        //HP
-        value = (GetState(gasSOdata.STR) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_STR)] * 0.25f)
-            + (GetState(gasSOdata.CON) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_CON)] * 1.0f);
-        SetModifyState(gasSOdata.HP, "CalcBase", value, StackPolicy.Override);
-        //ActionCoin
-        value = 4f;
-        SetModifyState(gasSOdata.ActionCoin, "CalcBase", value, StackPolicy.Override);
+    public void LvUpState()
+    {
+
+    }
+
+    public enum eJobAnim
+    {
+        SingleSword,
+        DoubleSword,
+        SwordAndShield,
+        TwoHandSword,
+        Spear,
+        Archer,
+        Magic,
+        None
+    }
+
+    /// <summary>
+    /// 애니메이션 이벤트 함수 -아쳐 Attack
+    /// </summary>
+    public void OnBowAttackStart(int index)
+    {
+        switch (index)
+        {
+            case 1:
+                _controller.Bow.CrossFade("Attack01", 0.1f);
+                _controller.Arrow.CrossFade("Attack01", 0.1f);
+                break;
+            case 2:
+                _controller.Bow.CrossFade("Attack02", 0.1f);
+                _controller.Arrow.CrossFade("Attack02", 0.1f);
+                break;
+            case 3:
+                _controller.Bow.CrossFade("Attack03", 0.1f);
+                _controller.Arrow.CrossFade("Attack03", 0.1f);
+                break;
+            case 4:
+                _controller.Bow.CrossFade("Attack04", 0.1f);
+                _controller.Arrow.CrossFade("Attack04", 0.1f);
+                break;
+        }
     }
 }
 

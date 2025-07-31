@@ -20,7 +20,7 @@ public class CharacterBase : MonoBehaviour
     protected GASCueComponent _cue;
     protected GASTagComponent _tag;
     protected Rigidbody _rig;
-    protected Animator _anim;
+    public Animator _anim;
 
     protected virtual void Start()
     {
@@ -83,7 +83,7 @@ public class CharacterBase : MonoBehaviour
             case eAnimState.Hit:
                 _anim.CrossFade("Hit", 0.1f);
                 break;
-            case eAnimState.Dizzy:
+            case eAnimState.Dizzy:  
                 _anim.CrossFade("Dizzy", 0.1f);
                 break;
             case eAnimState.Die:
@@ -133,7 +133,34 @@ public class CharacterBase : MonoBehaviour
         Image.Apply();
         RenderTexture.active = currentRT;
     }
+    public void SetCalcBaseStateToDetailState()
+    {
+        var table = DataTableManager.Instance;
+        var gasSOdata = GASAttributeData.Instance;
+        float value = 0.0f;
 
+        //AttackDamage
+        value = GetState(gasSOdata.STR) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_STR)] * 0.3f;
+        SetModifyState(gasSOdata.AttackDamage, "CalcBase", value, StackPolicy.Override);
+        //MagicDamage
+        value = GetState(gasSOdata.MAG) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_MAG)] * 0.3f;
+        SetModifyState(gasSOdata.MagicDamage, "CalcBase", value, StackPolicy.Override);
+        //AttackDefence
+        value = (GetState(gasSOdata.STR) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_STR)] * 0.1f)
+            + (GetState(gasSOdata.CON) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_CON)] * 0.2f);
+        SetModifyState(gasSOdata.AttackDefence, "CalcBase", value, StackPolicy.Override);
+        //MagicDefence
+        value = (GetState(gasSOdata.MAG) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_MAG)] * 0.1f)
+            + (GetState(gasSOdata.AGI) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_AGI)] * 0.2f);
+        SetModifyState(gasSOdata.MagicDefence, "CalcBase", value, StackPolicy.Override);
+        //HP
+        value = (GetState(gasSOdata.STR) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_STR)] * 0.25f)
+            + (GetState(gasSOdata.CON) * table.CONGradeEfficiency[(int)GetState(gasSOdata.Grade_CON)] * 1.0f);
+        SetModifyState(gasSOdata.HP, "CalcBase", value, StackPolicy.Override);
+        //ActionCoin
+        value = 4f;
+        SetModifyState(gasSOdata.ActionCoin, "CalcBase", value, StackPolicy.Override);
+    }
 
     public enum eAnimState
     {

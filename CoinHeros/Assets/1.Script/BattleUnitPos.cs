@@ -9,7 +9,7 @@ public class BattleUnitPos : MonoBehaviour
     public CharacterBase[] LeftSlot = new CharacterBase[6];
     public List<Transform> Right;
     public CharacterBase[] RightSlot = new CharacterBase[6];
-
+    public Transform RightSpawnPoint;
     public void DisposUnit(eBattleUnitPos Slot,CharacterBase unit)
     {
         int iSlot = (int)Slot;

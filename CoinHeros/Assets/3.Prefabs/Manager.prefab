@@ -289,8 +289,11 @@ MonoBehaviour:
   - "\uB8E8\uBBF8\uC5D0\uB974"
   - "\uC2A4\uCE7C\uB85C\uC2A4"
   characterPrefabList:
-  - {fileID: 2494267067839909542, guid: 0662d4614b516b24b9b8277f6bfc71ae, type: 3}
-  - {fileID: 2622277449382846499, guid: f0a2efdaf66e6104ca920414273e5e27, type: 3}
+  - {fileID: -6995890468030562147, guid: 57afc98a9486fd94db1965e854a296e9, type: 3}
+  MonsterPrefabList: []
+  MaxStage: 1000
+  minMonsterState: 400
+  maxMonsterState: 2000
 --- !u!1 &6114208002265397589
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,3 +565,4 @@ MonoBehaviour:
   RenderTextureCamera: {fileID: 1929469402537795795}
   texture: {fileID: 8400000, guid: 906b63b8660200144b946cffdb714c9e, type: 2}
   BattleUnitMaxCount: 1
+  MaxStage: 1

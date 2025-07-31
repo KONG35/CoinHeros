@@ -33105,7 +33105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurStage: 1
   UnitPositions: {fileID: 1778619530}
-  test_SetUnit: {fileID: 2622277449382846499, guid: f0a2efdaf66e6104ca920414273e5e27, type: 3}
+  test_SetUnit: {fileID: -6995890468030562147, guid: 57afc98a9486fd94db1965e854a296e9, type: 3}
   Pos: 0
   TargetCharacter: {fileID: 0}
   Speed: 10
@@ -115012,6 +115012,22 @@ PrefabInstance:
       propertyPath: bonusRoul
       value: 
       objectReference: {fileID: 627750538}
+    - target: {fileID: 7591954808424589290, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
+      propertyPath: characterPrefabList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7591954808424589290, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
+      propertyPath: characterPrefabList.Array.data[0]
+      value: 
+      objectReference: {fileID: -6995890468030562147, guid: 57afc98a9486fd94db1965e854a296e9, type: 3}
+    - target: {fileID: 7591954808424589290, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
+      propertyPath: characterPrefabList.Array.data[1]
+      value: 
+      objectReference: {fileID: -6995890468030562147, guid: 57afc98a9486fd94db1965e854a296e9, type: 3}
+    - target: {fileID: 7591954808424589290, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
+      propertyPath: characterPrefabList.Array.data[2]
+      value: 
+      objectReference: {fileID: -6995890468030562147, guid: 57afc98a9486fd94db1965e854a296e9, type: 3}
     - target: {fileID: 7883679022766108103, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
       propertyPath: m_Name
       value: Manager

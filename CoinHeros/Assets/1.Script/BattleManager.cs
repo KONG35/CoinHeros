@@ -1,7 +1,8 @@
 using NaughtyAttributes;
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.Reflection;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BattleManager : Singleton<BattleManager>
 {
@@ -9,10 +10,6 @@ public class BattleManager : Singleton<BattleManager>
     public int CurStage = 1;
 
     public BattleUnitPos UnitPositions;
-
-
-
-
 
     public CharacterBase test_SetUnit;
     public BattleUnitPos.eBattleUnitPos Pos;
@@ -60,4 +57,95 @@ public class BattleManager : Singleton<BattleManager>
     {
         TargetCharacter.PlayAnim(anim);
     }
+
+
+    public int testStagenumber;
+    [Button]
+    public void CreateMonster()
+    {
+        CreateMonster(testStagenumber);
+    }
+    public void CreateMonster(int Stage)
+    {
+        var data = DataTableManager.Instance;
+        float value = nomalizeFloat(data.minMonsterState, data.maxMonsterState, 1, data.MaxStage, CurStage);
+
+        float r1 = Random.Range(0, value + 1);
+        float r2 = Random.Range(0, value + 1);
+        float r3 = Random.Range(0, value + 1);
+        float r4 = Random.Range(0, value + 1);
+        float r5 = Random.Range(0, value + 1);
+
+
+        float[] cuts = new float[] { r1, r2 ,r3,r4,r5};
+        Array.Sort(cuts);
+
+        float a = cuts[0];
+        float b = cuts[1] - cuts[0];
+        float c = cuts[2] - cuts[1];
+        float d = cuts[3] - cuts[2];
+        float e = cuts[4] - cuts[3];
+        float f = value - cuts[4];
+
+        int[] values = new int[] { (int)a, (int)b, (int)c,(int)d, (int)e, (int)f };
+        Shuffle(values);
+
+        int str = values[0];
+        int agi = values[1];
+        int con = values[2];
+        int luk = values[3];
+        int mag = values[4];
+        int spr = values[5];
+
+        var DTM = DataTableManager.Instance;
+        var MonsterList = DTM.MonsterPrefabList;
+        int index = Random.Range(0, MonsterList.Count);
+        var Unit = Instantiate(MonsterList[index], UserData.Instance.transform);
+
+
+        int Grade = 0;
+
+        Unit.SetBaseState(GASAttributeData.Instance.STR, value);
+        Unit.SetBaseState(GASAttributeData.Instance.Grade_STR, Grade);
+        Unit.SetBaseState(GASAttributeData.Instance.MAG, value);
+        Unit.SetBaseState(GASAttributeData.Instance.Grade_MAG, Grade);
+        Unit.SetBaseState(GASAttributeData.Instance.CON, value);
+        Unit.SetBaseState(GASAttributeData.Instance.Grade_CON, Grade);
+        Unit.SetBaseState(GASAttributeData.Instance.AGI, value);
+        Unit.SetBaseState(GASAttributeData.Instance.Grade_AGI, Grade);
+        Unit.SetBaseState(GASAttributeData.Instance.SPR, value);
+        Unit.SetBaseState(GASAttributeData.Instance.Grade_SPR, Grade);
+        Unit.SetBaseState(GASAttributeData.Instance.LUK, value);
+        Unit.SetBaseState(GASAttributeData.Instance.Grade_LUK, Grade);
+        Unit.SetCalcBaseStateToDetailState();
+
+    }
+
+
+    public void MonsterAction()
+    {
+
+    }
+
+    public void CharacterAction(int CoinIndex)
+    {
+
+    }
+
+    public float nomalizeFloat(float ValueMin,float ValueMax,float RangeMin, float RangeMax ,float Range)
+    {
+        return (RangeMin + (Range - ValueMin) * (RangeMax - RangeMin) / (ValueMax - ValueMin));
+    }
+
+
+
+    void Shuffle(int[] array)
+    {
+        for (int i = array.Length - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            (array[i], array[j]) = (array[j], array[i]);
+        }
+    }
+
 }
