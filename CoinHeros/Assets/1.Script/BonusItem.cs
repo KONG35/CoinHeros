@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public enum BonusEnum
 {
-    Coin3=0,  // ÄÚÀÎ 3°³
-    Coin6,  // ÄÚÀÎ 6°³
-    Coin9,   // ÄÚÀÎ 9°³
+    Coin3=0,  // ï¿½ï¿½ï¿½ï¿½ 3ï¿½ï¿½
+    Coin6,  // ï¿½ï¿½ï¿½ï¿½ 6ï¿½ï¿½
+    Coin9,   // ï¿½ï¿½ï¿½ï¿½ 9ï¿½ï¿½
+    EarthQuake, // ï¿½ï¿½ï¿½ï¿½
     Conut
 }
 [Serializable]
@@ -32,7 +33,7 @@ public class BonusItem : MonoBehaviour
     {
         index = num;
     }
-    public void SetBonus(BonusInfo _info)
+    public void SetBonus(BonusUIDataSO _info)
     {
         bonus = _info.bonus;
         iconImg.sprite = _info.sprite;

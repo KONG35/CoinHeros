@@ -27,16 +27,19 @@ public class Coin : MonoBehaviour, IPoolable
     }
     private void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.tag == "Basket")
+        if (col.gameObject.CompareTag("Basket"))
         {
-            rigid.constraints = RigidbodyConstraints.None;
+            ResetRigidbody(); 
         }
+
+
+
     }
     private void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.tag=="Slider")
+        if (col.gameObject.tag=="Slider")
         {
-            rigid.constraints = RigidbodyConstraints.None;
+            ResetRigidbody(); 
         }
         else if(col.gameObject.tag=="Spin")
         {

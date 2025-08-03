@@ -72200,6 +72200,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2470915096720291200, guid: 194e9111af0c33840a49d573f2b26952, type: 3}
   m_PrefabInstance: {fileID: 1469439332}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1469956750 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4838348250481962802, guid: 4fb4d30bff4fd7e4ca48ed2d96cc768a, type: 3}
+  m_PrefabInstance: {fileID: 6784137193676492839}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1470812011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -104956,6 +104961,38 @@ PrefabInstance:
       propertyPath: coinMachine
       value: 
       objectReference: {fileID: 1448307379}
+    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
+      propertyPath: bonusInfos.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
+      propertyPath: bonusUIDataSO.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
+      propertyPath: bonusUIDataSO.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 82f320e92245fb94f9f3df3365d6597a, type: 2}
+    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
+      propertyPath: bonusUIDataSO.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4c04e0cde49bed649a64ce144e465a17, type: 2}
+    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
+      propertyPath: bonusUIDataSO.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: ab6f1e20373bcf0418fd39fd3eec7b16, type: 2}
+    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
+      propertyPath: bonusUIDataSO.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4db185cbc81afae4db93d5ef74ada52a, type: 2}
+    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
+      propertyPath: bonusInfos.Array.data[3].bonus
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
+      propertyPath: bonusInfos.Array.data[3].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bcd58c373a5afc744a72242541980538, type: 3}
     - target: {fileID: 8894301370888425387, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
       propertyPath: m_SizeDelta.x
       value: 600
@@ -104981,10 +105018,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 52602238016738517, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
-      propertyPath: startCoinGroupTr.Array.size
-      value: 227
-      objectReference: {fileID: 0}
     - target: {fileID: 52602238016738517, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
       propertyPath: startCoinGroupTr.Array.data[0]
       value: 
@@ -105897,6 +105930,10 @@ PrefabInstance:
       propertyPath: UnitPositions
       value: 
       objectReference: {fileID: 1778619530}
+    - target: {fileID: 726201449590210133, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
+      propertyPath: mainObjTr
+      value: 
+      objectReference: {fileID: 1469956750}
     - target: {fileID: 2776932676454456440, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
       propertyPath: bonusRoul
       value: 

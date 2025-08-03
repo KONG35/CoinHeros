@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class BonusRoulette : MonoBehaviour
     private CoinLaunchMachine coinMachine;
 
     [SerializeField]
-    private BonusInfo[] bonusInfos;
+    private BonusUIDataSO[] bonusUIDataSO;
 
     [SerializeField]
     private BonusItem[] items;
@@ -28,6 +29,9 @@ public class BonusRoulette : MonoBehaviour
 
     [SerializeField]
     private int selectIdx;
+
+    [SerializeField]
+    private Transform mainTr;
 
     private RectTransform targetTr;
     private Vector3 intervalVec;
@@ -45,47 +49,73 @@ public class BonusRoulette : MonoBehaviour
     }
     private void SpinInit(CoinEnum _cEnum)
     {
-        // (select idx+3) ºÎÅÍ (add Idx+3) ±îÁö coin µî±Þ¿¡ ¸Â´Â ¾ÆÀÌÅÛ set
-        // ex. copper coin : Coin3 60% , Coin6 30% , Coin9  10%
-        int addIdx = UnityEngine.Random.Range(30, 35);
-        switch (_cEnum)
-        {
-            case CoinEnum.Copper:
-            case CoinEnum.Silver:
-                {
-                    for(int i = selectIdx + 3; i< addIdx + 3; i++)
-                    {
-                        int n = (i) % items.Length;
-                        float temp = UnityEngine.Random.Range(0f, 100f);
-                        if (temp < 60f)
-                        {
-                            items[n].SetBonus(bonusInfos[(int)BonusEnum.Coin3]);
-                            
-                        }
-                        else if (temp < 90f)
-                        {
-                            items[n].SetBonus(bonusInfos[(int)BonusEnum.Coin6]);
-                        }
-                        else
-                        {
-                            items[n].SetBonus(bonusInfos[(int)BonusEnum.Coin9]);
-                        }
-                    }
-                }
-                break;
-            case CoinEnum.Gold:
-                break;
-            case CoinEnum.Diamond:
-                break;
-            default:
-                break;
+        // (select idx+3) ï¿½ï¿½ï¿½ï¿½ (addIdx+3) ï¿½ï¿½ï¿½ï¿½ coin ï¿½ï¿½Þ¿ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ set
+        // ex. copper coin : Coin3 50% , Coin6 30% , Coin9  10%, earthQuake 10%
+        int addIdx = 32;
+        List<BonusUIDataSO> tempList = bonusUIDataSO.Where(x => x.appearCoinEnum <= _cEnum).ToList();
 
+        // basicPercent ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        float totalPercent = 0f;
+        foreach(var t in tempList)
+        {
+            totalPercent += t.basicPercent;
         }
+
+        for (int i = selectIdx + 3; i < addIdx + 3; i++)
+        {
+            int n = (i) % items.Length;
+            float percent = UnityEngine.Random.Range(0f, totalPercent);
+            float tempPercent = 0f;
+            for(int j=0;j<tempList.Count;j++)
+            {
+                tempPercent += tempList[j].basicPercent;
+                if (percent < tempPercent)
+                {
+                    items[n].SetBonus(tempList[j]);
+                    break;
+                }
+            }
+        }
+        //switch (_cEnum)
+        //{
+        //    case CoinEnum.Copper:
+        //    case CoinEnum.Silver:
+        //        {
+        //            for(int i = selectIdx + 3; i< addIdx + 3; i++)
+        //            {
+        //                int n = (i) % items.Length;
+        //                float percent = UnityEngine.Random.Range(0f, 100f);
+        //                if (percent < 50f)
+        //                {
+        //                    items[n].SetBonus(bonusUIDataSO[(int)BonusEnum.Coin3]);
+                            
+        //                }
+        //                else if (percent < 90f)
+        //                {
+        //                    items[n].SetBonus(bonusUIDataSO[(int)BonusEnum.Coin6]);
+        //                }
+        //                else
+        //                {
+        //                    items[n].SetBonus(bonusUIDataSO[(int)BonusEnum.Coin9]);
+        //                }
+        //            }
+        //        }
+        //        break;
+        //    case CoinEnum.Gold:
+        //        break;
+        //    case CoinEnum.Diamond:
+        //        break;
+        //    default:
+        //        items[n].SetBonus(bonusUIDataSO[(int)BonusEnum.Coin3]);
+        //        break;
+
+        //}
         selectIdx = (selectIdx + addIdx) % items.Length; 
         targetTr = items[selectIdx].recTr;
     }
     public IEnumerator SpinCor(CoinEnum _cEnum)
     {
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Èºï¿½ï¿½Ì´ï¿½ ui ï¿½Îºï¿½ set
         SpinInit(_cEnum);
         float period = UnityEngine.Random.Range(3f, 3.5f);
 
@@ -110,7 +140,7 @@ public class BonusRoulette : MonoBehaviour
         {
             float t = Mathf.Clamp01(elapsed / duration);
 
-            // Ä¿ºê Àû¿ë: Ã³À½ ºü¸£°í ¡æ ¹Ì¸®ºÎÅÍ Á¡Á¡ °¨¼Ó ¡æ ³¡¿¡¼­ Á¤Áö
+            // Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             float ease = 1f - Mathf.Pow(1f - t, 2f); // Ease-out cubic
 
             float targetMoved = len * ease;
@@ -122,7 +152,7 @@ public class BonusRoulette : MonoBehaviour
                 break;
             }
 
-            // °¡±î¿öÁú¶§±îÁö µî¼Óµµ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Óµï¿½
             for (int i = 0; i < items.Length; i++)
             {
                 items[i].recTr.position -= new Vector3(delta, 0f, 0f);
@@ -139,7 +169,7 @@ public class BonusRoulette : MonoBehaviour
 
     }
     /// <summary>
-    /// remain image µ¹¸®´Â ÄÚ·çÆ¾
+    /// remain image ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾
     /// </summary>
     /// <returns></returns>
     private IEnumerator RemainCor()
@@ -151,7 +181,7 @@ public class BonusRoulette : MonoBehaviour
         while (elapsed < duration)
         {
             float deltaAngle = anglePerSecond * Time.deltaTime;
-            remainImgTr.rotation *= Quaternion.Euler(0f, 0f, deltaAngle);  // ´©Àû È¸Àü
+            remainImgTr.rotation *= Quaternion.Euler(0f, 0f, deltaAngle);  // ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -165,9 +195,20 @@ public class BonusRoulette : MonoBehaviour
     {
         switch(_bonus)
         {
+            case BonusEnum.Coin3:
+            case BonusEnum.Coin6:
+            case BonusEnum.Coin9:
+                {
+                    coinMachine.ShowBonusCoin(_bonus, CoinEnum.Gold);
+                }
+                break;
+            case BonusEnum.EarthQuake:
+                {
+                    BonusManager.Instance.ShowEarthQuake();
+                }
+                break;
             default:
                 {
-                    coinMachine.BonusCoin(_bonus, CoinEnum.Copper);
                 }
                 break;
         }

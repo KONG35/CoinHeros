@@ -23,7 +23,7 @@ public class CoinLaunchMachine : MonoBehaviour
     private Transform rightPoint;
 
     [Space(5)]
-    [Header("·ê·¿ º¸³Ê½º")]
+    [Header("ï¿½ê·¿ ï¿½ï¿½ï¿½Ê½ï¿½")]
     [SerializeField]
     private Transform[] bonusStartTr;
     [SerializeField]
@@ -76,7 +76,7 @@ public class CoinLaunchMachine : MonoBehaviour
         var coin = CoinSpawnManager.Instance.GetCoin(_cEnum);
         coin.transform.position = launchPoint.position;
     }
-    public void BonusCoin(BonusEnum _bonus, CoinEnum _coin)
+    public void ShowBonusCoin(BonusEnum _bonus, CoinEnum _coin)
     {
         int count = 0;
         switch (_bonus)
@@ -115,28 +115,28 @@ public class CoinLaunchMachine : MonoBehaviour
     {
         float gravity = Mathf.Abs(Physics.gravity.y);
 
-        // 1. »ó½Â ½Ã°£
+        // 1. ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
         float heightUp = apex.y - start.y;
         if (heightUp < 0.01f)
-            heightUp = 0.01f;  // ÃÖ¼Ò º¸Á¤
+            heightUp = 0.01f;  // ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         float timeToApex = Mathf.Sqrt(2f * heightUp / gravity);
 
-        // 2. ÇÏ°­ ½Ã°£
+        // 2. ï¿½Ï°ï¿½ ï¿½Ã°ï¿½
         float heightDown = apex.y - end.y;
         if (heightDown < 0.01f)
             heightDown = 0.01f;
 
         float timeFromApex = Mathf.Sqrt(2f * heightDown / gravity);
 
-        // 3. ÃÑ Ã¼°ø ½Ã°£
+        // 3. ï¿½ï¿½ Ã¼ï¿½ï¿½ ï¿½Ã°ï¿½
         float totalTime = timeToApex + timeFromApex;
 
-        // 4. ¼öÆò ¹æÇâ ¼Óµµ
+        // 4. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½
         Vector3 displacementXZ = new Vector3(end.x - start.x, 0f, end.z - start.z);
         Vector3 velocityXZ = displacementXZ / totalTime;
 
-        // 5. ¼öÁ÷ ¹æÇâ ¼Óµµ (Áß·Â °¡¼Óµµ¿¡ ¸Â°Ô)
+        // 5. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ (ï¿½ß·ï¿½ ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ ï¿½Â°ï¿½)
         float velocityY = gravity * timeToApex;
 
         return velocityXZ + Vector3.up * velocityY;
