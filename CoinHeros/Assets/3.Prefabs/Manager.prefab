@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainObjTr: {fileID: 0}
-  shakeDuration: 4
+  shakeDuration: 2.5
   shakeIntensity: 0.25
   shakeFrequency: 40
   offsetPosA: {x: -2, y: 0.5, z: 0}

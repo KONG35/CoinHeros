@@ -10,16 +10,11 @@ public class BonusManager : Singleton<BonusManager>
     private Transform mainObjTr;
     
     [Header("진동 설정")]
-    [SerializeField] 
-    private float shakeDuration = 2f;
-    [SerializeField] 
-    private float shakeIntensity = 0.1f;
-    [SerializeField] 
-    private float shakeFrequency = 10f;
-    [SerializeField]
-    private Vector3 offsetPosA;
-    [SerializeField]
-    private Vector3 offsetPosB;
+    [SerializeField] private float shakeDuration;
+    [SerializeField] private float shakeIntensity;
+    [SerializeField] private float shakeFrequency;
+    [SerializeField] private Vector3 offsetPosA;
+    [SerializeField] private Vector3 offsetPosB;
     private Vector3 originalPosition;
     protected override void Awake()
     {
