@@ -72,7 +72,7 @@ public class BattleManager : Singleton<BattleManager>
                 UnitPositions.RightSlot[i]= Unit;
                 Unit.transform.parent = UnitPositions.Right[i];
                 Unit.transform.position = UnitPositions.RightSpawnPoint.position;
-                Unit.transform.rotation = UnityEngine.Quaternion.identity;
+                Unit.transform.rotation = UnityEngine.Quaternion.Euler(0,0,0);
                 
                 // 스폰 후 위치 확인
                 Debug.Log($"Monster spawned and positioned at: {Unit.transform.position}");
