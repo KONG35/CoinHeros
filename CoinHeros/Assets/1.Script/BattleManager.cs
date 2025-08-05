@@ -1,6 +1,6 @@
 using NaughtyAttributes;
 using System;
-using System.Reflection;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -63,9 +63,34 @@ public class BattleManager : Singleton<BattleManager>
     [Button]
     public void CreateMonster()
     {
-        CreateMonster(testStagenumber);
+        var Unit = CreateMonster(testStagenumber);
+
+        for(int i=0;i<UnitPositions.Right.Count;i++)
+        {
+            if(UnitPositions.RightSlot[i] == null)
+            {
+                UnitPositions.RightSlot[i]= Unit;
+                Unit.transform.parent = UnitPositions.Right[i];
+                Unit.transform.position = UnitPositions.RightSpawnPoint.position;
+                Unit.transform.rotation = UnityEngine.Quaternion.identity;
+                
+                // 스폰 후 위치 확인
+                Debug.Log($"Monster spawned and positioned at: {Unit.transform.position}");
+                Debug.Log($"Monster parent: {Unit.transform.parent.name}");
+                
+                // 이동 명령을 큐에 추가하고 디버그 로그 출력
+                Vector3 targetPos = Unit.transform.parent.position;
+                Debug.Log($"Monster spawned at: {UnitPositions.RightSpawnPoint.position}");
+                Debug.Log($"Monster target position: {targetPos}");
+                Debug.Log($"Distance to target: {Vector3.Distance(Unit.transform.position, targetPos)}");
+                
+                // 더 긴 지연 후 이동 명령 실행 (스폰 애니메이션 등을 위한 시간)
+                StartCoroutine(DelayedMove(Unit, targetPos, 2.0f));
+                break;
+            }
+        }
     }
-    public void CreateMonster(int Stage)
+    public MonsterData CreateMonster(int Stage)
     {
         var data = DataTableManager.Instance;
         float value = nomalizeFloat(data.minMonsterState, data.maxMonsterState, 1, data.MaxStage, CurStage);
@@ -100,7 +125,7 @@ public class BattleManager : Singleton<BattleManager>
         var DTM = DataTableManager.Instance;
         var MonsterList = DTM.MonsterPrefabList;
         int index = Random.Range(0, MonsterList.Count);
-        var Unit = Instantiate(MonsterList[index], UserData.Instance.transform);
+        MonsterData Unit = Instantiate(MonsterList[index], UserData.Instance.transform);
 
 
         int Grade = 0;
@@ -119,6 +144,8 @@ public class BattleManager : Singleton<BattleManager>
         Unit.SetBaseState(GASAttributeData.Instance.Grade_LUK, Grade);
         Unit.SetCalcBaseStateToDetailState();
 
+
+        return Unit;
     }
 
 
@@ -145,6 +172,23 @@ public class BattleManager : Singleton<BattleManager>
         {
             int j = Random.Range(0, i + 1);
             (array[i], array[j]) = (array[j], array[i]);
+        }
+    }
+
+    private IEnumerator DelayedMove(CharacterBase unit, Vector3 targetPos, float speed)
+    {
+        // 스폰 애니메이션 등을 위한 충분한 시간 대기
+        yield return new WaitForSeconds(11.0f);
+        
+        // 스폰 포인트와 목표가 다른 경우에만 이동
+        if (Vector3.Distance(unit.transform.position, targetPos) > 0.1f)
+        {
+            unit.toMove(targetPos, speed);
+            Debug.Log($"Monster move command executed: {unit.name} -> {targetPos}");
+        }
+        else
+        {
+            Debug.Log($"Monster already at target position: {unit.name}");
         }
     }
 

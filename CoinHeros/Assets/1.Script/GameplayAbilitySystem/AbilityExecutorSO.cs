@@ -1,9 +1,7 @@
 using UnityEngine;
 
-public abstract class AbilityExecutorSO : ScriptableObject
-{
-    public abstract void Execute(AbilityContext context);
-}
+
+
 public class AbilityContext
 {
     public GameObject Caster;

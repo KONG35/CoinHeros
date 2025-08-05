@@ -88,6 +88,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ca31611278960d47b1023ca41543457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &514261219471112777
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 637379675489542614}
+  - component: {fileID: 507071443584884624}
+  m_Layer: 10
+  m_Name: spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &637379675489542614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514261219471112777}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -36.64, y: -1.975, z: 3.4}
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2006667387973054441}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &507071443584884624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514261219471112777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca31611278960d47b1023ca41543457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1138248691450451807
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,6 +377,7 @@ Transform:
   m_Children:
   - {fileID: 3872457437781618668}
   - {fileID: 464794137439957791}
+  - {fileID: 637379675489542614}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5763141031450419868
@@ -354,6 +399,13 @@ MonoBehaviour:
   - {fileID: 7022755406561055735}
   - {fileID: 2776996212628136532}
   - {fileID: 6856600628286652174}
+  LeftSlot:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   Right:
   - {fileID: 2807105467793185350}
   - {fileID: 6043807383492093929}
@@ -361,6 +413,14 @@ MonoBehaviour:
   - {fileID: 5544902116636583044}
   - {fileID: 8765308476917947553}
   - {fileID: 7609345314648226526}
+  RightSlot:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  RightSpawnPoint: {fileID: 637379675489542614}
 --- !u!1 &5294352784133225021
 GameObject:
   m_ObjectHideFlags: 0

@@ -231,6 +231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   definitions:
+  - {fileID: 11400000, guid: ee036f7a723db1342bd45d2249c260b9, type: 2}
   - {fileID: 11400000, guid: cc4342c82b9cdfe459e32fb0df4c4284, type: 2}
   - {fileID: 11400000, guid: 7e93d77d10f3a2146b86ef8f5ec9e99b, type: 2}
   - {fileID: 11400000, guid: d80670adb576e2941a70840023503164, type: 2}
@@ -249,6 +250,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0b8122735ee444f4f869dca80d51c925, type: 2}
   - {fileID: 11400000, guid: 5f6cac36311220348ac4ec85426c27a9, type: 2}
   - {fileID: 11400000, guid: 7d1e0ab62709414478b96edc89de99ff, type: 2}
+  - {fileID: 11400000, guid: 0312d6ea6ef06d042934d35093221954, type: 2}
+  - {fileID: 11400000, guid: 4e96a5f006634b54d94248d09eba26f3, type: 2}
+  - {fileID: 11400000, guid: 5f07ec100cd5cfe44be610caa7a9aac4, type: 2}
   - {fileID: 11400000, guid: 303dfbf5a13acae4397e24ba947fd3dd, type: 2}
   - {fileID: 11400000, guid: 711c4790a71ae9140bde9b97ff403a96, type: 2}
   - {fileID: 11400000, guid: 47d07b84a2bd4c242a3d11c8dc51ee78, type: 2}
@@ -293,6 +297,7 @@ MonoBehaviour:
   isInit: 0
   _name: Chest
   Image: {fileID: 0}
+  _anim: {fileID: 0}
 --- !u!54 &7223357614232910310
 Rigidbody:
   m_ObjectHideFlags: 0

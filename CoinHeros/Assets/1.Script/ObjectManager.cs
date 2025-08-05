@@ -53,7 +53,7 @@ public class ObjectManager : Singleton<ObjectManager>
     {
         foreach (var data in poolDataList)
         {
-            if (data.prefab == null)
+            if (data==null||data.prefab == null)
             {
                 Debug.LogError("Prefab is null");
                 continue;
@@ -64,13 +64,13 @@ public class ObjectManager : Singleton<ObjectManager>
 
             if (poolables.Length == 0)
             {
-                Debug.LogError($"Prefab '{data.prefab.name}'Àº IPoolableÀ» ±¸ÇöÇÑ ÄÄÆ÷³ÍÆ®¸¦ Æ÷ÇÔÇÏÁö ¾ÊÀ½");
+                Debug.LogError($"Prefab '{data.prefab.name}'ï¿½ï¿½ IPoolableï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
                 continue;
             }
 
             if (poolables.Length > 1)
             {
-                Debug.LogWarning($"Prefab '{data.prefab.name}'¿¡ IPoolable ±¸ÇöÃ¼°¡ ¿©·¯ °³ ÀÖÀ½. Ã¹ ¹øÂ°¸¸ »ç¿ë");
+                Debug.LogWarning($"Prefab '{data.prefab.name}'ï¿½ï¿½ IPoolable ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. Ã¹ ï¿½ï¿½Â°ï¿½ï¿½ ï¿½ï¿½ï¿½");
             }
 
             var poolable = poolables[0];

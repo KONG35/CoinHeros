@@ -17,55 +17,60 @@ public class GASAbilityComponent : DefinitionComponent<AbilityDefSO>
         {
             specs.Add(new AbilitySpec(defSo, gameObject));
         }
-        else
-        {
-            abil.SetLevel(abil.Level+1);
-        }
-    }
-    public int GetAbilityLv(AbilityDefSO defSo)
-    {
-        var abil = specs.Find(x => x.abilityName() == defSo.abilityName);
-        if (abil == null)
-        {
-            return 0;
-        }
-        return abil.Level+1;
     }
     void Update()
     {
         specs.ForEach(s => s.Action());
     }
+
+    public void SetCost(AttributeDefSO costSO, float value)
+    {
+        foreach(var a in specs)
+        {
+            for(int i=0;i<a.def.costs.Count;i++)
+            {
+                if(a.def.costs[i].attribute == costSO)
+                {
+                    var cost = a.def.costs[i];
+                    cost.amount = value;
+                    a.def.costs[i] = cost;
+                }
+            } 
+        }
+    }
 }
 class AbilitySpec
 {
     public int Level = 0;
-    private AbilityDefSO def;
+    public AbilityDefSO def;
     private GameObject owner;
-    AbilityExecutorSO executor;
+    private IAbilityExecutor executor;
+
     GASTagComponent tags;
     GASAttributeSetComponent attriSet; 
-    float lastUsedTime = -999f;
-    public AbilitySpec(AbilityDefSO def, GameObject owner)
+        public AbilitySpec(AbilityDefSO def, GameObject owner)
     {
         this.def = def;
         this.owner = owner;
-        this.executor = def.executor;
+        
+        // executor_FunctionName을 사용해서 실행자를 찾아서 저장
+        if (!string.IsNullOrEmpty(def.executor_FunctionName))
+        {
+            this.executor = AbilityExecutor.GetExecutor(def.executor_FunctionName);
+        }
+        
         tags = owner.GetComponent<GASTagComponent>();
         attriSet = owner.GetComponent<GASAttributeSetComponent>();
     }
-    public void SetLevel(int newLevel)
-    {
-        Level = Mathf.Clamp(newLevel, 1, def.LevelState.Count-1);
-    }
     public void Action()
     {
-        var State = def.LevelState[Level];
-        if (Time.time - lastUsedTime < State.Cooldown) return;
         if (!tags.HasAll(def.requiredTags) || tags.HasAny(def.blockedTags)) 
             return;
-        if (!attriSet.HasEnough(State.costs)) return;
-        attriSet.Pay("Cost",State.costs);
+        if (!attriSet.HasEnough(def.costs)) return;
+        if (executor == null) return;
 
+        attriSet.Pay("Cost", def.costs);
+        
         executor.Execute(new AbilityContext { Caster = owner, AbilityLevel = Level, Definition = def, Attributes = attriSet, Tags = tags });
     }
 

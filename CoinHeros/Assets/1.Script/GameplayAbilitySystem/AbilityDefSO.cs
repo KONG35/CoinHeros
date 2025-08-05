@@ -5,16 +5,17 @@ using UnityEngine;
 public class AbilityDefSO : ScriptableObject
 {
     public string abilityName;
-
-    public List<AbilityLevelStateData> LevelState;
-
+    public List<AttributeCost> costs;
     public AttributeDefSO DamageAttribute;
     public AttributeDefSO DamagetargetAttribute;
     public List<string> requiredTags;
     public List<string> blockedTags;
     public Sprite Icon;
-    public AbilityExecutorSO executor;
+    public string executor_FunctionName;
 }
+
+
+
 [System.Serializable]
 public struct AbilityLevelStateData
 {

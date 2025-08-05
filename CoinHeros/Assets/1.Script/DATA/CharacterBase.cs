@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(GASTagComponent))]
@@ -21,6 +20,10 @@ public class CharacterBase : MonoBehaviour
     protected GASTagComponent _tag;
     protected Rigidbody _rig;
     public Animator _anim;
+    
+    // 코루틴 큐를 위한 필드들
+    private Queue<IEnumerator> _coroutineQueue = new Queue<IEnumerator>();
+    private bool _isExecutingCoroutine = false;
 
     protected virtual void Start()
     {
@@ -45,14 +48,23 @@ public class CharacterBase : MonoBehaviour
 
     public void Update()
     {
-        _anim.SetFloat("Speed", _rig.velocity.magnitude); 
+        _anim.SetFloat("Speed", _rig.velocity.magnitude);
+        
+        ExecuteCoroutineQueueInUpdate();
     }
     public void toMove(Vector3 Pos,float Speed)
     {
         StartCoroutine(eMove(Pos, Speed));
     }
+
+    public void toMoveWithQueue(Vector3 Pos, float Speed)
+    {
+        AddCoroutineToQueue(eMove(Pos, Speed));
+    }
     IEnumerator eMove(Vector3 Pos,float Speed)
     {
+        if(_rig ==null)
+            _rig = GetComponent<Rigidbody>();
         while (true)
         {
             Vector3 toTarget = Pos - _rig.position;
@@ -65,6 +77,39 @@ public class CharacterBase : MonoBehaviour
             Vector3 direction = toTarget.normalized;
             _rig.velocity = direction * Speed;
             yield return new WaitForFixedUpdate();
+        }
+    }
+
+    private void AddCoroutineToQueue(IEnumerator coroutine)
+    {
+        _coroutineQueue.Enqueue(coroutine);
+    }
+
+    private IEnumerator ExecuteCoroutineQueue()
+    {
+        _isExecutingCoroutine = true;
+        
+        while (_coroutineQueue.Count > 0)
+        {
+            IEnumerator currentCoroutine = _coroutineQueue.Dequeue();
+            yield return StartCoroutine(currentCoroutine);
+        }
+        
+        _isExecutingCoroutine = false;
+    }
+
+    public void ClearCoroutineQueue()
+    {
+        _coroutineQueue.Clear();
+        _isExecutingCoroutine = false;
+    }
+
+    private void ExecuteCoroutineQueueInUpdate()
+    {
+        if (_coroutineQueue.Count > 0 && !_isExecutingCoroutine)
+        {
+            _isExecutingCoroutine = true;
+            StartCoroutine(ExecuteCoroutineQueue());
         }
     }
     public void PlayAnim(eAnimState State)
@@ -112,14 +157,20 @@ public class CharacterBase : MonoBehaviour
 
     public float GetState(AttributeDefSO SO)
     {
+        if(_state==null)
+            _state = GetComponent<GASAttributeSetComponent>();
         return _state.GetValue(SO);
     }
     public void SetModifyState(AttributeDefSO SO, string Key, float value, StackPolicy policy)
     {
+        if(_state==null)
+            _state = GetComponent<GASAttributeSetComponent>();
         _state.ModifyValue(SO, Key, value, policy);
     }
     public void SetBaseState(AttributeDefSO SO, float value)
     {
+        if(_state==null)
+            _state = GetComponent<GASAttributeSetComponent>();
         _state.SetBaseValue(SO, value);
     }
     public void SetBaseState(
@@ -130,6 +181,8 @@ public class CharacterBase : MonoBehaviour
         AttributeDefSO sprSO, float sprvalue, 
         AttributeDefSO lukSO, float lukvalue)
     {
+        if(_state==null)
+            _state = GetComponent<GASAttributeSetComponent>();
         _state.SetBaseValue(strSO, strvalue);
         _state.SetBaseValue(magSO, magvalue);
         _state.SetBaseValue(conSO, convalue);
@@ -137,6 +190,15 @@ public class CharacterBase : MonoBehaviour
         _state.SetBaseValue(sprSO, sprvalue);
         _state.SetBaseValue(lukSO, lukvalue);
         SetCalcBaseStateToDetailState();
+    }
+
+    public void SetCoinCost(float value)
+    {
+        if(_state==null)
+            _state = GetComponent<GASAttributeSetComponent>();
+        _state.SetBaseValue(GASAttributeData.Instance.MaxActionCoin, value);
+
+        //_ability.
     }
     public void SetTextureCopyToImage()
     {
