@@ -17,7 +17,7 @@ public class BattleUnitPos : MonoBehaviour
         unit.transform.parent = Left[iSlot];
         unit.transform.position = Vector3.zero;
         unit.transform.localRotation = Quaternion.identity;
-        unit.transform.localScale = Vector3.one;
+        unit.transform.localScale = Vector3.one*2.5f;
     }
 
     public void DisposMonster(eBattleUnitPos Slot, CharacterBase monster)
@@ -27,7 +27,7 @@ public class BattleUnitPos : MonoBehaviour
         monster.transform.parent = Right[iSlot];
         monster.transform.position = Vector3.zero;
         monster.transform.localRotation = Quaternion.identity;
-        monster.transform.localScale = Vector3.one;
+        monster.transform.localScale = Vector3.one*2f;
     }
 
 

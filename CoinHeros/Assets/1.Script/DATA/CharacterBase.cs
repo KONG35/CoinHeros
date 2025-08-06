@@ -21,9 +21,8 @@ public class CharacterBase : MonoBehaviour
     protected Rigidbody _rig;
     public Animator _anim;
     
-    // 코루틴 큐를 위한 필드들
-    private Queue<IEnumerator> _coroutineQueue = new Queue<IEnumerator>();
-    private bool _isExecutingCoroutine = false;
+    public bool isBattle=false;
+    public bool isDead=false;
 
     protected virtual void Start()
     {
@@ -44,23 +43,21 @@ public class CharacterBase : MonoBehaviour
             UserData.Instance.CopyQueue.Enqueue(this);
         }
         StartCoroutine(TextureInit());
+        isDead=false;
     }
-
     public void Update()
     {
         _anim.SetFloat("Speed", _rig.velocity.magnitude);
-        
-        ExecuteCoroutineQueueInUpdate();
+    }
+    public void Tick()
+    {
+        _ability.Action();
     }
     public void toMove(Vector3 Pos,float Speed)
     {
         StartCoroutine(eMove(Pos, Speed));
     }
 
-    public void toMoveWithQueue(Vector3 Pos, float Speed)
-    {
-        AddCoroutineToQueue(eMove(Pos, Speed));
-    }
     IEnumerator eMove(Vector3 Pos,float Speed)
     {
         if(_rig ==null)
@@ -80,38 +77,6 @@ public class CharacterBase : MonoBehaviour
         }
     }
 
-    private void AddCoroutineToQueue(IEnumerator coroutine)
-    {
-        _coroutineQueue.Enqueue(coroutine);
-    }
-
-    private IEnumerator ExecuteCoroutineQueue()
-    {
-        _isExecutingCoroutine = true;
-        
-        while (_coroutineQueue.Count > 0)
-        {
-            IEnumerator currentCoroutine = _coroutineQueue.Dequeue();
-            yield return StartCoroutine(currentCoroutine);
-        }
-        
-        _isExecutingCoroutine = false;
-    }
-
-    public void ClearCoroutineQueue()
-    {
-        _coroutineQueue.Clear();
-        _isExecutingCoroutine = false;
-    }
-
-    private void ExecuteCoroutineQueueInUpdate()
-    {
-        if (_coroutineQueue.Count > 0 && !_isExecutingCoroutine)
-        {
-            _isExecutingCoroutine = true;
-            StartCoroutine(ExecuteCoroutineQueue());
-        }
-    }
     public void PlayAnim(eAnimState State)
     {
         switch (State)
@@ -245,7 +210,113 @@ public class CharacterBase : MonoBehaviour
         SetModifyState(gasSOdata.HP, "CalcBase", GetState(gasSOdata.MaxHP), StackPolicy.Override);
         SetModifyState(gasSOdata.MP, "CalcBase", 0, StackPolicy.Override);
         SetModifyState(gasSOdata.ActionCoin, "CalcBase", 0, StackPolicy.Override);
+        isDead=false;
     }
+    
+    public void Hit(float damage, AttributeDefSO damageType)
+    {
+        var gasSOdata = GASAttributeData.Instance;
+        float currentHP = GetState(gasSOdata.HP);
+        
+        // 데미지 타입에 따른 방어력 적용
+        float finalDamage = CalculateDamage(damage, damageType);
+        float newHP = Mathf.Max(0, currentHP - finalDamage);
+        
+        SetModifyState(gasSOdata.HP, "CalcBase", newHP, StackPolicy.Override);
+        
+        // 히트 애니메이션 재생
+        PlayAnim(eAnimState.Hit);
+        
+        // 데미지 타입에 따른 로그 메시지
+        string damageTypeName = (damageType == gasSOdata.AttackDamage) ? "물리" : "마법";
+        Debug.Log($"{_name}이(가) {damageTypeName} 데미지 {damage}를 받았습니다. (방어력 적용 후: {finalDamage}, HP: {currentHP} -> {newHP})");
+        
+        // HP가 0 이하가 되면 사망 처리
+        if (newHP <= 0)
+        {
+            Die();
+        }
+    }
+    
+
+    
+    // 특정 어빌리티를 추가하는 함수
+    public void AddAbility(AbilityDefSO abilityDef)
+    {
+        if (_ability == null)
+        {
+            Debug.LogError($"{_name}: 어빌리티 컴포넌트가 없습니다.");
+            return;
+        }
+        
+        _ability.AddAbility(abilityDef);
+        Debug.Log($"{_name}에게 {abilityDef.abilityName} 어빌리티가 추가되었습니다.");
+    }
+    
+    // 어빌리티 비용을 설정하는 함수
+    public void SetAbilityCost(AttributeDefSO costSO, float value)
+    {
+        if (_ability == null)
+        {
+            Debug.LogError($"{_name}: 어빌리티 컴포넌트가 없습니다.");
+            return;
+        }
+        
+        _ability.SetCost(costSO, value);
+        Debug.Log($"{_name}의 어빌리티 비용이 설정되었습니다: {costSO.name} = {value}");
+    }
+    
+    private float CalculateDamage(float baseDamage, AttributeDefSO damageType)
+    {
+        var gasSOdata = GASAttributeData.Instance;
+        
+        // 데미지 타입에 따른 방어력 결정
+        float defence = 0f;
+        if (damageType == gasSOdata.AttackDamage)
+        {
+            // 물리 데미지 -> 물리 방어력 적용
+            defence = GetState(gasSOdata.AttackDefence);
+        }
+        else if (damageType == gasSOdata.MagicDamage)
+        {
+            // 마법 데미지 -> 마법 방어력 적용
+            defence = GetState(gasSOdata.MagicDefence);
+        }
+        
+        // 방어력에 따른 데미지 감소 계산
+        // 방어력이 높을수록 데미지가 감소하도록 계산
+        float damageReduction = defence / (defence + 100f); // 방어력 공식 (필요에 따라 조정 가능)
+        float finalDamage = baseDamage * (1f - damageReduction);
+        
+        return Mathf.Max(1f, finalDamage); // 최소 1 데미지는 보장
+    }
+    
+    private void Die()
+    {
+        // 사망 애니메이션 재생
+        PlayAnim(eAnimState.Die);
+        
+        Debug.Log($"{_name}이(가) 사망했습니다.");
+        isDead=true;
+        // 사망 시 추가 처리 (필요에 따라 확장)
+        // 예: 경험치 지급, 아이템 드롭 등
+    }
+    
+    // 현재 장착된 아이템에 따라 적절한 어빌리티를 반환하는 함수 (플레이어 캐릭터 전용)
+    public virtual AbilityDefSO GetCurrentAbility()
+    {
+        // 기본 구현은 null 반환 (몬스터는 아이템을 사용하지 않음)
+        return null;
+    }
+    
+    // 어빌리티 이름으로 찾는 헬퍼 함수 (플레이어 캐릭터 전용)
+    protected virtual AbilityDefSO GetAbilityByName(string abilityName)
+    {
+        // 기본 구현은 null 반환 (몬스터는 아이템을 사용하지 않음)
+        return null;
+    }
+    
+
 
     public enum eAnimState
     {

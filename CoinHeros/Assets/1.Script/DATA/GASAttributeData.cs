@@ -30,4 +30,15 @@ public class GASAttributeData : Singleton<GASAttributeData>
     public AttributeDefSO AttackDefence;
     public AttributeDefSO MagicDamage;
     public AttributeDefSO MagicDefence;
+
+
+
+    public AbilityDefSO ArrowAttack;
+    public AbilityDefSO DoubleSwordAttack;
+    public AbilityDefSO MagicAttack;
+    public AbilityDefSO MeleeAttack;
+    public AbilityDefSO OneHandSwordAttack;
+    public AbilityDefSO SpearAttack;
+    public AbilityDefSO SwordAndShieldAttack;
+    public AbilityDefSO TwoHandSwordAttack;
 }

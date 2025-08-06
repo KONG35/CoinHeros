@@ -15,4 +15,4 @@ MonoBehaviour:
   Name: ActionCoinCur
   DefaultValue: 0
   MinValue: 0
-  MaxValue: 20
+  MaxValue: 10000

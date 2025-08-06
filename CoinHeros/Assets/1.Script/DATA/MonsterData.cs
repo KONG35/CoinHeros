@@ -4,6 +4,7 @@ using UnityEditor;
 
 public class MonsterData : CharacterBase
 {
+    public MonsterAttackType AttackType;
     private void Awake()
     {
     }
@@ -29,5 +30,12 @@ public class MonsterData : CharacterBase
                 _state.AddDefinitionAttribute(so);
             }
         }
+    }
+
+
+    public enum MonsterAttackType{
+        Melee,
+        Magic,
+        Count
     }
 }

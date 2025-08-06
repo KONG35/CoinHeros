@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using CoinHeros;
 
 public class UserData : Singleton<UserData>
 {
@@ -14,6 +15,10 @@ public class UserData : Singleton<UserData>
     public Camera RenderTextureCamera;
     public RenderTexture texture;
     public Queue<CharacterBase> CopyQueue;
+
+    // 전역 인벤토리 시스템 (아이템 보관만)
+    [Header("전역 인벤토리")]
+    public List<InventorySlot> globalInventory = new List<InventorySlot>();
 
     private int _gold;
     public int Gold
@@ -53,6 +58,57 @@ public class UserData : Singleton<UserData>
             AddCharacter();
         }
         isInit = true;
+    }
+
+    // 전역 인벤토리 관리 함수들 (단일 아이템 인스턴스)
+    public bool AddItemToInventory(ItemData item)
+    {
+        // 이미 있는 아이템인지 확인
+        var existingSlot = globalInventory.Find(slot => slot.item == item);
+        
+        if (existingSlot != null)
+        {
+            return false;
+        }
+        
+        var newSlot = new InventorySlot
+        {
+            item = item,
+            isEquipped = false,
+            equippedBy = null
+        };
+        globalInventory.Add(newSlot);
+        
+        return true;
+    }
+    
+    public bool RemoveItemFromInventory(ItemData item)
+    {
+        var slot = globalInventory.Find(s => s.item == item);
+        if (slot == null)
+        {
+            return false;
+        }
+        
+        // 장착 중인 아이템은 제거 불가
+        if (slot.isEquipped)
+        {
+            return false;
+        }
+        
+        globalInventory.Remove(slot);
+        return true;
+    }
+    
+    public bool HasItem(ItemData item)
+    {
+        var slot = globalInventory.Find(s => s.item == item);
+        return slot != null;
+    }
+    
+    public InventorySlot GetInventorySlot(ItemData item)
+    {
+        return globalInventory.Find(s => s.item == item);
     }
 
     [Button]

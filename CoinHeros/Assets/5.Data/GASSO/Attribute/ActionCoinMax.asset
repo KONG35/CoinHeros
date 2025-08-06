@@ -15,4 +15,4 @@ MonoBehaviour:
   Name: ActionCoinMax
   DefaultValue: 4
   MinValue: 2
-  MaxValue: 20
+  MaxValue: 10000

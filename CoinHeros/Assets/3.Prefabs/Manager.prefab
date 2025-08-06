@@ -163,6 +163,14 @@ MonoBehaviour:
   AttackDefence: {fileID: 11400000, guid: f13e41840fea50249b7234b9d65100c2, type: 2}
   MagicDamage: {fileID: 11400000, guid: 5f6cac36311220348ac4ec85426c27a9, type: 2}
   MagicDefence: {fileID: 11400000, guid: 7d1e0ab62709414478b96edc89de99ff, type: 2}
+  ArrowAttack: {fileID: 11400000, guid: ec7dfcde23a0249408d452024033bc9f, type: 2}
+  DoubleSwordAttack: {fileID: 11400000, guid: 014694561aa90b041a7a9b53157dc4df, type: 2}
+  MagicAttack: {fileID: 11400000, guid: d631c184f62289f4ab8fbf64638aea32, type: 2}
+  MeleeAttack: {fileID: 11400000, guid: 1d7c3431b701e6a4f940351d72c8c4d2, type: 2}
+  OneHandSwordAttack: {fileID: 11400000, guid: 807faa3b5fb92f546be2185529a37720, type: 2}
+  SpearAttack: {fileID: 11400000, guid: 9660a5728a5edde40b35afd6f6f5aad9, type: 2}
+  SwordAndShieldAttack: {fileID: 11400000, guid: 6ae3b76442c9c354c964276867d40d38, type: 2}
+  TwoHandSwordAttack: {fileID: 11400000, guid: 3f602650af8606d4fbbf8f8fa573d87d, type: 2}
 --- !u!1 &3877475463231696479
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +352,9 @@ MonoBehaviour:
   - "\uC2A4\uCE7C\uB85C\uC2A4"
   characterPrefabList:
   - {fileID: -6995890468030562147, guid: 57afc98a9486fd94db1965e854a296e9, type: 3}
-  MonsterPrefabList: []
+  MonsterPrefabList:
+  - {fileID: -2009048350499227541, guid: 6a4317fc729846d79f69cda980e03f9d, type: 3}
+  - {fileID: 8293140437761190534, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
   MaxStage: 1000
   minMonsterState: 400
   maxMonsterState: 2000
@@ -885,6 +895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurStage: 1
+  isStageStarted: 0
   UnitPositions: {fileID: 0}
   test_SetUnit: {fileID: -6995890468030562147, guid: 57afc98a9486fd94db1965e854a296e9, type: 3}
   Pos: 0
@@ -949,5 +960,6 @@ MonoBehaviour:
   - {fileID: 0}
   RenderTextureCamera: {fileID: 1929469402537795795}
   texture: {fileID: 8400000, guid: 906b63b8660200144b946cffdb714c9e, type: 2}
+  globalInventory: []
   BattleUnitMaxCount: 1
   MaxStage: 1
