@@ -23,7 +23,7 @@ public class CoinLaunchMachine : MonoBehaviour
     private Transform rightPoint;
 
     [Space(5)]
-    [Header("�귿 ���ʽ�")]
+    [Header("보너스 코인 던지는 위치 그룹")]
     [SerializeField]
     private Transform[] bonusStartTr;
     [SerializeField]
@@ -53,25 +53,9 @@ public class CoinLaunchMachine : MonoBehaviour
         rightBarT.rotation = initRot * offset;
         launchPoint.transform.position = (leftPoint.position + rightPoint.position) / 2f;
 
-        if (Input.GetKeyDown("1"))
-        {
-            InsertCoin(CoinEnum.Copper);
-        }
-        else if (Input.GetKeyDown("2"))
-        {
-            InsertCoin(CoinEnum.Silver);
-        }
-        else if (Input.GetKeyDown("3"))
-        {
-            InsertCoin(CoinEnum.Gold);
-        }
-        else if (Input.GetKeyDown("4"))
-        {
-            InsertCoin(CoinEnum.Diamond);
-        }
     }
     [Button]
-    private void InsertCoin(CoinEnum _cEnum)
+    public void InsertCoin(CoinEnum _cEnum)
     {
         var coin = CoinSpawnManager.Instance.GetCoin(_cEnum);
         coin.transform.position = launchPoint.position;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using SharpUI.Source.Common.UI.Elements;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,15 +16,29 @@ public class CoinSpawnManager :Singleton<CoinSpawnManager>
     private Coin diamondCoin;
 
     [Space(5)]
-    [Header("StartCoin ¼ÂÆÃ")]
+    [Header("StartCoin ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField]
     private Transform[] startCoinGroupTr;
 
+    [SerializeField]
+    private CoinLaunchMachine coinLaunchMachine;
+    public int maxCoinCount{get; private set;}
+    public int remainCoinCount{get {return remainCoinList.Count;}}
+    private List<CoinEnum> remainCoinList;
+    private bool isPaused;  //!! ì¶”í›„ì— ë‹¤ê°™ì´ ê´€ë¦¬í• ê±°ì„
+    override protected void Awake()
+    {
+        base.Awake();
+        isPaused = false;
+        remainCoinList = new List<CoinEnum>();
+        maxCoinCount = 8;
+        
+        ResetCoin();
+    }
+    
     private void Start()
     {
-        // ¹Ì¸® »ı¼ºµÇ¾î ÀÖ´Â ÄÚÀÎ ¸¸µé±â
-        // »çÀü¿¡ ¼ÂÆÃµÈ ÄÚÀÎ Á¾·ù, °¹¼ö¿¡ µû¸¥ ¼ÂÆÃ
-        // 250724 ÃÑ 16*6 + 16*5 + 17*3 = 227
+        // 250724 ï¿½ï¿½ 16*6 + 16*5 + 17*3 = 227
         // copper 50, silver 150, gold 27
         int length = startCoinGroupTr.Length;
         for (int i = 0; i < length; i++)
@@ -51,12 +66,64 @@ public class CoinSpawnManager :Singleton<CoinSpawnManager>
             c.ResetRigidbody();
             
             c.gameObject.transform.rotation = Quaternion.identity;
-            // ¶¥¿¡ ºÙÀÌ±â
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì±ï¿½
             //LayerMask mask = LayerMask.GetMask("Slider", "Coin");
             c.gameObject.transform.position = startCoinGroupTr[i].position;
             //CoinMaker.PlacedOn(c.gameObject, c.transform.position, mask);
         }
         
+    }
+    private void Update()
+    {
+        
+        if(Input.GetKeyDown("1"))
+        {
+            if(remainCoinList.Count== 0 || isPaused)
+                return;
+
+            coinLaunchMachine.InsertCoin(remainCoinList[0]);
+            remainCoinList.RemoveAt(0);
+            
+            if(remainCoinList.Count==0)
+            {
+                isPaused = true;
+                
+                BattleManager.Instance.MonsterAction();
+                ResetCoin();
+            }
+        }
+        
+    }
+    /// <summary>
+    /// ì¢Œìƒë‹¨ coin pool ë””ì‹œ set
+    /// </summary>
+    private void ResetCoin()
+    {
+        for(int i=0;i<maxCoinCount;i++)
+        {
+            int n = Random.Range(0,100);
+            CoinEnum cEnum = CoinEnum.Copper;
+            if(n<40)
+            {
+                cEnum = CoinEnum.Copper;
+            }
+            else if(n<80)
+            {
+                cEnum = CoinEnum.Silver;
+            }
+            else if(n<95)
+            {
+                cEnum = CoinEnum.Gold;
+            }
+            else
+            {
+                cEnum = CoinEnum.Diamond;
+            }   
+            remainCoinList.Add(cEnum);
+        }
+        // ëª¬ìŠ¤í„° ê³µê²© ëë‚˜ê³  í˜¸ì¶œí•  ê²ƒ
+        // ìˆ˜ì •ë  ë¶€ë¶„
+        isPaused = false;
     }
     public Coin GetCoin(CoinEnum _cEnum)
     {
@@ -79,7 +146,7 @@ public class CoinSpawnManager :Singleton<CoinSpawnManager>
         }
         Coin coin = ObjectManager.Instance.Get<Coin>(coinData);
         if (coin == null)
-            Debug.Log($"{_cEnum}ÀÇ {coinData}°¡ Á¸ÀçÇÏÁö ¾ÊÀ½.");
+            Debug.Log($"{_cEnum}ï¿½ï¿½ {coinData}ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.");
             
         return coin;
     }

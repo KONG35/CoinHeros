@@ -6,10 +6,12 @@ using UnityEngine.UI;
 
 public enum BonusEnum
 {
-    Coin3=0,  // ���� 3��
-    Coin6,  // ���� 6��
-    Coin9,   // ���� 9��
-    EarthQuake, // ����
+    Coin3=0,  // gold coin 3개
+    Coin6,  // gold coin 6개
+    Coin9,   // gold coin 9개
+    EarthQuake, // 지진
+    WaterSpout, // 물기둥
+    Tornado, // 토네이도
     Conut
 }
 [Serializable]

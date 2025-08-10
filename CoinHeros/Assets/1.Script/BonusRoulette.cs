@@ -37,8 +37,12 @@ public class BonusRoulette : MonoBehaviour
     private Vector3 intervalVec;
     private int head;
     private int tail => (head + items.Length-1) % items.Length;
+    private BonusManager bonusManager;
+    private RouletteManager rouletteManager;
     private void Start()
     {
+        bonusManager = BonusManager.Instance;
+        rouletteManager = RouletteManager.Instance;
         head = 0;
         selectIdx = 2;
         intervalVec = items[1].recTr.position - items[0].recTr.position;
@@ -47,14 +51,28 @@ public class BonusRoulette : MonoBehaviour
             items[i].SetIndex(i);
         }
     }
+    public IEnumerator SpinCor(CoinEnum _cEnum)
+    {
+        SpinInit(_cEnum);
+        float period = UnityEngine.Random.Range(3f, 3.5f);
+
+        remainCntTxt.text = "";
+
+        yield return StartCoroutine(RemainCor());
+
+        remainCntTxt.text = rouletteManager.remainBonusCnt.ToString();
+
+        yield return StartCoroutine(SpinCor(period, Mathf.Abs(targetTr.position.x - arrowRectTr.position.x)));
+
+        ShowBonus(items[selectIdx].bonus);
+    }
     private void SpinInit(CoinEnum _cEnum)
     {
-        // (select idx+3) ���� (addIdx+3) ���� coin ��޿� �´� ������ set
         // ex. copper coin : Coin3 50% , Coin6 30% , Coin9  10%, earthQuake 10%
         int addIdx = 32;
         List<BonusUIDataSO> tempList = bonusUIDataSO.Where(x => x.appearCoinEnum <= _cEnum).ToList();
 
-        // basicPercent ���� �Ŀ� ���� �� ����
+        // basicPercent /totalPercent 확률
         float totalPercent = 0f;
         foreach(var t in tempList)
         {
@@ -76,58 +94,9 @@ public class BonusRoulette : MonoBehaviour
                 }
             }
         }
-        //switch (_cEnum)
-        //{
-        //    case CoinEnum.Copper:
-        //    case CoinEnum.Silver:
-        //        {
-        //            for(int i = selectIdx + 3; i< addIdx + 3; i++)
-        //            {
-        //                int n = (i) % items.Length;
-        //                float percent = UnityEngine.Random.Range(0f, 100f);
-        //                if (percent < 50f)
-        //                {
-        //                    items[n].SetBonus(bonusUIDataSO[(int)BonusEnum.Coin3]);
-                            
-        //                }
-        //                else if (percent < 90f)
-        //                {
-        //                    items[n].SetBonus(bonusUIDataSO[(int)BonusEnum.Coin6]);
-        //                }
-        //                else
-        //                {
-        //                    items[n].SetBonus(bonusUIDataSO[(int)BonusEnum.Coin9]);
-        //                }
-        //            }
-        //        }
-        //        break;
-        //    case CoinEnum.Gold:
-        //        break;
-        //    case CoinEnum.Diamond:
-        //        break;
-        //    default:
-        //        items[n].SetBonus(bonusUIDataSO[(int)BonusEnum.Coin3]);
-        //        break;
-
-        //}
+        
         selectIdx = (selectIdx + addIdx) % items.Length; 
         targetTr = items[selectIdx].recTr;
-    }
-    public IEnumerator SpinCor(CoinEnum _cEnum)
-    {
-        // ������ �� �Ⱥ��̴� ui �κ� set
-        SpinInit(_cEnum);
-        float period = UnityEngine.Random.Range(3f, 3.5f);
-
-        remainCntTxt.text = "";
-
-        yield return StartCoroutine(RemainCor());
-
-        remainCntTxt.text = RouletteManager.Instance.remainBonusCnt.ToString();
-
-        yield return StartCoroutine(SpinCor(period, Mathf.Abs(targetTr.position.x - arrowRectTr.position.x)));
-
-        ShowBonus(items[selectIdx].bonus);
     }
     private IEnumerator SpinCor(float duration, float len)
     {
@@ -204,7 +173,17 @@ public class BonusRoulette : MonoBehaviour
                 break;
             case BonusEnum.EarthQuake:
                 {
-                    BonusManager.Instance.ShowEarthQuake();
+                    bonusManager.ShowEarthQuake();
+                }
+                break;
+            case BonusEnum.WaterSpout:
+                {
+                    bonusManager.ShowWaterSpout();
+                }
+                break;
+            case BonusEnum.Tornado:
+                {
+                    bonusManager.ShowTornado();
                 }
                 break;
             default:

@@ -22,6 +22,16 @@ public class BonusManager : Singleton<BonusManager>
         originalPosition = mainObjTr.position;
     }
     [Button]
+    public void ShowWaterSpout()
+    {
+        
+    }
+    [Button]
+    public void ShowTornado()
+    {
+
+    }
+    [Button]
     public void ShowEarthQuake()
     {
         StartCoroutine(EarthQuakeCor());

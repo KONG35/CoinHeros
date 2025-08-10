@@ -104961,50 +104961,6 @@ PrefabInstance:
       propertyPath: coinMachine
       value: 
       objectReference: {fileID: 1448307379}
-    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
-      propertyPath: bonusInfos.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
-      propertyPath: bonusUIDataSO.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
-      propertyPath: bonusUIDataSO.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 82f320e92245fb94f9f3df3365d6597a, type: 2}
-    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
-      propertyPath: bonusUIDataSO.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4c04e0cde49bed649a64ce144e465a17, type: 2}
-    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
-      propertyPath: bonusUIDataSO.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: ab6f1e20373bcf0418fd39fd3eec7b16, type: 2}
-    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
-      propertyPath: bonusUIDataSO.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4db185cbc81afae4db93d5ef74ada52a, type: 2}
-    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
-      propertyPath: bonusInfos.Array.data[3].bonus
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689072403958798320, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
-      propertyPath: bonusInfos.Array.data[3].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: bcd58c373a5afc744a72242541980538, type: 3}
-    - target: {fileID: 8894301370888425387, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 8894301370888425387, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 8894301370888425387, guid: c619466ab7243e84b90f5b4396ea1d98, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 90
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -105018,6 +104974,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 52602238016738517, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
+      propertyPath: coinLaunchMachine
+      value: 
+      objectReference: {fileID: 1448307379}
     - target: {fileID: 52602238016738517, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
       propertyPath: startCoinGroupTr.Array.data[0]
       value: 
