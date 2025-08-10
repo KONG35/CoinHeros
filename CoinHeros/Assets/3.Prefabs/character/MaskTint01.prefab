@@ -1192,6 +1192,8 @@ MonoBehaviour:
   _name: 
   Image: {fileID: 0}
   _anim: {fileID: 1505256498287506956}
+  isBattle: 0
+  isDead: 0
   jobAnims:
   - {fileID: 22100000, guid: 9a777032e57f4644b9e3d1ccea9e6d26, type: 2}
   - {fileID: 22100000, guid: 0a3aee983c0dbd949a1d1c5ec06485f0, type: 2}
@@ -1202,6 +1204,15 @@ MonoBehaviour:
   - {fileID: 22100000, guid: 428c34639b989c943911dbe3dc527a88, type: 2}
   - {fileID: 22100000, guid: 84110f1ffc61e8f4795bfe8b5ba0f2e7, type: 2}
   _controller: {fileID: 1315698471580270431}
+  equippedItemsArray:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  currentAbilityName: MeleeAttack
 --- !u!1 &1759677156964481766
 GameObject:
   m_ObjectHideFlags: 0

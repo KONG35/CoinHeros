@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using CoinHeros;
+using System.Linq;
 
 public class UserData : Singleton<UserData>
 {
@@ -56,6 +57,7 @@ public class UserData : Singleton<UserData>
         if(UnitList.Count==0)
         {
             AddCharacter();
+            BattleUnit[0] = UnitList.First();
         }
         isInit = true;
     }

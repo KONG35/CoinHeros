@@ -66,6 +66,14 @@ public class CharacterData : CharacterBase
     {
 
     }
+    public void battleInit()
+    {
+        UpdateInspectorArray();
+        UpdateCharacterStats();
+        UpdateCharacterAppearance();
+        UpdateAbilityDisplay();
+        base.battleInit();
+    }
 
     // 개별 캐릭터 장착 시스템
     public bool EquipItem(ItemData item)

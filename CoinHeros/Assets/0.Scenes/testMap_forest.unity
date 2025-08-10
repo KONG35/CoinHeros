@@ -105894,6 +105894,14 @@ PrefabInstance:
       propertyPath: mainObjTr
       value: 
       objectReference: {fileID: 1469956750}
+    - target: {fileID: 1782390869856340441, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
+      propertyPath: MonsterMagicAttack
+      value: 
+      objectReference: {fileID: 11400000, guid: 631c76d2a2096584fafb4894d985e87a, type: 2}
+    - target: {fileID: 1782390869856340441, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
+      propertyPath: MonsterMeleeAttack
+      value: 
+      objectReference: {fileID: 11400000, guid: 8ca6397bb16083e47819d378e40be30d, type: 2}
     - target: {fileID: 2776932676454456440, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
       propertyPath: bonusRoul
       value: 

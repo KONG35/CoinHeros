@@ -87,7 +87,7 @@ public class MeleeAttackExecutor : IAbilityExecutor
         casterCharacter.PlayAnim(CharacterBase.eAnimState.Attack);
         
         // 타겟 찾기 (밀리 공격: 앞열 우선)
-        var target = FindMeleeTarget();
+        var target = FindMeleeTarget(casterCharacter);
         if (target != null)
         {
             target.Hit(damage, gasSOdata.AttackDamage);
@@ -99,7 +99,7 @@ public class MeleeAttackExecutor : IAbilityExecutor
         }
     }
     
-    private CharacterBase FindMeleeTarget()
+    private CharacterBase FindMeleeTarget(CharacterBase Caster)
     {
         var battleManager = BattleManager.Instance;
         if (battleManager == null || battleManager.UnitPositions == null)
@@ -107,17 +107,21 @@ public class MeleeAttackExecutor : IAbilityExecutor
             Debug.LogError("BattleManager 또는 UnitPositions를 찾을 수 없습니다.");
             return null;
         }
+        var Character = Caster as CharacterData;
         
         var unitPositions = battleManager.UnitPositions;
+        var Slot = unitPositions.RightSlot;
+        if(Character == null)
+            Slot = unitPositions.LeftSlot;
         
         // 앞열 우선 타겟 순서: 중앙(1) -> 위(0) -> 아래(2) -> 뒷열 중앙(4) -> 뒷열 위(3) -> 뒷열 아래(5)
         int[] targetPriority = { 1, 0, 2, 4, 3, 5 };
         
         foreach (int index in targetPriority)
         {
-            if (index < unitPositions.RightSlot.Length && unitPositions.RightSlot[index] != null &&!unitPositions.RightSlot[index].isDead)
+            if (index < Slot.Length && Slot[index] != null &&!Slot[index].isDead)
             {
-                var target = unitPositions.RightSlot[index] as CharacterBase;
+                var target = Slot[index] as CharacterBase;
                 if (target != null)
                 {
                     return target;
@@ -149,7 +153,7 @@ public class MagicAttackExecutor : IAbilityExecutor
         casterCharacter.PlayAnim(CharacterBase.eAnimState.Ability);
         
         // 타겟 찾기 (마법 공격: 앞열 우선)
-        var target = FindMagicTarget();
+        var target = FindMagicTarget(casterCharacter);
         if (target != null)
         {
             target.Hit(damage, gasSOdata.MagicDamage);
@@ -161,7 +165,7 @@ public class MagicAttackExecutor : IAbilityExecutor
         }
     }
     
-    private CharacterBase FindMagicTarget()
+    private CharacterBase FindMagicTarget(CharacterBase Caster)
     {
         var battleManager = BattleManager.Instance;
         if (battleManager == null || battleManager.UnitPositions == null)
@@ -172,14 +176,19 @@ public class MagicAttackExecutor : IAbilityExecutor
         
         var unitPositions = battleManager.UnitPositions;
         
+        var Character = Caster as CharacterData;
+        
+        var Slot = unitPositions.RightSlot;
+        if(Character == null)
+            Slot = unitPositions.LeftSlot;
         // 앞열 우선 타겟 순서: 중앙(1) -> 위(0) -> 아래(2) -> 뒷열 중앙(4) -> 뒷열 위(3) -> 뒷열 아래(5)
         int[] targetPriority = { 1, 0, 2, 4, 3, 5 };
         
         foreach (int index in targetPriority)
         {
-            if (index < unitPositions.RightSlot.Length && unitPositions.RightSlot[index] != null&&!unitPositions.RightSlot[index].isDead)
+            if (index < Slot.Length && Slot[index] != null&&!Slot[index].isDead)
             {
-                var target = unitPositions.RightSlot[index] as CharacterBase;
+                var target = Slot[index] as CharacterBase;
                 if (target != null)
                 {
                     return target;
@@ -236,3 +245,7 @@ public class SpearAttackExecutor : IAbilityExecutor
 
     }
 }
+
+
+
+

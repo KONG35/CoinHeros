@@ -33,6 +33,7 @@ public class GASAttributeData : Singleton<GASAttributeData>
 
 
 
+    /// Abillity
     public AbilityDefSO ArrowAttack;
     public AbilityDefSO DoubleSwordAttack;
     public AbilityDefSO MagicAttack;
@@ -41,4 +42,11 @@ public class GASAttributeData : Singleton<GASAttributeData>
     public AbilityDefSO SpearAttack;
     public AbilityDefSO SwordAndShieldAttack;
     public AbilityDefSO TwoHandSwordAttack;
+
+
+
+    ///Monstyer Abillity
+    /// 
+    public AbilityDefSO MonsterMeleeAttack;
+    public AbilityDefSO MonsterMagicAttack;
 }

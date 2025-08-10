@@ -1646,7 +1646,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ef1b20899e322a44a118ae7423dda3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  definitions: []
+  definitions:
+  - {fileID: 11400000, guid: 631c76d2a2096584fafb4894d985e87a, type: 2}
 --- !u!114 &-6392741681997830936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1676,6 +1677,8 @@ MonoBehaviour:
   _name: Beholder
   Image: {fileID: 0}
   _anim: {fileID: 0}
+  isBattle: 0
+  isDead: 0
   AttackType: 1
 --- !u!54 &4648727474160784183
 Rigidbody:

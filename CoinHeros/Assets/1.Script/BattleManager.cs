@@ -9,7 +9,7 @@ public class BattleManager : Singleton<BattleManager>
 {
 
     public int CurStage = 1;
-    public bool isStageStarted = false;
+    public bool IsUpdate = false;
 
     public BattleUnitPos UnitPositions;
 
@@ -17,6 +17,11 @@ public class BattleManager : Singleton<BattleManager>
     public BattleUnitPos.eBattleUnitPos Pos;
 
     public float StageStartDelayTime =3.0f;
+
+    public void Start()
+    {
+        StartCoroutine(DelayStageStart(2.0f));
+    }
 
     [Button]
     public void SetUnit()
@@ -336,7 +341,12 @@ public class BattleManager : Singleton<BattleManager>
         // 스폰 애니메이션 등을 위한 충분한 시간 대기
         yield return new WaitForSeconds(waitTime);
         
-        isStageStarted =true;
+        IsUpdate =true;
+    }
+    private IEnumerator DelayStageStart(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        StageStart();
     }
     [Button]
     public void StageStart()
@@ -346,16 +356,25 @@ public class BattleManager : Singleton<BattleManager>
         
         // 플레이어 유닛 배치
         var battleUnits = UserData.Instance.BattleUnit;
-        
+        int count = 0;
         for (int i = 0; i < battleUnits.Length; i++)
         {
             if (battleUnits[i] != null)
             {
                 PlaceCharacterUnit(battleUnits[i], i);
                 battleUnits[i].battleInit();
+                battleUnits[i].gameObject.SetActive(true);
+                count++;
             }
         }
-        
+        if(count ==0)
+        {
+            if(UserData.Instance.UnitList.Count==0)
+                UserData.Instance.AddCharacter();
+            UserData.Instance.BattleUnit[0] = UserData.Instance.UnitList[0];
+            StageStart();
+            return;
+        }
         // 몬스터 배치 (현재는 랜덤 3~6마리, 나중에 데이터테이블에서 읽어올 예정)
         int monsterCount = GetMonsterCountForStage();
         
@@ -420,8 +439,10 @@ public class BattleManager : Singleton<BattleManager>
         {
             return;
         }
-        var unit = Instantiate(characterData, UnitPositions.Left[positionIndex]);
+        //var unit = Instantiate(characterData, UnitPositions.Left[positionIndex]);
+        var unit = characterData;
 
+        UnitPositions.DisposUnit(positionIndex,unit);
         UnitPositions.LeftSlot[positionIndex] = unit;
         unit.transform.localPosition = Vector3.zero;
         unit.transform.localRotation = Quaternion.identity;
@@ -464,7 +485,7 @@ public class BattleManager : Singleton<BattleManager>
     
     private void Update()
     {
-        if (!isStageStarted) return;
+        if (!IsUpdate) return;
         
         foreach(var unit in UnitPositions.LeftSlot)
             if(unit!=null)
@@ -485,7 +506,6 @@ public class BattleManager : Singleton<BattleManager>
                 var monster = UnitPositions.RightSlot[i] as MonsterData;
                 if (monster != null&&!monster.isDead)
                 {
-                    // 몬스터가 살아있는지 체크 (HP가 0보다 큰지 확인)
                     float currentHP = monster.GetState(GASAttributeData.Instance.HP);
                     if (currentHP > 0)
                     {
@@ -500,7 +520,7 @@ public class BattleManager : Singleton<BattleManager>
         if (allMonstersDead && aliveMonsterCount == 0)
         {
             Debug.Log("모든 몬스터가 사망했습니다. 다음 스테이지로 진행합니다.");
-            isStageStarted =false;
+            IsUpdate =false;
 
             NextStage();
 

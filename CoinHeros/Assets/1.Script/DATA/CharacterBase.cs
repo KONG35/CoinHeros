@@ -35,6 +35,9 @@ public class CharacterBase : MonoBehaviour
 
         _rig.useGravity = false;
         _anim.applyRootMotion = false;
+        _rig.velocity = Vector3.zero;
+        _rig.angularVelocity = Vector3.zero;
+        _rig.ResetInertiaTensor();
 
         isInit = false;
 
@@ -47,11 +50,13 @@ public class CharacterBase : MonoBehaviour
     }
     public void Update()
     {
-        _anim.SetFloat("Speed", _rig.velocity.magnitude);
+        if(_anim)
+            _anim.SetFloat("Speed", _rig.velocity.magnitude);
     }
     public void Tick()
     {
-        _ability.Action();
+        if(_ability)
+            _ability.Action();
     }
     public void toMove(Vector3 Pos,float Speed)
     {
