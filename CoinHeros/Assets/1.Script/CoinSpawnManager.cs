@@ -22,6 +22,8 @@ public class CoinSpawnManager :Singleton<CoinSpawnManager>
 
     [SerializeField]
     private CoinLaunchMachine coinLaunchMachine;
+    [SerializeField]
+    private CoinRemainUI remainUI;
     public int maxCoinCount{get; private set;}
     public int remainCoinCount{get {return remainCoinList.Count;}}
     private List<CoinEnum> remainCoinList;
@@ -29,11 +31,9 @@ public class CoinSpawnManager :Singleton<CoinSpawnManager>
     override protected void Awake()
     {
         base.Awake();
-        isPaused = false;
+        isPaused = true;
         remainCoinList = new List<CoinEnum>();
         maxCoinCount = 8;
-        
-        ResetCoin();
     }
     
     private void Start()
@@ -66,38 +66,47 @@ public class CoinSpawnManager :Singleton<CoinSpawnManager>
             c.ResetRigidbody();
             
             c.gameObject.transform.rotation = Quaternion.identity;
-            // ���� ���̱�
-            //LayerMask mask = LayerMask.GetMask("Slider", "Coin");
             c.gameObject.transform.position = startCoinGroupTr[i].position;
-            //CoinMaker.PlacedOn(c.gameObject, c.transform.position, mask);
         }
-        
+        remainUI.Init();
+        StartCoroutine(ResetCoinCor());
+        StartCoroutine(Loop());
     }
-    private void Update()
+    private IEnumerator Loop()
     {
-        
-        if(Input.GetKeyDown("1"))
+        while(true)
         {
-            if(remainCoinList.Count== 0 || isPaused)
-                return;
-
-            coinLaunchMachine.InsertCoin(remainCoinList[0]);
-            remainCoinList.RemoveAt(0);
-            
-            if(remainCoinList.Count==0)
+            if(Input.GetKeyDown("1"))
             {
-                isPaused = true;
+                if(remainCoinList.Count == 0 || isPaused && !BattleManager.Instance.IsUpdate)
+                {
+                    yield return null;
+                    continue;
+                }
+                int idx = remainCoinList.Count-1;
+                remainUI.Pop(idx);
+                coinLaunchMachine.InsertCoin(remainCoinList[idx]);
+                remainCoinList.RemoveAt(idx);
                 
-                BattleManager.Instance.MonsterAction();
-                ResetCoin();
+                if(remainCoinList.Count==0)
+                {
+                    isPaused = true;
+                    
+                    BattleManager.Instance.MonsterAction();
+                }
             }
+            if(isPaused && remainCoinList.Count==0 && BattleManager.Instance.IsUpdate)
+            {
+                yield return StartCoroutine(ResetCoinCor());
+            }
+            yield return null; // 프레임 대기 추가
         }
-        
     }
+    
     /// <summary>
     /// 좌상단 coin pool 디시 set
     /// </summary>
-    private void ResetCoin()
+    private IEnumerator ResetCoinCor()
     {
         for(int i=0;i<maxCoinCount;i++)
         {
@@ -123,6 +132,8 @@ public class CoinSpawnManager :Singleton<CoinSpawnManager>
         }
         // 몬스터 공격 끝나고 호출할 것
         // 수정될 부분
+        // remainUI.SetItemGroup(remainCoinList);
+        yield return StartCoroutine(remainUI.SetItemGroupCor(remainCoinList));
         isPaused = false;
     }
     public Coin GetCoin(CoinEnum _cEnum)
@@ -144,11 +155,7 @@ public class CoinSpawnManager :Singleton<CoinSpawnManager>
                 coinData = diamondCoin.PoolData;
                 break;
         }
-        Coin coin = ObjectManager.Instance.Get<Coin>(coinData);
-        if (coin == null)
-            Debug.Log($"{_cEnum}�� {coinData}�� �������� ����.");
-            
-        return coin;
+        return ObjectManager.Instance.Get<Coin>(coinData);
     }
     public void ReturnCoin(PoolDataSO poolData, Coin item)
     {
