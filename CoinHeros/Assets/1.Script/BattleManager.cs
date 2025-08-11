@@ -2,6 +2,7 @@ using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -222,11 +223,18 @@ public class BattleManager : Singleton<BattleManager>
     }
 
 
-    public void MonsterAction()
+    public async Task MonsterAction()
     {
+        IsUpdate =false;
         foreach(var monster in UnitPositions.RightSlot)
+        {
             if(monster!=null)
+            {
+                await TaskDelay(1500); 
                 monster.Tick();
+            }
+        }
+        IsUpdate=true;
     }
 
     private int currentCharacterIndex = 0; // 현재 처리할 캐릭터 인덱스
@@ -526,6 +534,19 @@ public class BattleManager : Singleton<BattleManager>
 
             
         }
+    }
+
+    
+    public async Task WaitUntilAsync(Func<bool> condition, int checkIntervalMs = 100)
+    {
+        while (!condition())
+        {
+            await Task.Delay(checkIntervalMs);
+        }
+    }
+    public async Task TaskDelay(int ms = 1000)
+    {
+        await Task.Delay(ms);
     }
 }
 

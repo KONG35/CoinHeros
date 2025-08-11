@@ -50,11 +50,15 @@ public class CharacterBase : MonoBehaviour
     }
     public void Update()
     {
+        if(isDead)
+            return;
         if(_anim)
             _anim.SetFloat("Speed", _rig.velocity.magnitude);
     }
     public void Tick()
     {
+        if(isDead)
+            return;
         if(_ability)
             _ability.Action();
     }
@@ -218,13 +222,15 @@ public class CharacterBase : MonoBehaviour
         isDead=false;
     }
     
-    public void Hit(float damage, AttributeDefSO damageType)
+    public void Hit(float damage, AttributeDefSO damageType, float penetration = 0f, float penetrationPercent = 0f)
     {
+        if(isDead)
+            return;
         var gasSOdata = GASAttributeData.Instance;
         float currentHP = GetState(gasSOdata.HP);
         
-        // 데미지 타입에 따른 방어력 적용
-        float finalDamage = CalculateDamage(damage, damageType);
+        // 데미지 타입에 따른 방어력 적용 (관통력 포함)
+        float finalDamage = CalculateDamage(damage, damageType, penetration, penetrationPercent);
         float newHP = Mathf.Max(0, currentHP - finalDamage);
         
         SetModifyState(gasSOdata.HP, "CalcBase", newHP, StackPolicy.Override);
@@ -234,7 +240,16 @@ public class CharacterBase : MonoBehaviour
         
         // 데미지 타입에 따른 로그 메시지
         string damageTypeName = (damageType == gasSOdata.AttackDamage) ? "물리" : "마법";
-        Debug.Log($"{_name}이(가) {damageTypeName} 데미지 {damage}를 받았습니다. (방어력 적용 후: {finalDamage}, HP: {currentHP} -> {newHP})");
+        string penetrationText = "";
+        if (penetration > 0 || penetrationPercent > 0)
+        {
+            penetrationText = " (관통력: ";
+            if (penetration > 0) penetrationText += $"{penetration}";
+            if (penetration > 0 && penetrationPercent > 0) penetrationText += " + ";
+            if (penetrationPercent > 0) penetrationText += $"{penetrationPercent}%";
+            penetrationText += ")";
+        }
+        Debug.Log($"{_name}이(가) {damageTypeName} 데미지 {damage}를 받았습니다.{penetrationText} (방어력 적용 후: {finalDamage}, HP: {currentHP} -> {newHP})");
         
         // HP가 0 이하가 되면 사망 처리
         if (newHP <= 0)
@@ -271,7 +286,7 @@ public class CharacterBase : MonoBehaviour
         Debug.Log($"{_name}의 어빌리티 비용이 설정되었습니다: {costSO.name} = {value}");
     }
     
-    private float CalculateDamage(float baseDamage, AttributeDefSO damageType)
+    private float CalculateDamage(float baseDamage, AttributeDefSO damageType, float penetration = 0f, float penetrationPercent = 0f)
     {
         var gasSOdata = GASAttributeData.Instance;
         
@@ -288,9 +303,16 @@ public class CharacterBase : MonoBehaviour
             defence = GetState(gasSOdata.MagicDefence);
         }
         
+        // 관통력에 따른 방어력 감소 (고정값 + 퍼센트)
+        float flatPenetration = penetration; // 고정 관통력
+        float percentPenetration = defence * (penetrationPercent / 100f); // 퍼센트 관통력
+        float totalPenetration = flatPenetration + percentPenetration;
+        
+        float effectiveDefence = Mathf.Max(0f, defence - totalPenetration);
+        
         // 방어력에 따른 데미지 감소 계산
         // 방어력이 높을수록 데미지가 감소하도록 계산
-        float damageReduction = defence / (defence + 100f); // 방어력 공식 (필요에 따라 조정 가능)
+        float damageReduction = effectiveDefence / (effectiveDefence + 100f); // 방어력 공식 (필요에 따라 조정 가능)
         float finalDamage = baseDamage * (1f - damageReduction);
         
         return Mathf.Max(1f, finalDamage); // 최소 1 데미지는 보장
