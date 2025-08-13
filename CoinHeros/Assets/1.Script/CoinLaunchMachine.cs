@@ -26,6 +26,9 @@ public class CoinLaunchMachine : MonoBehaviour
     [Header("보너스 코인 던지는 위치 그룹")]
     [SerializeField]
     private Transform[] bonusStartTr;
+    [Header("보너스 코인 떨어지는 위치 그룹")]
+    // [SerializeField]
+    // private Transform[] bonusEndTr;
     [SerializeField]
     private Transform bonusApexTr;
     [SerializeField]
@@ -99,28 +102,32 @@ public class CoinLaunchMachine : MonoBehaviour
     {
         float gravity = Mathf.Abs(Physics.gravity.y);
 
-        // 1. ��� �ð�
+        // end 위치의 x값을 일정 범위에서 랜덤하게 조정
+        float randomXOffset = Random.Range(-5f, 5f);
+        Vector3 randomizedEnd = new Vector3(end.x + randomXOffset, end.y, end.z);
+
+        // 1. 올라가는 시간
         float heightUp = apex.y - start.y;
         if (heightUp < 0.01f)
-            heightUp = 0.01f;  // �ּ� ����
+            heightUp = 0.01f;  // 최소 높이
 
         float timeToApex = Mathf.Sqrt(2f * heightUp / gravity);
 
-        // 2. �ϰ� �ð�
-        float heightDown = apex.y - end.y;
+        // 2. 내려가는 시간
+        float heightDown = apex.y - randomizedEnd.y;
         if (heightDown < 0.01f)
             heightDown = 0.01f;
 
         float timeFromApex = Mathf.Sqrt(2f * heightDown / gravity);
 
-        // 3. �� ü�� �ð�
+        // 3. 전체 비행 시간
         float totalTime = timeToApex + timeFromApex;
 
-        // 4. ���� ���� �ӵ�
-        Vector3 displacementXZ = new Vector3(end.x - start.x, 0f, end.z - start.z);
+        // 4. 수평 방향 속도
+        Vector3 displacementXZ = new Vector3(randomizedEnd.x - start.x, 0f, randomizedEnd.z - start.z);
         Vector3 velocityXZ = displacementXZ / totalTime;
 
-        // 5. ���� ���� �ӵ� (�߷� ���ӵ��� �°�)
+        // 5. 수직 방향 속도 (중력 가속도로부터 역산)
         float velocityY = gravity * timeToApex;
 
         return velocityXZ + Vector3.up * velocityY;

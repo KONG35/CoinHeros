@@ -74729,6 +74729,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3296258391448838176, guid: 4fb4d30bff4fd7e4ca48ed2d96cc768a, type: 3}
   m_PrefabInstance: {fileID: 6784137193676492839}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1538409948 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 8008818757667090414, guid: 4fb4d30bff4fd7e4ca48ed2d96cc768a, type: 3}
+  m_PrefabInstance: {fileID: 6784137193676492839}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1538770658 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7356075703916658776, guid: 4fb4d30bff4fd7e4ca48ed2d96cc768a, type: 3}
@@ -105905,22 +105910,18 @@ PrefabInstance:
       propertyPath: UnitPositions
       value: 
       objectReference: {fileID: 1778619530}
-    - target: {fileID: 726201449590210133, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
-      propertyPath: mainObjTr
-      value: 
-      objectReference: {fileID: 1469956750}
-    - target: {fileID: 1782390869856340441, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
-      propertyPath: MonsterMagicAttack
-      value: 
-      objectReference: {fileID: 11400000, guid: 631c76d2a2096584fafb4894d985e87a, type: 2}
-    - target: {fileID: 1782390869856340441, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
-      propertyPath: MonsterMeleeAttack
-      value: 
-      objectReference: {fileID: 11400000, guid: 8ca6397bb16083e47819d378e40be30d, type: 2}
     - target: {fileID: 2776932676454456440, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
       propertyPath: bonusRoul
       value: 
       objectReference: {fileID: 627750538}
+    - target: {fileID: 2818546967439302934, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
+      propertyPath: mainObjTr
+      value: 
+      objectReference: {fileID: 1469956750}
+    - target: {fileID: 6764363707476712202, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
+      propertyPath: boundCol
+      value: 
+      objectReference: {fileID: 1538409948}
     - target: {fileID: 7883679022766108103, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
       propertyPath: m_Name
       value: Manager

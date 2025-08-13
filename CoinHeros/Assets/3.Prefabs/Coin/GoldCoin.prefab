@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6637596105276946124}
   m_Layer: 7
   m_Name: GoldCoin
-  m_TagString: Untagged
+  m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

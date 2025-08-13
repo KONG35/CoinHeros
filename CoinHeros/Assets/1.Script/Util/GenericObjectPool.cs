@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 public interface IPoolable
 {
-    void OnSpawn(); // 다시 꺼낼 때
-    void OnDespawn();// 풀에 들어갈 때
+    void OnSpawn(); 
+    void OnDespawn();
 }
 
 public class GenericObjectPool<T> where T : MonoBehaviour, IPoolable

@@ -8,6 +8,7 @@ TagManager:
   - Spin
   - Basket
   - Outside
+  - Coin
   layers:
   - Default
   - TransparentFX

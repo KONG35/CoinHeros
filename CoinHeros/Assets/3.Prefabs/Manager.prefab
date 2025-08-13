@@ -94,6 +94,56 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &3417267222887179182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2750567957354083736}
+  - component: {fileID: 2818546967439302934}
+  m_Layer: 0
+  m_Name: EarthQuake
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2750567957354083736
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3417267222887179182}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4299329323907598295}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2818546967439302934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3417267222887179182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 004bb1c12ec7cd14092e08233cd67046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainObjTr: {fileID: 0}
+  shakeDuration: 2.5
+  shakeIntensity: 0.25
+  shakeFrequency: 40
+  offsetPosA: {x: -2, y: 0.5, z: 0}
+  offsetPosB: {x: 2, y: -0.5, z: 0}
 --- !u!1 &3421310837600723497
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,6 +221,8 @@ MonoBehaviour:
   SpearAttack: {fileID: 11400000, guid: 9660a5728a5edde40b35afd6f6f5aad9, type: 2}
   SwordAndShieldAttack: {fileID: 11400000, guid: 6ae3b76442c9c354c964276867d40d38, type: 2}
   TwoHandSwordAttack: {fileID: 11400000, guid: 3f602650af8606d4fbbf8f8fa573d87d, type: 2}
+  MonsterMeleeAttack: {fileID: 11400000, guid: 8ca6397bb16083e47819d378e40be30d, type: 2}
+  MonsterMagicAttack: {fileID: 11400000, guid: 631c76d2a2096584fafb4894d985e87a, type: 2}
 --- !u!1 &3877475463231696479
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +252,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2750567957354083736}
+  - {fileID: 748658276312409399}
   m_Father: {fileID: 7890601985095640694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &726201449590210133
@@ -215,12 +269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b79ded3bb96b38241adedbf41e12bad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainObjTr: {fileID: 0}
-  shakeDuration: 2.5
-  shakeIntensity: 0.25
-  shakeFrequency: 40
-  offsetPosA: {x: -2, y: 0.5, z: 0}
-  offsetPosB: {x: 2, y: -0.5, z: 0}
+  earthquakeAction: {fileID: 2818546967439302934}
+  waterSpoutAction: {fileID: 6764363707476712202}
 --- !u!1 &5588163808765376765
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +457,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e44fc1bda0d4a194ba62d5b32df3d1d9, type: 2}
   - {fileID: 11400000, guid: 7b7c5ce769bf02b4a8a991431efdb753, type: 2}
   - {fileID: 11400000, guid: ff856e6effd3b8742977a2fb81c80238, type: 2}
+  - {fileID: 11400000, guid: 2e75c14727689604abc1cddfc14a2fec, type: 2}
 --- !u!1 &6475441428266375739
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,6 +541,52 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &7024679529333260498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 748658276312409399}
+  - component: {fileID: 6764363707476712202}
+  m_Layer: 0
+  m_Name: WaterSpout
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &748658276312409399
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7024679529333260498}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4299329323907598295}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6764363707476712202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7024679529333260498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3145a785ebea2647914b611e62c5899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterSpoutParticle: {fileID: 8449988071245009513, guid: 6944a17e1a4a11f4490911332c12304c, type: 3}
+  boundCol: {fileID: 0}
 --- !u!1 &7819890720649814054
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +863,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  coinLaunchMachine: {fileID: 0}
+  remainUI: {fileID: 0}
 --- !u!1 &7883679022766108103
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,14 +994,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurStage: 1
-  isStageStarted: 0
+  IsUpdate: 0
   UnitPositions: {fileID: 0}
   test_SetUnit: {fileID: -6995890468030562147, guid: 57afc98a9486fd94db1965e854a296e9, type: 3}
   Pos: 0
+  StageStartDelayTime: 3
   TargetCharacter: {fileID: 0}
   Speed: 10
   anim: 0
   testStagenumber: 0
+  currentActionCoins:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
 --- !u!1 &8549816309140194109
 GameObject:
   m_ObjectHideFlags: 0

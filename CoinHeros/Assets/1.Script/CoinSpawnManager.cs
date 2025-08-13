@@ -16,7 +16,7 @@ public class CoinSpawnManager :Singleton<CoinSpawnManager>
     private Coin diamondCoin;
 
     [Space(5)]
-    [Header("StartCoin ����")]
+    [Header("StartCoin group")]
     [SerializeField]
     private Transform[] startCoinGroupTr;
 

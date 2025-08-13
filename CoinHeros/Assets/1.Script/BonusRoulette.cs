@@ -30,8 +30,6 @@ public class BonusRoulette : MonoBehaviour
     [SerializeField]
     private int selectIdx;
 
-    [SerializeField]
-    private Transform mainTr;
 
     private RectTransform targetTr;
     private Vector3 intervalVec;
@@ -171,23 +169,9 @@ public class BonusRoulette : MonoBehaviour
                     coinMachine.ShowBonusCoin(_bonus, CoinEnum.Gold);
                 }
                 break;
-            case BonusEnum.EarthQuake:
-                {
-                    bonusManager.ShowEarthQuake();
-                }
-                break;
-            case BonusEnum.WaterSpout:
-                {
-                    bonusManager.ShowWaterSpout();
-                }
-                break;
-            case BonusEnum.Tornado:
-                {
-                    bonusManager.ShowTornado();
-                }
-                break;
             default:
                 {
+                    bonusManager.Show(_bonus);
                 }
                 break;
         }
