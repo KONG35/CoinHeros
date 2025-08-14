@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6237579438380762204}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_nose01Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3898888412590573580}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornMiddle01Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5072739939800919659}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_frontLeg01Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3501506058405423325}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornMiddle03Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7870330639377027888}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornMiddle02Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5412848305376299096}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6105878128475689693}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornDown02Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 5460283519004612271}
   - component: {fileID: -3150234921423378624}
   - component: {fileID: -4704285321804416663}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SalamanderPBRMaskTint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -407,6 +407,9 @@ MonoBehaviour:
   _name: 
   Image: {fileID: 0}
   _anim: {fileID: 0}
+  isBattle: 0
+  isDead: 0
+  AttackType: 0
 --- !u!1 &1406393045819547455
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,7 +419,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7169112248087053130}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_lowerMouth02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +451,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1599352804337744651}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornMiddle02Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -480,7 +483,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7153547734262183157}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +515,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8724797037315505762}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_rearLeg04Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +546,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5597098627587578237}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_frontLeg03Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -575,7 +578,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3624676374856362309}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_frontLeg04Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -606,7 +609,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2476598337724269433}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_rearLeg03Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -638,7 +641,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4910050794951759355}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornUp02Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -670,7 +673,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2832248997077839802}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornUp03Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -701,7 +704,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4618256772175356040}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornMiddle01Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -733,7 +736,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2946874982656830537}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_rearLeg02Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -765,7 +768,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7874796797734887159}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_frontLeg02Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -797,7 +800,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8718719907280826402}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_tail02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -829,7 +832,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1108188735612376483}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornDown03Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -860,7 +863,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3843318901847815230}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_eyeRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -891,7 +894,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1302620706353081322}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornUp02Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -923,7 +926,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6266112997163169713}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_nose03Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -954,7 +957,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 435950114749867258}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_rearLeg01Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -986,7 +989,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1697790452354056626}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornDown01Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1018,7 +1021,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8883152477625647243}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_tail01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1050,7 +1053,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1079683905081346263}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_upperMouth03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1081,7 +1084,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 13298250611365804}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_rearLeg04Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1112,7 +1115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3023695067895454358}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_frontLeg03Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1144,7 +1147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 287482737911820839}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_rearLeg02Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1176,7 +1179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5564651440875001808}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_upperMouth01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1210,7 +1213,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8310215656795811573}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_frontLeg01Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1242,7 +1245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5141709127941366213}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_rearLeg01Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1274,7 +1277,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8061482877684254412}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornUp01Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1306,7 +1309,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6024797599726696128}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_spine01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1338,7 +1341,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8488228302069699713}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_nose03Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1369,7 +1372,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7189562461290726335}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_nose02Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1400,7 +1403,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7220224916616086516}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornUp03Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1431,7 +1434,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2392920309177116970}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_frontLeg04Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1462,7 +1465,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1487862578677496513}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_tail03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1494,7 +1497,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7395219457088386401}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_lowerMouth01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1526,7 +1529,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4432923838370453352}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_tail04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1558,7 +1561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6356635610623252529}
   - component: {fileID: 8602824803540142896}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Salamender
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1699,7 +1702,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6135506872820316711}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1738,7 +1741,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3529422399013055937}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_frontLeg02Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1770,7 +1773,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1542043462695935415}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornDown01Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1802,7 +1805,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1993121267516403321}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornUp01Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1834,7 +1837,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 356806402743803043}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_upperMouth02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1868,7 +1871,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7876293560636958765}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_rearLeg03Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1900,7 +1903,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2315113141979935267}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_nose02Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1931,7 +1934,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 832874560310051705}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornDown02Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1963,7 +1966,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6801281344530717872}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_spine02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1997,7 +2000,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3732896997303264175}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornMiddle03Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2028,7 +2031,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3309813007745880625}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_nose01Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2061,7 +2064,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2587443915623658395}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_hornDown03Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2092,7 +2095,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6737618026373193834}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_eyeLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2123,7 +2126,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1743114549554317731}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: salamender_lowerMouth03
   m_TagString: Untagged
   m_Icon: {fileID: 0}

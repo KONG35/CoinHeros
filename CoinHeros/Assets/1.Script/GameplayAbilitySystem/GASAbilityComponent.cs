@@ -50,7 +50,7 @@ class AbilitySpec
     
     // 딜레이 관련 변수들
     private float lastActionTime = 0f;
-    private float actionDelay = 10.0f; // 3초 딜레이
+    private float actionDelay = 3.0f; // 3초 딜레이
     private bool isOnCooldown = false;
 
     GASTagComponent tags;
@@ -114,8 +114,14 @@ class AbilitySpec
 
         attriSet.Pay("Cost", def.costs);
 
+
         executor.Execute(new AbilityContext { Caster = owner, AbilityLevel = Level, Definition = def, Attributes = attriSet, Tags = tags });
         
+        if(BattleUIManager.Instance && BattleManager.Instance)
+        {
+            BattleUIManager.Instance.UnitPanel.UpdateItemList(BattleManager.Instance.UnitPositions.LeftSlot);
+            BattleUIManager.Instance.MonsterPanel.UpdateItemList(BattleManager.Instance.UnitPositions.RightSlot);
+        }
         // 액션 실행 후 딜레이 시작
         lastActionTime = Time.time;
         isOnCooldown = true;

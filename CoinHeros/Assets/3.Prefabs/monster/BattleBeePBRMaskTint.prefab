@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 446310675765707429}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_firstWing01Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 689794569525833771}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_upperlegLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5137033198447923936}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_tail03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2291304403725121216}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_spine02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6458222124264602818}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4671627410065576146}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_feetLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5107672494289933692}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_handTipLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,7 +233,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1286100321907347058}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_lowerLegRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5484099616549921052}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_upperlegRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 969829294365727819}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_lowerArmLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1765212665026699110}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_handTipRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -360,7 +360,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4888032515007963828}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_secondWing03Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8103027952291245538}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_tail05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8206987751451577285}
   - component: {fileID: 1268557068314674613}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BattleBee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,7 +548,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8806932796959306770}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_firstWing03Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -579,7 +579,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8305570278202072632}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_tail01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -611,7 +611,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8895209526637229320}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -643,7 +643,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5733575209092005127}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_firstWing02Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +675,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 598327567941451221}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_mouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -706,7 +706,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 861778011335195081}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_upperArmRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -738,7 +738,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2285326124265413368}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_lowerArmRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -770,7 +770,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3959512083160046456}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_handLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -802,7 +802,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3971070265541177120}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_tail02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -834,7 +834,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2754334403606277893}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_secondWingRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -867,7 +867,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6216775920350824464}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_secondWing02Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -899,7 +899,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4494793759576062469}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_secondWing03Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -930,7 +930,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4664120774200545605}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_upperArmLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -962,7 +962,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1633263306674062188}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_secondWing02Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -994,7 +994,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1587390569499502568}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_firstWing01Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1026,7 +1026,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5295294074904377377}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1059,7 +1059,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6032592822742987181}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_firstWingRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1092,7 +1092,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5632734191863536656}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_horn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1123,7 +1123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2693393303947838910}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_secondWing01Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1155,7 +1155,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6786260537949403863}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_lowerLegLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1187,7 +1187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8725058657860822343}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_handRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1219,7 +1219,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3352709027974062199}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_firstWing03Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1250,7 +1250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8540706484517193009}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_feetRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1281,7 +1281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1492111675221978896}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_tail04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1313,7 +1313,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7130259673198306182}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_secondWing01Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1345,7 +1345,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6133852866226039496}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_spine03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1379,7 +1379,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7038756689043371522}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_spine01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1414,7 +1414,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7643600185184422239}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: battleBee_firstWing02Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1453,7 +1453,7 @@ GameObject:
   - component: {fileID: 5539600535875126495}
   - component: {fileID: -7092914557563127201}
   - component: {fileID: 388464929251928709}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BattleBeePBRMaskTint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1617,3 +1617,6 @@ MonoBehaviour:
   _name: 
   Image: {fileID: 0}
   _anim: {fileID: 0}
+  isBattle: 0
+  isDead: 0
+  AttackType: 0

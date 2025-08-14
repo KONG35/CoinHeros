@@ -17,11 +17,22 @@ public class BattleManager : Singleton<BattleManager>
     public CharacterBase test_SetUnit;
     public BattleUnitPos.eBattleUnitPos Pos;
 
-    public float StageStartDelayTime =3.0f;
+    public float StageStartDelayTime = 3.0f;
 
     public void Start()
     {
         StartCoroutine(DelayStageStart(2.0f));
+    }
+
+    private void Update()
+    {
+        if (!IsUpdate) return;
+
+        foreach (var unit in UnitPositions.LeftSlot)
+            if (unit != null)
+                unit.Tick();
+
+        CheckMonsterStatus();
     }
 
     [Button]
@@ -37,7 +48,7 @@ public class BattleManager : Singleton<BattleManager>
             UnitPositions.DisposUnit(Pos, unit);
         }
 
-        if(monster)
+        if (monster)
         {
             UnitPositions.DisposMonster(Pos, unit);
         }
@@ -45,7 +56,7 @@ public class BattleManager : Singleton<BattleManager>
     }
 
     public CharacterBase TargetCharacter;
-    public float Speed =1f;
+    public float Speed = 1f;
     public CharacterBase.eAnimState anim;
     [Button]
     public void MoveUnit()
@@ -80,10 +91,10 @@ public class BattleManager : Singleton<BattleManager>
     private void PlaceMonsterByAttackType(MonsterData monster)
     {
         int targetIndex = -1;
-        
+
         // 어택 타입에 따른 우선 배치 인덱스 결정
         int startIndex, endIndex;
-        
+
         switch (monster.AttackType)
         {
             case MonsterData.MonsterAttackType.Melee:
@@ -99,7 +110,7 @@ public class BattleManager : Singleton<BattleManager>
                 endIndex = 5;
                 break;
         }
-        
+
         // 우선 배치 구간에서 랜덤하게 빈 자리 찾기
         List<int> availablePositions = new List<int>();
         for (int i = startIndex; i <= endIndex; i++)
@@ -109,7 +120,7 @@ public class BattleManager : Singleton<BattleManager>
                 availablePositions.Add(i);
             }
         }
-        
+
         if (availablePositions.Count > 0)
         {
             targetIndex = availablePositions[Random.Range(0, availablePositions.Count)];
@@ -125,23 +136,24 @@ public class BattleManager : Singleton<BattleManager>
                     availablePositions.Add(i);
                 }
             }
-            
+
             if (availablePositions.Count > 0)
             {
                 targetIndex = availablePositions[Random.Range(0, availablePositions.Count)];
             }
         }
-        
+
         if (targetIndex != -1)
         {
             UnitPositions.RightSlot[targetIndex] = monster;
             monster.transform.parent = UnitPositions.RightSpawnPoint.transform;
             monster.transform.position = UnitPositions.RightSpawnPoint.position;
+            monster.transform.localScale = Vector3.one * 2.0f;
             monster.transform.rotation = UnityEngine.Quaternion.Euler(0, 90, 0);
-            
+
             var targetPos = UnitPositions.Right[targetIndex].position;
             StartCoroutine(DelayedMove(monster, targetPos, 4.0f));
-            
+
             Debug.Log($"몬스터 {monster.name} ({monster.AttackType})가 위치 {targetIndex}에 배치되었습니다.");
         }
         else
@@ -150,7 +162,7 @@ public class BattleManager : Singleton<BattleManager>
             Destroy(monster.gameObject);
         }
     }
-    public MonsterData CreateMonster(int Stage,int Grade = 0)
+    public MonsterData CreateMonster(int Stage, int Grade = 0)
     {
         var data = DataTableManager.Instance;
         float value = nomalizeFloat(1, data.MaxStage, data.minMonsterState, data.maxMonsterState, CurStage);
@@ -162,7 +174,7 @@ public class BattleManager : Singleton<BattleManager>
         float r5 = Random.Range(10, value + 1);
 
 
-        float[] cuts = new float[] { r1, r2 ,r3,r4,r5};
+        float[] cuts = new float[] { r1, r2, r3, r4, r5 };
         Array.Sort(cuts);
 
         float a = cuts[0];
@@ -172,7 +184,7 @@ public class BattleManager : Singleton<BattleManager>
         float e = cuts[4] - cuts[3];
         float f = value - cuts[4];
 
-        int[] values = new int[] { (int)a, (int)b, (int)c,(int)d, (int)e, (int)f };
+        int[] values = new int[] { (int)a, (int)b, (int)c, (int)d, (int)e, (int)f };
         Shuffle(values);
 
         int str = values[0];
@@ -187,10 +199,10 @@ public class BattleManager : Singleton<BattleManager>
         int index = Random.Range(0, MonsterList.Count);
         MonsterData Unit = Instantiate(MonsterList[index], UserData.Instance.transform);
 
-        switch(Unit.AttackType)
+        switch (Unit.AttackType)
         {
             case MonsterData.MonsterAttackType.Melee:
-                str += (int)(mag *0.5f);
+                str += (int)(mag * 0.5f);
                 con += (int)(mag * 0.5f);
                 mag = 0;
                 break;
@@ -225,23 +237,25 @@ public class BattleManager : Singleton<BattleManager>
 
     public async Task MonsterAction()
     {
-        IsUpdate =false;
-        foreach(var monster in UnitPositions.RightSlot)
+        IsUpdate = false;
+        foreach (var monster in UnitPositions.RightSlot)
         {
-            if(monster!=null)
+            if (monster != null)
             {
-                await TaskDelay(1500); 
+                await TaskDelay(1500);
                 monster.Tick();
+                BattleUIManager.Instance.MonsterPanel.UpdateItemList(UnitPositions.RightSlot);
+                BattleUIManager.Instance.UnitPanel.UpdateItemList(UnitPositions.LeftSlot);
             }
         }
-        IsUpdate=true;
+        IsUpdate = true;
     }
 
     private int currentCharacterIndex = 0; // 현재 처리할 캐릭터 인덱스
-    
+
     [Header("디버그 - 현재 캐릭터 ActionCoin")]
     [SerializeField] private float[] currentActionCoins = new float[6]; // 6개 슬롯의 현재 ActionCoin
-    
+
     [Button]
     public void UpdateActionCoinDisplay()
     {
@@ -265,48 +279,42 @@ public class BattleManager : Singleton<BattleManager>
                 currentActionCoins[i] = 0f;
             }
         }
-        
+
     }
 
     public void CharacterAction(int CoinIndex)
     {
-        // 현재 인덱스부터 캐릭터를 찾을 때까지 반복
+        int TryCount = 0;
         while (currentCharacterIndex < UnitPositions.LeftSlot.Length)
         {
-            // 해당 인덱스에 캐릭터가 있는지 확인
             if (UnitPositions.LeftSlot[currentCharacterIndex] != null)
             {
                 var character = UnitPositions.LeftSlot[currentCharacterIndex] as CharacterData;
-                if (character != null)
+                if (character != null && !character.isDead)
                 {
-                    // 현재 ActionCoin 값을 가져와서 index만큼 증가 (최대값 제한 없음)
                     float currentCoin = character.GetState(GASAttributeData.Instance.ActionCoin);
                     float newCoin = currentCoin + CoinIndex + 1;
-                    
-                    // ActionCoin 값 업데이트
+
                     character.SetModifyState(GASAttributeData.Instance.ActionCoin, "CalcBase", newCoin, StackPolicy.Override);
-                    
-                    Debug.Log($"캐릭터 {character._name}의 ActionCoin이 {currentCoin}에서 {newCoin}으로 증가했습니다. (인덱스: {currentCharacterIndex})");
-                    
-                    // 디스플레이 업데이트
+
                     UpdateActionCoinDisplay();
-                    
-                    // 캐릭터를 찾았으므로 다음 호출을 위해 인덱스 증가 후 종료
+
                     currentCharacterIndex++;
+                    currentCharacterIndex %= UnitPositions.LeftSlot.Length;
+
+                    BattleUIManager.Instance.MonsterPanel.UpdateItemList(UnitPositions.RightSlot);
+                    BattleUIManager.Instance.UnitPanel.UpdateItemList(UnitPositions.LeftSlot);
+
                     return;
                 }
             }
-            else
-            {
-            }
-            
-            // 다음 인덱스로 이동
+            TryCount++;
             currentCharacterIndex++;
+            currentCharacterIndex %= UnitPositions.LeftSlot.Length;
+
+            if (TryCount > UnitPositions.LeftSlot.Length)
+                return;
         }
-        
-        // 모든 슬롯을 확인했지만 캐릭터를 찾지 못한 경우
-        Debug.Log("모든 캐릭터가 처리되었습니다. 인덱스를 초기화합니다.");
-        currentCharacterIndex = 0; // 모든 캐릭터 처리 후 초기화
     }
 
     /// <summary>
@@ -318,7 +326,7 @@ public class BattleManager : Singleton<BattleManager>
     /// <param name="RangeMax">목표 범위의 최대값</param>
     /// <param name="Range">정규화할 값</param>
     /// <returns>정규화된 값</returns>
-    public float nomalizeFloat(float ValueMin,float ValueMax,float RangeMin, float RangeMax ,float Range)
+    public float nomalizeFloat(float ValueMin, float ValueMax, float RangeMin, float RangeMax, float Range)
     {
         return (RangeMin + (Range - ValueMin) * (RangeMax - RangeMin) / (ValueMax - ValueMin));
     }
@@ -338,7 +346,7 @@ public class BattleManager : Singleton<BattleManager>
     {
         // 스폰 애니메이션 등을 위한 충분한 시간 대기
         yield return new WaitForSeconds(2.0f);
-        
+
         if (Vector3.Distance(unit.transform.position, targetPos) > 0.1f)
         {
             unit.toMove(targetPos, speed);
@@ -348,8 +356,8 @@ public class BattleManager : Singleton<BattleManager>
     {
         // 스폰 애니메이션 등을 위한 충분한 시간 대기
         yield return new WaitForSeconds(waitTime);
-        
-        IsUpdate =true;
+
+        IsUpdate = true;
     }
     private IEnumerator DelayStageStart(float waitTime)
     {
@@ -357,11 +365,11 @@ public class BattleManager : Singleton<BattleManager>
         StageStart();
     }
     [Button]
-    public void StageStart()
+    public async Task StageStart()
     {
         ClearAllUnits();
         ClearAllMonsters();
-        
+
         // 플레이어 유닛 배치
         var battleUnits = UserData.Instance.BattleUnit;
         int count = 0;
@@ -375,9 +383,9 @@ public class BattleManager : Singleton<BattleManager>
                 count++;
             }
         }
-        if(count ==0)
+        if (count == 0)
         {
-            if(UserData.Instance.UnitList.Count==0)
+            if (UserData.Instance.UnitList.Count == 0)
                 UserData.Instance.AddCharacter();
             UserData.Instance.BattleUnit[0] = UserData.Instance.UnitList[0];
             StageStart();
@@ -385,24 +393,27 @@ public class BattleManager : Singleton<BattleManager>
         }
         // 몬스터 배치 (현재는 랜덤 3~6마리, 나중에 데이터테이블에서 읽어올 예정)
         int monsterCount = GetMonsterCountForStage();
-        
+
         for (int i = 0; i < monsterCount; i++)
         {
             var monster = CreateMonster(CurStage);
             PlaceMonsterByAttackType(monster);
             monster.battleInit();
+            await TaskDelay(1000);
         }
         StartCoroutine(DelayStart(StageStartDelayTime));
+        BattleUIManager.Instance.MonsterPanel.SetItemList(UnitPositions.RightSlot);
+        BattleUIManager.Instance.UnitPanel.SetItemList(UnitPositions.LeftSlot);
         Debug.Log($"스테이지 {CurStage}가 {GetActiveUnitCount()}개의 유닛과 {GetActiveMonsterCount()}개의 몬스터와 함께 시작되었습니다.");
     }
-    
+
     private int GetMonsterCountForStage()
     {
         // TODO: 나중에 데이터테이블에서 스테이지별 몬스터 수를 읽어올 예정
         // 현재는 랜덤으로 3~6마리 생성
         return Random.Range(3, 7);
     }
-    
+
     private void ClearAllMonsters()
     {
         // 기존 배치된 몬스터들 제거
@@ -415,7 +426,7 @@ public class BattleManager : Singleton<BattleManager>
             }
         }
     }
-    
+
     private int GetActiveMonsterCount()
     {
         int count = 0;
@@ -428,7 +439,7 @@ public class BattleManager : Singleton<BattleManager>
         }
         return count;
     }
-    
+
     private void ClearAllUnits()
     {
         for (int i = 0; i < UnitPositions.LeftSlot.Length; i++)
@@ -440,7 +451,7 @@ public class BattleManager : Singleton<BattleManager>
             }
         }
     }
-    
+
     private void PlaceCharacterUnit(CharacterData characterData, int positionIndex)
     {
         if (positionIndex >= UnitPositions.LeftSlot.Length)
@@ -450,14 +461,14 @@ public class BattleManager : Singleton<BattleManager>
         //var unit = Instantiate(characterData, UnitPositions.Left[positionIndex]);
         var unit = characterData;
 
-        UnitPositions.DisposUnit(positionIndex,unit);
+        UnitPositions.DisposUnit(positionIndex, unit);
         UnitPositions.LeftSlot[positionIndex] = unit;
         unit.transform.localPosition = Vector3.zero;
         unit.transform.localRotation = Quaternion.identity;
         unit.transform.localScale = Vector3.one * 2.5f;
-        
+
     }
-    
+
     private int GetActiveUnitCount()
     {
         int count = 0;
@@ -471,48 +482,41 @@ public class BattleManager : Singleton<BattleManager>
         return count;
     }
 
-    public void NextStage()
+    public async Task NextStage()
     {
         CurStage++;
-        
+
         // 기존 몬스터들 제거
         ClearAllMonsters();
-        
+
         // 새로운 몬스터들 배치
         int monsterCount = GetMonsterCountForStage();
-        
+
         for (int i = 0; i < monsterCount; i++)
         {
+            await TaskDelay(1000);
             var monster = CreateMonster(CurStage);
             PlaceMonsterByAttackType(monster);
             monster.battleInit();
         }
         StartCoroutine(DelayStart(StageStartDelayTime));
+        BattleUIManager.Instance.MonsterPanel.SetItemList(UnitPositions.RightSlot);
+        BattleUIManager.Instance.UnitPanel.SetItemList(UnitPositions.LeftSlot);
         Debug.Log($"스테이지 {CurStage}로 진행되었습니다. {GetActiveMonsterCount()}개의 몬스터가 새로 배치되었습니다.");
     }
-    
-    private void Update()
-    {
-        if (!IsUpdate) return;
-        
-        foreach(var unit in UnitPositions.LeftSlot)
-            if(unit!=null)
-                unit.Tick();
 
-        CheckMonsterStatus();
-    }
-    
+
     private void CheckMonsterStatus()
     {
         bool allMonstersDead = true;
         int aliveMonsterCount = 0;
-        
+
         for (int i = 0; i < UnitPositions.RightSlot.Length; i++)
         {
             if (UnitPositions.RightSlot[i] != null)
             {
                 var monster = UnitPositions.RightSlot[i] as MonsterData;
-                if (monster != null&&!monster.isDead)
+                if (monster != null && !monster.isDead)
                 {
                     float currentHP = monster.GetState(GASAttributeData.Instance.HP);
                     if (currentHP > 0)
@@ -523,20 +527,20 @@ public class BattleManager : Singleton<BattleManager>
                 }
             }
         }
-        
+
         // 모든 몬스터가 죽었으면 다음 스테이지로 진행
         if (allMonstersDead && aliveMonsterCount == 0)
         {
             Debug.Log("모든 몬스터가 사망했습니다. 다음 스테이지로 진행합니다.");
-            IsUpdate =false;
+            IsUpdate = false;
 
             NextStage();
 
-            
+
         }
     }
 
-    
+
     public async Task WaitUntilAsync(Func<bool> condition, int checkIntervalMs = 100)
     {
         while (!condition())

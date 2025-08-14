@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5092077434738194999}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_toeRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5736390612091567789}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_toeLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5135413975140707575}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_spine02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3672492443474723099}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_index01Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4194181808477907286}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_middle01Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1023191411110851015}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1842227052958927104}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7145052399930417284}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_thumb01Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,7 +263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4767142827607554029}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_thumb01Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7852685086796641081}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_feetRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1376820701204097442}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_pinky01Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7632817927126379755}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_thumb03Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +390,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2480678377141067695}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,7 +425,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7739574857653284174}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_index02Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +457,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2568344193685720605}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_thumb03Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 4758984617543974680}
   - component: {fileID: 8385733654934019990}
   - component: {fileID: 1459972925546412042}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DemonKingBlade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -571,7 +571,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6215473343094150256}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_middle02Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -603,7 +603,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2817839243089319106}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_middle03Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9150849611134327242}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_thumb02Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -666,7 +666,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 174320427689209897}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_middle02Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -698,7 +698,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 623832184890221959}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_index02Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -730,7 +730,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5493389230755587400}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_upperArmLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -769,7 +769,7 @@ GameObject:
   - component: {fileID: -315329359400830303}
   - component: {fileID: -1583503252424823337}
   - component: {fileID: -8716030318581904900}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DemonKingPBRMaskTint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -933,6 +933,9 @@ MonoBehaviour:
   _name: 
   Image: {fileID: 0}
   _anim: {fileID: 0}
+  isBattle: 0
+  isDead: 0
+  AttackType: 0
 --- !u!1 &3766492414379490926
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,7 +945,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5028724065722454685}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_index03Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -973,7 +976,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8843837939089477018}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_handARight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1009,7 +1012,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1502945366860543643}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_pinky03Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1040,7 +1043,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4078795016055242491}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_pinky03Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1071,7 +1074,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2204990661813615536}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_middle01Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1103,7 +1106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6357091883404893981}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_backLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1134,7 +1137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1222831860506699902}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_handALeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1169,7 +1172,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2368042758490610393}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_pinky01Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1201,7 +1204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1203650963598391978}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_index01Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1233,7 +1236,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7568663961793685050}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_tail04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1265,7 +1268,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5442268590699469716}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_pinky02Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1297,7 +1300,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1196615020644387614}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_upperArmRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1329,7 +1332,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6395220453920264325}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_spine03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1365,7 +1368,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 443756920774534846}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_lowerArmLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1397,7 +1400,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4466620451367236981}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_lowerArmRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1429,7 +1432,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 666501824134895950}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_lowerLegRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1461,7 +1464,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3867514206471298833}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_backTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1492,7 +1495,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6697668288252976280}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_backRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1523,7 +1526,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8200269677910575349}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_middle03Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1554,7 +1557,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8043815378270017238}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_pinky02Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1587,7 +1590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7873627625414221407}
   - component: {fileID: 7628156657958619537}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DemonKing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1724,7 +1727,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4231675959315389169}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_tail03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1756,7 +1759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8571118506486864491}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_tail01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1788,7 +1791,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2855694757151608967}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_spine01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1820,7 +1823,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6300847962481420622}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1852,7 +1855,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8493518101598638966}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_lowerLegLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1884,7 +1887,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6772730401542418316}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_tail02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1916,7 +1919,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6862002959490596867}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_tail05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1947,7 +1950,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6616416120808212291}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_upperLegRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1979,7 +1982,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7544623255962491833}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_index03Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2010,7 +2013,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5037656810920745242}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_feetLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2042,7 +2045,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1835017217113652776}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_upperLegLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2074,7 +2077,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7460390013982884387}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: demonKing_thumb02Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
