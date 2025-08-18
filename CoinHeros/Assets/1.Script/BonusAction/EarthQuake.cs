@@ -18,7 +18,8 @@ public class EarthQuake : BonusAction
     
     private void Awake()
     {
-        originalPosition = mainObjTr.position;
+        if(mainObjTr)
+            originalPosition = mainObjTr.position;
     }
     [Button]
     public override void Show()

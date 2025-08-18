@@ -16388,7 +16388,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 2
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -16433,7 +16433,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 948703644031cd44ca5a6e19ac52e510, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9d37247d214706b448741cacdf22b56f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -16460,7 +16460,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 888659864}
-  - component: {fileID: 888659866}
   m_Layer: 5
   m_Name: Top
   m_TagString: Untagged
@@ -16490,14 +16489,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -51}
   m_SizeDelta: {x: 1351.5, y: 124}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &888659866
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 888659863}
-  m_CullTransparentMesh: 1
 --- !u!1 &889233479
 GameObject:
   m_ObjectHideFlags: 0
@@ -17545,7 +17536,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: -19.80085, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -19953,6 +19944,8 @@ GameObject:
   - component: {fileID: 1026156726}
   - component: {fileID: 1026156725}
   - component: {fileID: 1026156724}
+  - component: {fileID: 1026156729}
+  - component: {fileID: 1026156728}
   m_Layer: 5
   m_Name: BackBtn
   m_TagString: Untagged
@@ -20062,6 +20055,46 @@ RectTransform:
   m_AnchoredPosition: {x: 845, y: -24}
   m_SizeDelta: {x: 163, y: 118}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1026156728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026156723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!223 &1026156729
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026156723}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 50
+  m_TargetDisplay: 0
 --- !u!1001 &1028585160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41627,22 +41660,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7591954808424589290, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
-      propertyPath: MonsterPrefabList.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7591954808424589290, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
-      propertyPath: characterPrefabList.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7591954808424589290, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
-      propertyPath: MonsterPrefabList.Array.data[0]
-      value: 
-      objectReference: {fileID: -2009048350499227541, guid: 6a4317fc729846d79f69cda980e03f9d, type: 3}
-    - target: {fileID: 7591954808424589290, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
-      propertyPath: MonsterPrefabList.Array.data[1]
-      value: 
-      objectReference: {fileID: 8293140437761190534, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
     - target: {fileID: 7883679022766108103, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
       propertyPath: m_Name
       value: Manager

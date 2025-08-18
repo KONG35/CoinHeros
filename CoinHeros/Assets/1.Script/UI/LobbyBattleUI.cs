@@ -36,7 +36,7 @@ public class LobbyBattleUI : MonoBehaviour
 
     public void OnClickStart()
     {
-
+        LoadBattleScene();
     }
 
     public void SetStartBtnInteract()
@@ -68,5 +68,13 @@ public class LobbyBattleUI : MonoBehaviour
         {
             await Task.Delay(checkIntervalMs);
         }
+    }
+
+    
+    // 씬 전환 메서드들
+    public void LoadBattleScene()
+    {
+        Debug.Log("전투씬으로 이동합니다.");
+        SceneManager.Instance.LoadBattleScene();
     }
 }

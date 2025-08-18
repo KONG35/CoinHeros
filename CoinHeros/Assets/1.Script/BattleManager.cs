@@ -21,7 +21,16 @@ public class BattleManager : Singleton<BattleManager>
 
     public void Start()
     {
-        StartCoroutine(DelayStageStart(2.0f));
+        BattleStart(2.0f);
+    }
+
+    public void BattleStart(float DelayTime)
+    {
+        if(UnitPositions==null&&BattleUIManager.Instance)
+        {
+            UnitPositions = BattleUIManager.Instance.FindObject<BattleUnitPos>();
+        }
+        StartCoroutine(DelayStageStart(DelayTime));
     }
 
     private void Update()
@@ -33,6 +42,7 @@ public class BattleManager : Singleton<BattleManager>
                 unit.Tick();
 
         CheckMonsterStatus();
+        CheckUnitStatus();
     }
 
     [Button]
@@ -533,13 +543,40 @@ public class BattleManager : Singleton<BattleManager>
         {
             Debug.Log("모든 몬스터가 사망했습니다. 다음 스테이지로 진행합니다.");
             IsUpdate = false;
-
             NextStage();
-
-
         }
     }
 
+    private void CheckUnitStatus()
+    {
+        bool allDead = true;
+        int aliveCount = 0;
+
+        for (int i = 0; i < UnitPositions.LeftSlot.Length; i++)
+        {
+            if (UnitPositions.LeftSlot[i] != null)
+            {
+                var Unit = UnitPositions.LeftSlot[i] as CharacterData;
+                if (Unit != null && !Unit.isDead)
+                {
+                    float currentHP = Unit.GetState(GASAttributeData.Instance.HP);
+                    if (currentHP > 0)
+                    {
+                        allDead = false;
+                        aliveCount++;
+                    }
+                }
+            }
+        }
+
+        if (allDead && aliveCount == 0)
+        {
+            Debug.Log("모든 플레이어 유닛 사망.");
+            IsUpdate = false;
+
+            BattleUIManager.Instance.RewardAction();
+        }
+    }
 
     public async Task WaitUntilAsync(Func<bool> condition, int checkIntervalMs = 100)
     {
@@ -551,6 +588,14 @@ public class BattleManager : Singleton<BattleManager>
     public async Task TaskDelay(int ms = 1000)
     {
         await Task.Delay(ms);
+    }
+    
+    // 로비로 돌아가는 메서드
+    [Button]
+    public void ReturnToLobby()
+    {
+        Debug.Log("로비로 돌아갑니다.");
+        SceneManager.Instance.LoadLobby();
     }
 }
 

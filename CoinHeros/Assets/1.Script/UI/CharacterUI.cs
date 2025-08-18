@@ -59,7 +59,7 @@ public class CharacterUI : MonoBehaviour
         StateUI[(int)eStateUI.LUK].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.LUK), (int)data.GetState(GASAttributeData.Instance.Grade_LUK)), this);
 
 
-        HP.text = ((int)data.GetState(GASAttributeData.Instance.HP)).ToString();
+        HP.text = ((int)data.GetState(GASAttributeData.Instance.MaxHP)).ToString();
         ActionCoin.text = ((int)data.GetState(GASAttributeData.Instance.ActionCoin)).ToString();
         AttackDamage.text = ((int)data.GetState(GASAttributeData.Instance.AttackDamage)).ToString();
         MagicDamage.text = ((int)data.GetState(GASAttributeData.Instance.MagicDamage)).ToString();
@@ -89,7 +89,7 @@ public class CharacterUI : MonoBehaviour
         StateUI[(int)eStateUI.LUK].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.LUK), (int)data.GetState(GASAttributeData.Instance.Grade_LUK)), this);
 
 
-        HP.text = ((int)data.GetState(GASAttributeData.Instance.HP)).ToString();
+        HP.text = ((int)data.GetState(GASAttributeData.Instance.MaxHP)).ToString();
         ActionCoin.text = ((int)data.GetState(GASAttributeData.Instance.ActionCoin)).ToString();
         AttackDamage.text = ((int)data.GetState(GASAttributeData.Instance.AttackDamage)).ToString();
         MagicDamage.text = ((int)data.GetState(GASAttributeData.Instance.MagicDamage)).ToString();
@@ -160,7 +160,7 @@ public class CharacterUI : MonoBehaviour
                     GradeBack.color = UI.F_Image;
                     GradeValue.color = UI.F_Text;
                     GradeValue.text = "?";
-                    Debug.LogError("·©Å© ÃÊ°ú");
+                    Debug.LogError("ï¿½ï¿½Å© ï¿½Ê°ï¿½");
                     break;
             }
         }
