@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Tornado
   m_EditorClassIdentifier: 
   bonus: 5
-  appearCoinEnum: 2
+  appearCoinEnum: 1
   sprite: {fileID: 21300000, guid: 6d6287a9ac5070f45abd925aaaaf4090, type: 3}
   basicPercent: 17.45

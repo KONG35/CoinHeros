@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: WaterSpout
   m_EditorClassIdentifier: 
   bonus: 4
-  appearCoinEnum: 2
+  appearCoinEnum: 1
   sprite: {fileID: 21300000, guid: 51a4ed580182c714dbe08dc19590332d, type: 3}
   basicPercent: 17.45
-  showEvent:
-    m_PersistentCalls:
-      m_Calls: []

@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: EarthQuake
   m_EditorClassIdentifier: 
   bonus: 3
-  appearCoinEnum: 2
+  appearCoinEnum: 1
   sprite: {fileID: 21300000, guid: c7983f142b364304a82bb8158574b413, type: 3}
   basicPercent: 17.45
-  showEvent:
-    m_PersistentCalls:
-      m_Calls: []

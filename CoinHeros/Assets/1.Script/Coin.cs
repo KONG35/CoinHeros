@@ -15,14 +15,16 @@ public class Coin : MonoBehaviour, IPoolable
     private PoolDataSO poolDataSO;
     public PoolDataSO PoolData => poolDataSO;
 
-    [SerializeField]
-    private CoinEnum coinEnum;
+    [SerializeField] private CoinEnum coinEnum;
+    public CoinEnum CoinEnum => coinEnum;
     public float impactThreshold = 2f; // 이 값 이상 충격이 오면 쓰러짐
     public float collapseRadius = 1f;  // 붕괴 반경
     private Rigidbody rigid;
+    private Coroutine flyCor;
     private void Awake()
     {
         rigid = gameObject.GetComponent<Rigidbody>();
+        flyCor = null;
     }
     private void OnCollisionEnter(Collision col)
     {
@@ -71,23 +73,32 @@ public class Coin : MonoBehaviour, IPoolable
     {
         return rigid.constraints == RigidbodyConstraints.None;
     }
-    public void StartFly()
+    public void StartFly(float _upTime)
     {
-        StartCoroutine(FlyCor());
+        flyCor = StartCoroutine(FlyCor(_upTime));
     }
-    public void FinishFly()
+    public void FinishFly(bool _isPlaced)
     {
-        StopCoroutine(FlyCor());
+        if (flyCor == null) return;
+
+        StopCoroutine(flyCor);
+        flyCor = null;
+
+        if (_isPlaced)
+        {
+            rigid.rotation = Quaternion.identity;
+        }
+        ResetRigidbody();
     }
-    IEnumerator FlyCor()
+    IEnumerator FlyCor(float _upTime)
     {
-        float height = Random.Range(15f, 20f);
+        float height = Random.Range(14f, 16f);
         float margin = Random.Range(0.1f, 1f);
         Vector3 originPos = gameObject.transform.position; 
         Vector3 startPos = originPos + Vector3.up*height;
         Vector3 endPos = startPos + Vector3.up*margin;
 
-        float upTime = 3f;  // 올라가는 시간
+        float upTime = _upTime;  // 올라가는 시간
         float duration = 3f; // 왕복 시간
         float totalTime = 20f; // 총 실행 시간
         float elapsed = 0f;

@@ -23,6 +23,10 @@ public static class CoinMaker
             Debug.LogError("기본 프리팹이 설정되지 않았습니다.");
             return;
         }
+
+        LayerMask mask = LayerMask.GetMask("Slider", "Coin");
+        PlacedOn(parent.gameObject, parent.position, mask);
+
         float objectWidth = GetObjectWidth(defaultPrefab);
 
         float sin60 = Mathf.Sin(60f * Mathf.Deg2Rad);
@@ -99,10 +103,6 @@ public static class CoinMaker
                     obj.transform.localRotation = Quaternion.identity;
 
                     if (parent != null) obj.transform.SetParent(layerGroup.transform);
-
-                    // 바닥 착지
-                    LayerMask mask = LayerMask.GetMask("Slider", "Coin");
-                    PlacedOn(obj, obj.transform.position, mask);
                 }
                 else
                 {
@@ -214,7 +214,8 @@ public static class CoinMaker
         {
             Vector3 yPos = Vector3.zero;
             yPos.y = -0.02873276f;
-            toPlace.transform.position = hit.point -yPos;
+            toPlace.transform.position = hit.point - yPos;
+            //toPlace.transform.position = hit.point;
             toPlace.transform.rotation = Quaternion.identity;
         }
         else

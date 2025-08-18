@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f9ce81d79299bd84b910e4de6547bde0, type: 2}
+  - {fileID: 2100000, guid: ac76295e4ea514b4f9dec53ca0aa938b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -151,4 +151,3 @@ MonoBehaviour:
   coinEnum: 2
   impactThreshold: 2
   collapseRadius: 1
-  isActivated: 1

@@ -28,6 +28,11 @@ public class BonusManager : Singleton<BonusManager>
                 waterSpoutAction.Show();
             }
             break;
+            case BonusEnum.CoinTower:
+            {
+                coinTowerAction.Show();
+            }
+            break;
         }
     }
     

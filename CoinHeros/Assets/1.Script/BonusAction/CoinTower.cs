@@ -3,8 +3,18 @@ using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
 using System.Linq;
+using UniRx.Triggers;
 public class CoinTower : BonusAction
 {
+    [SerializeField] private Transform[] coinTowerTr;
+    private const int TotalCnt = 126;
+    private const int TotalLayer = 18;
+    private const int PerLayer = 7;
+    private const int CopperLayer = 8;
+    private const int SilverLayer = 14;
+    private const int GoldLayer = 17;
+    private const int DiamondLayer = 18;
+    private Coin[] coinArr;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,12 +40,77 @@ public class CoinTower : BonusAction
         // 1. 현재 떨어져 있는 코인 띄우기
         // 2. 코인탑 형성하는 포지션에 넣기
         // 3. 코인탑 완성되면 떨어뜨리기
+        
+        StartCoroutine(ShowCor());
+    }
+    IEnumerator ShowCor()
+    {
         RouletteManager.Instance.SetIsStop(true);
 
-        var coinArr = ObjectManager.Instance.GetComponentsInChildren<Coin>().OrderBy(x=> x.IsResetRigidbody());
-        foreach(var c in coinArr)
+        coinArr = ObjectManager.Instance.GetComponentsInChildren<Coin>().Where(x => x.IsResetRigidbody()).ToArray();
+
+        float delay = 2.5f;
+        foreach (var c in coinArr)
         {
-            c.StartFly();
+            c.StartFly(delay);
+        }
+        yield return new WaitForSeconds(delay);
+        
+        yield return StartCoroutine(PlacedCor());
+
+        foreach (var c in coinArr)
+        {
+            c.FinishFly(false);
+        }
+        RouletteManager.Instance.SetIsStop(false);
+
+        yield return null;
+    }
+    IEnumerator PlacedCor()
+    {
+        var copperArr = coinArr.Where(x => x.CoinEnum == CoinEnum.Copper).ToArray();
+        var silverArr = coinArr.Where(x => x.CoinEnum == CoinEnum.Silver).ToArray();
+        var goldArr = coinArr.Where(x => x.CoinEnum == CoinEnum.Gold).ToArray();
+        var diaArr = coinArr.Where(x => x.CoinEnum == CoinEnum.Diamond).ToArray();
+
+        int token = 0;
+        int count = 0;
+        for (int i = 0; i < TotalCnt; i++)
+        {
+            switch (token)
+            {
+                case 0:
+                    PlaceCoins(copperArr, PerLayer * CopperLayer, ref i, ref count, ref token);
+                    break;
+                case 1:
+                    PlaceCoins(silverArr, PerLayer * SilverLayer, ref i, ref count, ref token);
+                    break;
+                case 2:
+                    PlaceCoins(goldArr, PerLayer * GoldLayer, ref i, ref count, ref token);
+                    break;
+                case 3:
+                    PlaceCoins(diaArr, PerLayer * DiamondLayer, ref i, ref count, ref token);
+                    break;
+                default:
+                    break;
+            }
+            yield return new WaitForFixedUpdate();
+        }
+    }
+    void PlaceCoins(Coin[] arr, int limit, ref int i, ref int counter, ref int token)
+    {
+        if (i < limit && counter < arr.Length)
+        {
+            var coin = arr[counter];
+            coin.FinishFly(true);
+            coin.transform.position = coinTowerTr[i].position;
+            counter++;
+        }
+        else
+        {
+            counter = 0;
+            i--;
+            token++;
         }
     }
 }

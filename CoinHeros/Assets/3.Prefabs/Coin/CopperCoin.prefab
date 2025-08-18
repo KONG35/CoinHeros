@@ -151,5 +151,3 @@ MonoBehaviour:
   coinEnum: 0
   impactThreshold: 2
   collapseRadius: 1
-  isActivated: 1
-  minForce: 0

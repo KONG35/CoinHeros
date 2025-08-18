@@ -60,7 +60,7 @@ public class CoinSpawnManager :Singleton<CoinSpawnManager>
             var c = GetCoin(cEnum);
             if (c == null) return;
             c.ResetRigidbody();
-            
+
             c.gameObject.transform.rotation = Quaternion.identity;
             c.gameObject.transform.position = startCoinGroupTr[i].position;
         }
