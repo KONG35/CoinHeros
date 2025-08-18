@@ -8,8 +8,10 @@ public class BonusManager : Singleton<BonusManager>
 {
     [SerializeField] private BonusAction earthquakeAction;
     [SerializeField] private BonusAction waterSpoutAction;
+    [SerializeField] private BonusAction coinTowerAction;
     protected override void Awake()
     {
+        isDone = false;
         base.Awake();
     }
     public void Show(BonusEnum bEnum)

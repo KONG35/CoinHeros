@@ -104993,11 +104993,15 @@ PrefabInstance:
     - target: {fileID: 52602238016738517, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
       propertyPath: remainUI
       value: 
-      objectReference: {fileID: 1327077373041892833}
+      objectReference: {fileID: 0}
     - target: {fileID: 52602238016738517, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
       propertyPath: coinLaunchMachine
       value: 
-      objectReference: {fileID: 1448307379}
+      objectReference: {fileID: 0}
+    - target: {fileID: 52602238016738517, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
+      propertyPath: startCoinGroupTr.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 52602238016738517, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
       propertyPath: startCoinGroupTr.Array.data[0]
       value: 
@@ -105918,10 +105922,18 @@ PrefabInstance:
       propertyPath: mainObjTr
       value: 
       objectReference: {fileID: 1469956750}
+    - target: {fileID: 3877475463231696479, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6764363707476712202, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
       propertyPath: boundCol
       value: 
       objectReference: {fileID: 1538409948}
+    - target: {fileID: 7819890720649814054, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7883679022766108103, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
       propertyPath: m_Name
       value: Manager
@@ -105966,6 +105978,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8094674902294961642, guid: 1957024eccae0b24883e9458d26a5a4d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -105979,10 +105995,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3088189717284642171, guid: 4fb4d30bff4fd7e4ca48ed2d96cc768a, type: 3}
+      propertyPath: remainUI
+      value: 
+      objectReference: {fileID: 1327077373041892833}
     - target: {fileID: 4594782651405767129, guid: 4fb4d30bff4fd7e4ca48ed2d96cc768a, type: 3}
       propertyPath: m_Name
       value: Main
       objectReference: {fileID: 0}
+    - target: {fileID: 4606546492299596631, guid: 4fb4d30bff4fd7e4ca48ed2d96cc768a, type: 3}
+      propertyPath: bonusRoul
+      value: 
+      objectReference: {fileID: 627750538}
     - target: {fileID: 4838348250481962802, guid: 4fb4d30bff4fd7e4ca48ed2d96cc768a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

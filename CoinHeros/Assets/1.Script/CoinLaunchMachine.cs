@@ -22,17 +22,15 @@ public class CoinLaunchMachine : MonoBehaviour
     [SerializeField]
     private Transform rightPoint;
 
+
     [Space(5)]
     [Header("보너스 코인 던지는 위치 그룹")]
-    [SerializeField]
-    private Transform[] bonusStartTr;
+    [SerializeField] private Transform[] bonusStartTr;
+
+    [Space(5)]
     [Header("보너스 코인 떨어지는 위치 그룹")]
-    // [SerializeField]
-    // private Transform[] bonusEndTr;
-    [SerializeField]
-    private Transform bonusApexTr;
-    [SerializeField]
-    private Transform bonusEndTr;
+    [SerializeField] private Transform bonusApexTr;
+    [SerializeField] private Transform bonusEndTr;
 
     private List<Vector3> velocityPoints;
     private float swingAngle = 45f;

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fde7342c7ad3b34881b4bdcfd095d34, type: 3}
-  m_Name: Coin3
+  m_Name: CoinTower
   m_EditorClassIdentifier: 
-  bonus: 0
-  appearCoinEnum: 0
-  sprite: {fileID: 21300000, guid: 58b3e1db7690c4b42974f5b134e6a551, type: 3}
-  basicPercent: 50
+  bonus: 6
+  appearCoinEnum: 2
+  sprite: {fileID: 21300000, guid: a93225bbb728a074c9c9c35e417e1cf7, type: 3}
+  basicPercent: 17.45

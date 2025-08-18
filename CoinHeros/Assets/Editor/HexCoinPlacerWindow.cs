@@ -9,33 +9,33 @@ public class HexCoinPlacerWindow : EditorWindow
     Transform parent;
     float spacingMultiplier = 1.0f;
 
-    // Áß¾Ó¿¡¼­ ½ÃÀÛÇÏ¿© À°°¢Çü ¸µ ÇüÅÂ·Î È®ÀåµÇ´Â °èÃşÀû ¹èÄ¡ µµ±¸
-    [MenuItem("Tools/À°°¢ ±¸Á¶ ¸µ Çü Coin ¹èÄ¡")]
+    // ìœ¡ê° êµ¬ì¡°ë¡œ ë°°ì¹˜í•˜ì—¬ ë§í˜•ìœ¼ë¡œ í™•ì¸ë˜ëŠ” ì½”ì¸ì˜ ìœ„ì¹˜ ë°°ì¹˜
+    [MenuItem("Tools/ìœ¡ê° êµ¬ì¡° ë§í˜• coinë°°ì¹˜")]
     public static void ShowWindow()
     {
-        GetWindow<HexCoinPlacerWindow>("À°°¢ ±¸Á¶ ¸µ Çü Coin ¹èÄ¡");
+        GetWindow<HexCoinPlacerWindow>("ìœ¡ê° êµ¬ì¡° Coin ë°°ì¹˜");
     }
 
     void OnGUI()
     {
-        GUILayout.Label("À°°¢ ±¸Á¶ Coin ¹èÄ¡", EditorStyles.boldLabel);
+        GUILayout.Label("ìœ¡ê° êµ¬ì¡° Coin ë°°ì¹˜", EditorStyles.boldLabel);
 
         prefab = (GameObject)EditorGUILayout.ObjectField("Prefab", prefab, typeof(GameObject), false);
-        coinsPerLayer = EditorGUILayout.IntField("ÇÑ Ãş´ç ¹èÄ¡ °³¼ö", coinsPerLayer);
-        layerCount = EditorGUILayout.IntField("Ãş ¼ö", layerCount);
-        spacingMultiplier = EditorGUILayout.Slider("Spacing Multiplier", spacingMultiplier, 1f, 2f);
-        parent = (Transform)EditorGUILayout.ObjectField("ºÎ¸ğ ¿ÀºêÁ§Æ®", parent, typeof(Transform), true);
+        coinsPerLayer = EditorGUILayout.IntField("ì¸µë‹¹ ë°°ì¹˜ ê°œìˆ˜(1,7,19,37)", coinsPerLayer);
+        layerCount = EditorGUILayout.IntField("ì¸µ ìˆ˜", layerCount);
+        spacingMultiplier = EditorGUILayout.Slider("Spacing Multiplier", spacingMultiplier, 0.1f, 10f);
+        parent = (Transform)EditorGUILayout.ObjectField("ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸", parent, typeof(Transform), true);
 
         EditorGUILayout.Space();
-        if (GUILayout.Button("¹èÄ¡ÇÏ±â")) CoinMaker.PlaceHexObjects(prefab, parent, layerCount, coinsPerLayer, spacingMultiplier);
-        if (GUILayout.Button("¸ğµÎ »èÁ¦")) ClearAll();
+        if (GUILayout.Button("ë°°ì¹˜í•˜ê¸°")) CoinMaker.PlaceHexObjects(prefab, parent, layerCount, coinsPerLayer, spacingMultiplier);
+        if (GUILayout.Button("ëª¨ë‘ ì‚­ì œ")) ClearAll();
     }
 
     void ClearAll()
     {
         if (parent == null)
         {
-            Debug.LogWarning("ºÎ¸ğ ¿ÀºêÁ§Æ®°¡ ÁöÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogWarning("ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸ê°€ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return;
         }
         for (int i = parent.childCount - 1; i >= 0; i--)

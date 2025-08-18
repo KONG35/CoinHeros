@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bonus: 1
   appearCoinEnum: 0
-  sprite: {fileID: 21300000, guid: 40fa8cba670e85d4e9eeea2deb93c704, type: 3}
+  sprite: {fileID: 21300000, guid: 40418fa88bb07b646b443d332e32ca3e, type: 3}
   basicPercent: 30

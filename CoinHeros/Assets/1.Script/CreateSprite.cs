@@ -7,8 +7,7 @@ using UnityEngine.UI;
 using System.IO;
 using Unity.Burst;
 
-#if UNITY_EDITOR
-public class CreateSpriteEditor : MonoBehaviour
+public class CreateSprite : MonoBehaviour
 {
     [Header("카메라 설정")]
     public Camera renderCamera;
@@ -16,7 +15,7 @@ public class CreateSpriteEditor : MonoBehaviour
     
     [Header("스프라이트 설정")]
     public string spriteName = "GeneratedSprite";
-    public string savePath = "Assets/GeneratedSprites/";
+    public string savePath = "Assets/2.Art/Sprites/UI/";
     
     [Button("Test Capture")]
     void Test()
@@ -25,11 +24,11 @@ public class CreateSpriteEditor : MonoBehaviour
         Texture2D tex = CaptureUtil.CaptureCameraToTexture2D(cam, renderTexture.width, renderTexture.height);
 
         // 원하는 경로에 저장
-        System.IO.File.WriteAllBytes(savePath, tex.EncodeToPNG());
-        Debug.Log("저장 완료: " + savePath);
+        string path = savePath + spriteName+".png";
+        System.IO.File.WriteAllBytes(path, tex.EncodeToPNG());
+        Debug.Log("저장 완료: " + path);
 
         // 저장 후 Asset DB 갱신
         AssetDatabase.Refresh();
     }
 }
-#endif

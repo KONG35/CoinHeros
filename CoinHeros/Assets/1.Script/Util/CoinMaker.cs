@@ -15,12 +15,12 @@ public class AdditionalPrefab
 }
 public static class CoinMaker
 {
-    // grid ±¸Á¶, 
+    // grid ë°°ì¹˜, 
     public static void PlaceGridObject(GameObject defaultPrefab, List<AdditionalPrefab> additionalPrefabs, Transform parent, int columns,int rows, int layerCount, float spacingMultiplier, bool isHalfUnder = false)
     {
         if (defaultPrefab == null)
         {
-            Debug.LogError("±âº» ÇÁ¸®ÆÕÀÌ ÁöÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogError("ê¸°ë³¸ í”„ë¦¬íŒ¹ì´ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return;
         }
         float objectWidth = GetObjectWidth(defaultPrefab);
@@ -35,15 +35,15 @@ public static class CoinMaker
 
         for (int layer=0;layer<layerCount;layer++)
         {
-            // Ãş ±×·ì
+            // ì¸µ ê·¸ë£¹
             GameObject layerGroup = new GameObject($"Layer_{layer}");
             
             if (parent != null) layerGroup.transform.SetParent(parent);
 
-            // YÃà À§Ä¡
+            // Yì¶• ìœ„ì¹˜
             layerGroup.transform.position = origin + Vector3.up * (layer * objectDepth);
 
-            // ¼¿ ÁÂÇ¥ »ı¼º
+            // ì…€ ì¢Œí‘œ ìƒì„±
             List<Vector3> cellPositions = new List<Vector3>();
 
             for (int c = 0; c < columns; c++)
@@ -60,7 +60,7 @@ public static class CoinMaker
                 }
             }
 
-            // ¹èÄ¡ÇÒ ÇÁ¸®ÆÕ ¸®½ºÆ® ÁØºñ
+            // ë°°ì¹˜í•  í”„ë¦¬íŒ¹ í’€ ìƒì„±
             List<GameObject> prefabPool = new List<GameObject>();
             for (int i = 0; i < additionalPrefabs.Count; i++)
             {
@@ -77,7 +77,7 @@ public static class CoinMaker
                 prefabPool.Add(defaultPrefab);
             }
 
-            // ¼ÅÇÃÇÏ¿© ¹èÄ¡
+            // ì„ì–´ì„œ ë°°ì¹˜
             System.Random rand = new System.Random();
             for (int i = prefabPool.Count - 1; i > 0; i--)
             {
@@ -87,7 +87,7 @@ public static class CoinMaker
                 prefabPool[j] = temp;
             }
 
-            // »ı¼º
+            // ë°°ì¹˜
             for (int i = 0; i < cellPositions.Count; i++)
             {
                 GameObject prefabToUse = prefabPool[i];
@@ -100,7 +100,7 @@ public static class CoinMaker
 
                     if (parent != null) obj.transform.SetParent(layerGroup.transform);
 
-                    // ¶¥¿¡ ºÙÀÌ±â
+                    // ë°”ë‹¥ ì°©ì§€
                     LayerMask mask = LayerMask.GetMask("Slider", "Coin");
                     PlacedOn(obj, obj.transform.position, mask);
                 }
@@ -118,29 +118,32 @@ public static class CoinMaker
 
 
     }
-    // À°°¢ ±¸Á¶
+    // ìœ¡ê° ë°°ì¹˜
     public static void PlaceHexObjects(GameObject defaultPrefab, Transform parent, int layerCount, int coinsPerLayer, float spacingMultiplier = 1f)
     {
         if (defaultPrefab == null)
         {
-            Debug.LogError("ÇÁ¸®ÆÕÀÌ ÁöÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogError("í”„ë¦¬íŒ¹ì´ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return;
         }
 
-        // ¿ÀºêÁ§Æ® Å©±â ÃøÁ¤
+        // ì˜¤ë¸Œì íŠ¸ í¬ê¸° ê³„ì‚°
         float objectWidth = GetObjectWidth(defaultPrefab);
         float objectDepth = GetObjectDepth(defaultPrefab);
 
+        LayerMask mask = LayerMask.GetMask("Slider", "Coin");
+        PlacedOn(parent.gameObject, parent.position, mask);
+        
         Vector3 baseCenter = parent != null ? parent.position : Vector3.zero;
-
+        
         for (int layer = 0; layer < layerCount; layer++)
         {
-            // Ãş ±×·ì
+            // ì¸µ ê·¸ë£¹
             GameObject layerGroup = new GameObject($"Layer_{layer}");
             if (parent != null) layerGroup.transform.SetParent(parent);
-            // YÃà À§Ä¡
-            layerGroup.transform.position = baseCenter + Vector3.up * (layer * objectDepth);
-            // 10¡Æ¾¿ È¸Àü ¿ÀÇÁ¼Â
+            // Yì¶• ìœ„ì¹˜
+            layerGroup.transform.position = baseCenter + Vector3.up * (layer * objectDepth) + new Vector3(0f, -0.02478695f, 0f);
+            // 10ë„ì”© íšŒì „ ë°°ì¹˜
             layerGroup.transform.rotation = Quaternion.Euler(0, layer * 10f, 0);
 
             int placed = 0;
@@ -199,6 +202,7 @@ public static class CoinMaker
         Bounds b = new Bounds(go.transform.position, Vector3.zero);
         foreach (var r in go.GetComponentsInChildren<Renderer>())
             b.Encapsulate(r.bounds);
+
         return b.size.z;
     }
     static public void PlacedOn(GameObject toPlace, Vector3 abovePosition, LayerMask targetLayer)
@@ -208,12 +212,14 @@ public static class CoinMaker
 
         if (Physics.Raycast(rayStart, rayDir, out RaycastHit hit, 100f, targetLayer))
         {
-            toPlace.transform.position = hit.point;
+            Vector3 yPos = Vector3.zero;
+            yPos.y = -0.02873276f;
+            toPlace.transform.position = hit.point -yPos;
             toPlace.transform.rotation = Quaternion.identity;
         }
         else
         {
-            Debug.LogWarning("Ray Ãæµ¹ ½ÇÆĞ: ÇØ´ç À§Ä¡¿¡ Collider + ÁöÁ¤ Layer ¾øÀ½");
+            Debug.LogWarning("Ray ì¶©ëŒ ì‹¤íŒ¨: í•´ë‹¹ ìœ„ì¹˜ì— Collider + ì ì ˆí•œ Layer ì—†ìŒ");
         }
     }
 
@@ -223,7 +229,7 @@ public static class CoinMaker
         if (r == null) return 0f;
 
         Bounds bounds = r.bounds;
-        // Áß¾Ó¿¡¼­ ¹Ù´Ú±îÁö °Å¸®
+        // ì¤‘ì‹¬ì—ì„œ ë°”ë‹¥ê¹Œì§€ì˜ ê±°ë¦¬
         float pivotOffset = bounds.extents.z;
         return pivotOffset;
     }

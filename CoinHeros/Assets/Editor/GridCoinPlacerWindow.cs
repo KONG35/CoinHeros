@@ -1,7 +1,6 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
-using static UnityEditor.PlayerSettings;
 
 public class GridCoinPlacerWindow : EditorWindow
 {
@@ -13,17 +12,17 @@ public class GridCoinPlacerWindow : EditorWindow
     int columns = 5;
     int layerCount = 2;
     Transform parent;
-    float spacingMultiplier = 0.97f; // 0.97 °£°İ ÀÌ»ó ¶ç¿ö¾ßÁö ¹Ğ¸² Çö»ó ¾øÀ½
+    float spacingMultiplier = 0.97f; // 0.97 ì´ìƒì´ë©´ ì˜¤ë¸Œì íŠ¸ê°€ ê²¹ì³ì„œ ë°°ì¹˜ë¨
 
     static GridCoinPlacerWindow windowInstance;
 
-    // ¹Ì¸®º¸±â¿ë À§Ä¡ ÀúÀå
+    // ë¯¸ë¦¬ë³´ê¸° ìœ„ì¹˜ ì €ì¥
     List<Vector3> previewPositions = new List<Vector3>();
 
-    [MenuItem("Tools/Áö±×Àç±× ¹æ½ÄÀÇ Çà¿­ Coin ¹èÄ¡")]
+    [MenuItem("Tools/ì§€ê·¸ì¬ê·¸ ë°©ì‹ì˜ í–‰ì—´ Coin ë°°ì¹˜")]
     public static void ShowWindow()
     {
-        windowInstance = GetWindow<GridCoinPlacerWindow>("Áö±×Àç±× ¹æ½ÄÀÇ Çà¿­ Coin ¹èÄ¡");
+        windowInstance = GetWindow<GridCoinPlacerWindow>("ì§€ê·¸ì¬ê·¸ ë°©ì‹ì˜ í–‰ì—´ Coin ë°°ì¹˜");
         SceneView.duringSceneGui -= windowInstance.OnSceneGUI;
         SceneView.duringSceneGui += windowInstance.OnSceneGUI;
     }
@@ -34,13 +33,13 @@ public class GridCoinPlacerWindow : EditorWindow
 
     void OnGUI()
     {
-        GUILayout.Label("Áö±×Àç±× ¹æ½ÄÀÇ À°°¢Çü ±×¸®µå ¹èÄ¡ µµ±¸", EditorStyles.helpBox);
-        GUILayout.Label("Çà, ¿­ ÇüÅÂ Çí»ç°ï ÆĞÅ· (·£´ı ÇÁ¸®ÆÕ + °³¼ö Á¦¾î)", EditorStyles.boldLabel);
+        GUILayout.Label("ì§€ê·¸ì¬ê·¸ ë°©ì‹ì˜ í–‰ì—´ êµ¬ì¡°ë¡œ ì½”ì¸ì„ ë°°ì¹˜í•˜ëŠ” ë„êµ¬ì…ë‹ˆë‹¤", EditorStyles.helpBox);
+        GUILayout.Label("í–‰, ì—´ êµ¬ì¡°ë¡œ ë°°ì¹˜ (ê¸°ë³¸ ì˜¤ë¸Œì íŠ¸ + ì¶”ê°€ ì˜¤ë¸Œì íŠ¸)", EditorStyles.boldLabel);
 
-        defaultPrefab = (GameObject)EditorGUILayout.ObjectField("±âº» ÇÁ¸®ÆÕ", defaultPrefab, typeof(GameObject), false);
+        defaultPrefab = (GameObject)EditorGUILayout.ObjectField("ê¸°ë³¸ í”„ë¦¬íŒ¹", defaultPrefab, typeof(GameObject), false);
 
         GUILayout.Space(5);
-        int newCount = EditorGUILayout.IntField("Ãß°¡ ÇÁ¸®ÆÕ °³¼ö", additionalPrefabs.Count);
+        int newCount = EditorGUILayout.IntField("ì¶”ê°€ í”„ë¦¬íŒ¹ ê°œìˆ˜", additionalPrefabs.Count);
         while (newCount > additionalPrefabs.Count)
         {
             additionalPrefabs.Add(null);
@@ -55,24 +54,24 @@ public class GridCoinPlacerWindow : EditorWindow
         GUILayout.Space(10);
         for (int i = 0; i < additionalPrefabs.Count; i++)
         {
-            additionalPrefabs[i] = (GameObject)EditorGUILayout.ObjectField($"Ãß°¡ ÇÁ¸®ÆÕ {i + 1}", additionalPrefabs[i], typeof(GameObject), false);
-            additionalPrefabCounts[i] = EditorGUILayout.IntField("»ı¼º ¼ö", additionalPrefabCounts[i]);
+            additionalPrefabs[i] = (GameObject)EditorGUILayout.ObjectField($"ì¶”ê°€ í”„ë¦¬íŒ¹ {i + 1}", additionalPrefabs[i], typeof(GameObject), false);
+            additionalPrefabCounts[i] = EditorGUILayout.IntField("ê°œìˆ˜", additionalPrefabCounts[i]);
             GUILayout.Space(5);
         }
 
-        rows = EditorGUILayout.IntField("Çà ¼ö", rows);
-        columns = EditorGUILayout.IntField("¿­ ¼ö", columns);
+        rows = EditorGUILayout.IntField("í–‰ ìˆ˜", rows);
+        columns = EditorGUILayout.IntField("ì—´ ìˆ˜", columns);
 
         GUILayout.Space(5);
-        layerCount = EditorGUILayout.IntField("Ãş ¼ö", layerCount);
-        spacingMultiplier = EditorGUILayout.Slider("°£°İ ¹èÀ²", spacingMultiplier, 0.5f, 2f);
-        parent = (Transform)EditorGUILayout.ObjectField("ºÎ¸ğ ¿ÀºêÁ§Æ®", parent, typeof(Transform), true);
+        layerCount = EditorGUILayout.IntField("ì¸µ ìˆ˜", layerCount);
+        spacingMultiplier = EditorGUILayout.Slider("ê°„ê²© ë°°ìˆ˜", spacingMultiplier, 0.1f, 10f);
+        parent = (Transform)EditorGUILayout.ObjectField("ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸", parent, typeof(Transform), true);
 
         EditorGUILayout.Space();
-        if (GUILayout.Button("¹èÄ¡ ¹Ì¸®º¸±â")) GeneratePreview();
-        if (GUILayout.Button("¹èÄ¡ÇÏ±â")) PlaceHexGrid();
-        if (GUILayout.Button("¹èÄ¡ ³»º¸³»±â")) PlacedOutGroup();
-        if (GUILayout.Button("¸ğµÎ »èÁ¦")) ClearAll();
+        if (GUILayout.Button("ë°°ì¹˜ ë¯¸ë¦¬ë³´ê¸°")) GeneratePreview();
+        if (GUILayout.Button("ë°°ì¹˜í•˜ê¸°")) PlaceHexGrid();
+        if (GUILayout.Button("ë°°ì¹˜ ê·¸ë£¹í™”")) PlacedOutGroup();
+        if (GUILayout.Button("ëª¨ë‘ ì‚­ì œ")) ClearAll();
     }
 
     void GeneratePreview()
@@ -121,7 +120,7 @@ public class GridCoinPlacerWindow : EditorWindow
             if (meshFilter != null)
             {
                 Mesh mesh = meshFilter.sharedMesh;
-                Material mat = new Material(Shader.Find("Hidden/PreviewWireShader")); // Åõ¸í ¶óÀÎ Àü¿ë ½¦ÀÌ´õ
+                Material mat = new Material(Shader.Find("Hidden/PreviewWireShader")); // ì™€ì´ì–´ í”„ë ˆì„ ë Œë”ë§ìš©
 
                 mat.SetPass(0);
                 Graphics.DrawMeshNow(mesh, Matrix4x4.TRS(pos, Quaternion.identity, defaultPrefab.transform.lossyScale));
@@ -166,7 +165,7 @@ public class GridCoinPlacerWindow : EditorWindow
     {
         if (parent == null)
         {
-            Debug.LogWarning("ºÎ¸ğ ¿ÀºêÁ§Æ®¸¦ ÁöÁ¤ÇÏ¼¼¿ä.");
+            Debug.LogWarning("ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸ê°€ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return;
         }
         for (int i = parent.childCount - 1; i >= 0; i--)

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4645232160923057592}
   - component: {fileID: 6637596105276946124}
   m_Layer: 7
-  m_Name: DiamondCoin
+  m_Name: CopperCoin 1
   m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9b08d0f562819a942bc7fe9894a9e8ee, type: 2}
+  - {fileID: 2100000, guid: 5a23306d877c3eb46b037845662f5ae9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -117,7 +117,7 @@ Rigidbody:
   m_GameObject: {fileID: 5922904662911170788}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -133,8 +133,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 48
-  m_CollisionDetection: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!114 &6637596105276946124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,8 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94d4c5d96c538ee489bf8c86bbcc1f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolDataSO: {fileID: 11400000, guid: ff856e6effd3b8742977a2fb81c80238, type: 2}
-  coinEnum: 3
+  poolDataSO: {fileID: 11400000, guid: e44fc1bda0d4a194ba62d5b32df3d1d9, type: 2}
+  coinEnum: 0
   impactThreshold: 2
   collapseRadius: 1
   isActivated: 1
+  minForce: 0

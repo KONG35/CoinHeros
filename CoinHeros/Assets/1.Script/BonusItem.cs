@@ -12,6 +12,7 @@ public enum BonusEnum
     EarthQuake, // 지진
     WaterSpout, // 물기둥
     Tornado, // 토네이도
+    CoinTower, // 코인탑
     Conut
 }
 [Serializable]

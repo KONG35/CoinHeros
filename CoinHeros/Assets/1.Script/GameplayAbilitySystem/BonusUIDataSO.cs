@@ -10,5 +10,4 @@ public class BonusUIDataSO : ScriptableObject
     public CoinEnum appearCoinEnum;
     public Sprite sprite;
     public float basicPercent;
-    public UnityEvent showEvent;
 }

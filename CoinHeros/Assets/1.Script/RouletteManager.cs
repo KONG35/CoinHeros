@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class RouletteManager : Singleton<RouletteManager>
 {
-    [SerializeField]
-    private BonusRoulette bonusRoul;
+    public BonusRoulette bonusRoul;
     private List<IEnumerator> corList;
     public int remainBonusCnt { get; private set; }
+    public bool isStop { get; private set; }
     protected override void Awake()
     {
+        isDone = false;
         base.Awake();
+        isStop = false;
         corList = new List<IEnumerator>();
     }
     private void Start()
@@ -22,7 +24,7 @@ public class RouletteManager : Singleton<RouletteManager>
     {
         while (true)
         {
-            if (corList != null && corList.Count > 0)
+            if (corList != null && corList.Count > 0 && !isStop)
             {
                 remainBonusCnt--;
                 yield return StartCoroutine(corList[0]);
@@ -48,6 +50,10 @@ public class RouletteManager : Singleton<RouletteManager>
                 break;
         }
         yield return null;
+    }
+    public void SetIsStop(bool _isstop)
+    {
+        isStop = _isstop;
     }
     private void OnDestroy()
     {
