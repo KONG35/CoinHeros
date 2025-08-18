@@ -28,6 +28,7 @@ public class HexCoinPlacerWindow : EditorWindow
 
         EditorGUILayout.Space();
         if (GUILayout.Button("배치하기")) CoinMaker.PlaceHexObjects(prefab, parent, layerCount, coinsPerLayer, spacingMultiplier);
+        if (GUILayout.Button("배치 내보내기")) PlacedOutGroup();
         if (GUILayout.Button("모두 삭제")) ClearAll();
     }
 
@@ -56,5 +57,26 @@ public class HexCoinPlacerWindow : EditorWindow
         foreach (var r in go.GetComponentsInChildren<Renderer>())
             b.Encapsulate(r.bounds);
         return b.size.z;
+    }
+    void PlacedOutGroup()
+    {
+        if (parent.GetComponentInChildren<MeshFilter>() == false)
+            return;
+
+        GameObject group = new GameObject("PlacedGroup");
+        group.transform.parent = parent;
+        Transform[] objs = parent.GetComponentsInChildren<Transform>();
+        int num = 0;
+        foreach (var o in objs)
+        {
+            if (o.GetComponent<MeshFilter>())
+            {
+                GameObject go = new GameObject(num.ToString());
+                go.transform.position = o.transform.position;
+                go.transform.parent = group.transform;
+                num++;
+            }
+        }
+
     }
 }

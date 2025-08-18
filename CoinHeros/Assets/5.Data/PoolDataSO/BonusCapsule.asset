@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fde7342c7ad3b34881b4bdcfd095d34, type: 3}
-  m_Name: WaterSpout
+  m_Script: {fileID: 11500000, guid: 66cf22d085277ba43ad29dcc46155713, type: 3}
+  m_Name: BonusCapsule
   m_EditorClassIdentifier: 
-  bonus: 4
-  appearCoinEnum: 1
-  sprite: {fileID: 21300000, guid: 8f8e130d3d0c9c247b78be9804308002, type: 3}
-  basicPercent: 17.45
+  prefab: {fileID: 6113401374659312235, guid: df3c23d09be662f4f99927f777d61f09, type: 3}
+  initSize: 5

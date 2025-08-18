@@ -1,7 +1,7 @@
 using NaughtyAttributes;
 using UnityEngine;
 
-public class WaterSpout : BonusAction
+public class WaterSpoutBA : BonusAction
 {
     [SerializeField] private WaterSpoutParticle waterSpoutParticle;
     [SerializeField] private Collider boundCol;

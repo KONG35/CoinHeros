@@ -4,7 +4,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using System.Linq;
 using UniRx.Triggers;
-public class CoinTower : BonusAction
+public class CoinTowerBA : BonusAction
 {
     [SerializeField] private Transform[] coinTowerTr;
     private const int TotalCnt = 126;

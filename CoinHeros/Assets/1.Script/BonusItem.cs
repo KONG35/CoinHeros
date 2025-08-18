@@ -13,6 +13,8 @@ public enum BonusEnum
     WaterSpout, // 물기둥
     Tornado, // 토네이도
     CoinTower, // 코인탑
+    BonusCapsule, // 보너스 캡슐
+    Artifact, // 유물
     Conut
 }
 [Serializable]

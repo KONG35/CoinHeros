@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
 
-public class EarthQuake : BonusAction
+public class EarthQuakeBA : BonusAction
 {
     [Header("============= 지진 설정 ============")]
     [SerializeField]

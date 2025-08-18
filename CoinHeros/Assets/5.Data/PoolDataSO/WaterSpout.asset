@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66cf22d085277ba43ad29dcc46155713, type: 3}
   m_Name: WaterSpout
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1362213762816768024, guid: 6944a17e1a4a11f4490911332c12304c, type: 3}
+  prefab: {fileID: 2410891225522386757, guid: d587b57a01b5fd14ca96917f9874491a, type: 3}
   initSize: 5

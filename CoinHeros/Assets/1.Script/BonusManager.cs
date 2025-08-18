@@ -9,6 +9,8 @@ public class BonusManager : Singleton<BonusManager>
     [SerializeField] private BonusAction earthquakeAction;
     [SerializeField] private BonusAction waterSpoutAction;
     [SerializeField] private BonusAction coinTowerAction;
+    [SerializeField] private BonusAction bonusCapsuleAction;
+    [SerializeField] private BonusAction artifactAction;
     protected override void Awake()
     {
         isDone = false;
@@ -33,6 +35,16 @@ public class BonusManager : Singleton<BonusManager>
                 coinTowerAction.Show();
             }
             break;
+            case BonusEnum.BonusCapsule:
+                {
+                    bonusCapsuleAction.Show();
+                }
+                break;
+            case BonusEnum.Artifact:
+                {
+                    artifactAction.Show();
+                }
+                break;
         }
     }
     
