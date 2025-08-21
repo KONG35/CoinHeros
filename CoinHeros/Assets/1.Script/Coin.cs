@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public enum CoinEnum
 {
@@ -131,5 +132,23 @@ public class Coin : MonoBehaviour, IPoolable
             }
         }
         yield return null;
+    }
+    public IEnumerator MoveCor(float duration, Vector3 targetPos)
+    {
+        Vector3 startPos = gameObject.transform.position;
+        float elapsed = 0f;
+        while(elapsed<duration)
+        {
+            ResetRigidbody();
+            rigid.rotation = Quaternion.identity;
+            Vector3 pos = Vector3.Lerp(startPos, targetPos, elapsed / duration);
+            rigid.MovePosition(pos);
+            
+            yield return new WaitForFixedUpdate();
+            elapsed += Time.fixedDeltaTime;
+        }
+        ResetRigidbody();
+        rigid.rotation = Quaternion.identity;
+        rigid.MovePosition(targetPos);
     }
 }

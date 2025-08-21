@@ -75,35 +75,41 @@ public class CoinTowerBA : BonusAction
 
         int token = 0;
         int count = 0;
+        Coin moveCoin = null;
         for (int i = 0; i < TotalCnt; i++)
         {
+            moveCoin = null;
+            Vector3 movePos = Vector3.zero;
             switch (token)
             {
                 case 0:
-                    PlaceCoins(copperArr, PerLayer * CopperLayer, ref i, ref count, ref token);
+                    PlaceCoins(copperArr, PerLayer * CopperLayer, ref i, ref count, ref token, ref moveCoin);
                     break;
                 case 1:
-                    PlaceCoins(silverArr, PerLayer * SilverLayer, ref i, ref count, ref token);
+                    PlaceCoins(silverArr, PerLayer * SilverLayer, ref i, ref count, ref token, ref moveCoin);
                     break;
                 case 2:
-                    PlaceCoins(goldArr, PerLayer * GoldLayer, ref i, ref count, ref token);
+                    PlaceCoins(goldArr, PerLayer * GoldLayer, ref i, ref count, ref token, ref moveCoin);
                     break;
                 case 3:
-                    PlaceCoins(diaArr, PerLayer * DiamondLayer, ref i, ref count, ref token);
+                    PlaceCoins(diaArr, PerLayer * DiamondLayer, ref i, ref count, ref token, ref moveCoin);
                     break;
                 default:
                     break;
             }
+            if(moveCoin != null)
+            {
+                moveCoin.FinishFly(true);
+                StartCoroutine(moveCoin.MoveCor(0.5f, coinTowerTr[i].position));
+            }
             yield return new WaitForFixedUpdate();
         }
     }
-    void PlaceCoins(Coin[] arr, int limit, ref int i, ref int counter, ref int token)
+    void PlaceCoins(Coin[] arr, int limit, ref int i, ref int counter, ref int token, ref Coin moveCoin)
     {
         if (i < limit && counter < arr.Length)
         {
-            var coin = arr[counter];
-            coin.FinishFly(true);
-            coin.transform.position = coinTowerTr[i].position;
+            moveCoin = arr[counter];
             counter++;
         }
         else
