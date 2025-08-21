@@ -91,7 +91,30 @@ public class CoinSpawnManager :Singleton<CoinSpawnManager>
                     BattleManager.Instance.MonsterAction();
                 }
             }
-            if(isPaused && remainCoinList.Count==0 && BattleManager.Instance.IsUpdate)
+            if (Input.GetKeyDown("2"))
+            {
+                if (remainCoinList.Count == 0 || isPaused )
+                {
+                    yield return null;
+                    continue;
+                }
+                int idx = remainCoinList.Count - 1;
+                remainUI.Pop(idx);
+                coinLaunchMachine.InsertCoin(remainCoinList[idx]);
+                remainCoinList.RemoveAt(idx);
+
+                if (remainCoinList.Count == 0)
+                {
+                    isPaused = true;
+
+                    BattleManager.Instance.MonsterAction();
+                }
+                if (isPaused && remainCoinList.Count == 0)
+                {
+                    yield return StartCoroutine(ResetCoinCor());
+                }
+            }
+            if (isPaused && remainCoinList.Count==0 && BattleManager.Instance.IsUpdate)
             {
                 yield return StartCoroutine(ResetCoinCor());
             }

@@ -47,6 +47,7 @@ public class Coin : MonoBehaviour, IPoolable
         else if (col.gameObject.tag == "Outside")
         {
             BattleManager.Instance.CharacterAction((int)coinEnum);
+            BattleUIManager.Instance.ticketUI.PlusCount(1);
             CoinSpawnManager.Instance.ReturnCoin(PoolData, this);
         }
     }
