@@ -496,6 +496,9 @@ public class BattleManager : Singleton<BattleManager>
     {
         CurStage++;
 
+        // 코인 떨어지는거 리셋
+        CoinSpawnManager.Instance.NextStageReady();
+        
         // 기존 몬스터들 제거
         ClearAllMonsters();
 

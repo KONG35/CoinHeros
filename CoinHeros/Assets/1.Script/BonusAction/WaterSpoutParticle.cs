@@ -82,6 +82,7 @@ public class WaterSpoutParticle : MonoBehaviour, IPoolable
         
         // 원래 위치로 복원
         colTr.localPosition = originLocalPos;
+        ObjectManager.Instance.Return<WaterSpoutParticle>(poolData, this);
     }
     public void OnSpawn()
     {

@@ -9,6 +9,7 @@ public class RouletteManager : Singleton<RouletteManager>
     private List<IEnumerator> corList;
     public int remainBonusCnt { get; private set; }
     public bool isStop { get; private set; }
+    private BattleManager battleManager;
     protected override void Awake()
     {
         isDone = false;
@@ -18,13 +19,17 @@ public class RouletteManager : Singleton<RouletteManager>
     }
     private void Start()
     {
+        battleManager = BattleManager.Instance;
         StartCoroutine(Loop());
     }
     private IEnumerator Loop()
     {
         while (true)
         {
-            if (corList != null && corList.Count > 0 && !isStop)
+            if (battleManager == null)
+                battleManager = BattleManager.Instance;
+
+            if (corList != null && corList.Count > 0 && !isStop && battleManager.IsUpdate)
             {
                 remainBonusCnt--;
                 yield return StartCoroutine(corList[0]);
