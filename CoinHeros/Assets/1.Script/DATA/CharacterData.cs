@@ -12,6 +12,33 @@ using CoinHeros;
 [RequireComponent(typeof(TinyCharacterController))]
 public class CharacterData : CharacterBase
 {
+    [Header("고유 식별자")]
+    [SerializeField] private string uniqueId; // Firebase 저장용 고유 ID
+    
+    public string UniqueId
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(uniqueId))
+            {
+                uniqueId = GenerateUniqueId();
+            }
+            return uniqueId;
+        }
+        set { uniqueId = value; }
+    }
+    
+    // 고유 ID 생성 (더 안전한 방법)
+    private string GenerateUniqueId()
+    {
+        // 현재 시간 + 랜덤값 + 인스턴스 ID를 조합하여 고유성 보장
+        var timestamp = System.DateTime.Now.Ticks;
+        var random = UnityEngine.Random.Range(1000, 9999);
+        var instanceId = GetInstanceID();
+        
+        return $"char_{timestamp}_{random}_{instanceId}";
+    }
+    
     public AnimatorOverrideController[] jobAnims;
     public TinyCharacterController _controller;
     

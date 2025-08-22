@@ -5,9 +5,6 @@ using UnityEditor;
 public class MonsterData : CharacterBase
 {
     public MonsterAttackType AttackType;
-    private void Awake()
-    {
-    }
     protected override void Start()
     {
         base.Start();

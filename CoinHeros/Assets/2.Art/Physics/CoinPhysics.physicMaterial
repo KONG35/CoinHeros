@@ -8,7 +8,7 @@ PhysicMaterial:
   m_PrefabAsset: {fileID: 0}
   m_Name: CoinPhysics
   dynamicFriction: 0.9
-  staticFriction: 0.5
+  staticFriction: 0
   bounciness: 0
   frictionCombine: 2
   bounceCombine: 2

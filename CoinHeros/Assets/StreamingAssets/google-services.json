@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "417631730298",
+    "firebase_url" : "https://coinheroes-fc405-default-rtdb.firebaseio.com",
+    "project_id": "coinheroes-fc405",
+    "storage_bucket": "coinheroes-fc405.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417631730298:android:cb6d3cdc836cb0f73bd9c3",
+        "android_client_info": {
+          "package_name": "com.Jamming.CoinHeros"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB66Ck8tbQFsrT_CciUAnv2qzEM2Ecl0XE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

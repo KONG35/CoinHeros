@@ -9,6 +9,7 @@ public class BattleUIManager : Singleton<BattleUIManager>
     public BattleUnitInfoPanel UnitPanel;
     public BattleUnitInfoPanel MonsterPanel;
     public BattleRewardUI RewardPopupPanel;
+    public TicketUI ticketUI;
     
     protected override void Awake()
     {

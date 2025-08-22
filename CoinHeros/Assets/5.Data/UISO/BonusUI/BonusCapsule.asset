@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fde7342c7ad3b34881b4bdcfd095d34, type: 3}
   m_Name: BonusCapsule
   m_EditorClassIdentifier: 
-  bonus: 6
-  appearCoinEnum: 2
-  sprite: {fileID: 21300000, guid: 7b7efad0be5a7f24a90996fee0553a31, type: 3}
+  bonus: 7
+  appearCoinEnum: 1
+  sprite: {fileID: 21300000, guid: 66738c1884d636547a4863651182855e, type: 3}
   basicPercent: 17.45

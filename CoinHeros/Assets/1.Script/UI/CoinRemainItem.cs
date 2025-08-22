@@ -13,7 +13,7 @@ public class CoinRemainItem : MonoBehaviour
     [SerializeField]
     private float time = 0.25f;
     
-    private void Awake()
+    public void Init()
     {
         rect = gameObject.GetComponent<RectTransform>();
         originPos = rect.anchoredPosition;
@@ -23,11 +23,7 @@ public class CoinRemainItem : MonoBehaviour
         image.sprite = _sp;
         rect.anchoredPosition = originPos;
     }
-    public void Pop()
-    {
-        StartCoroutine(PopCor());
-    }
-    IEnumerator PopCor()
+    public IEnumerator PopCor()
     {
         Vector2 targetPos = originPos + movePos;
         Vector2 controlPoint = originPos + new Vector2(movePos.x * 0.5f, movePos.y + 50f); // 제어점 (중간 높이)

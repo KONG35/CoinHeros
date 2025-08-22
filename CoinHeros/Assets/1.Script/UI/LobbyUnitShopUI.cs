@@ -74,7 +74,15 @@ public class LobbyUnitShopUI : MonoBehaviour
         var DTM = DataTableManager.Instance;
         var CharacterList = DTM.characterPrefabList;
         int index = UnityEngine.Random.Range(0, CharacterList.Count);
-        var Unit = Instantiate(CharacterList[index], UserData.Instance.transform);
+        //var Unit = Instantiate(CharacterList[index], UserData.Instance.transform);
+
+        if(ShopItemIndex<ShopUnitList.Count&&ShopUnitList[ShopItemIndex].Unit!=null)
+        {
+            ObjectManager.Instance.Return<CharacterData>(ShopUnitList[ShopItemIndex].Unit.PoolSO,ShopUnitList[ShopItemIndex].Unit);
+        }
+
+        var Unit = ObjectManager.Instance.Get<CharacterData>(CharacterList[index].PoolSO);
+        Unit.gameObject.SetActive(true);
         await WaitUntilAsync(() => Unit.isInit);
         float GradeSum = 0;
 

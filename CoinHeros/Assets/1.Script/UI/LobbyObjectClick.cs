@@ -48,7 +48,6 @@ public class LobbyObjectClick : MonoBehaviour
                     lobby.SetUIStep((LobbyUI.eUIStep)index);
 
             }
-            Debug.Log(index);
         }
 
     }

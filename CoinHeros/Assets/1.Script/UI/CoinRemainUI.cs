@@ -15,6 +15,8 @@ public class CoinRemainUI: MonoBehaviour
         coinSpawnManager = CoinSpawnManager.Instance;
         for(int i=0;i<itemGroup.Length;i++)
         {
+            itemGroup[i].Init();
+
             if(i<coinSpawnManager.maxCoinCount)
                 itemGroup[i].gameObject.SetActive(true);
             else
@@ -28,17 +30,18 @@ public class CoinRemainUI: MonoBehaviour
             return;
         numTxt.text = coinSpawnManager.remainCoinCount.ToString() + "/" +coinSpawnManager.maxCoinCount.ToString();
     }
-    public void Pop(int n)
+    public IEnumerator PopCor(int n)
     {
-        itemGroup[n].Pop();
+        yield return StartCoroutine(itemGroup[n].PopCor());
     }
-    public IEnumerator SetItemGroupCor(List<CoinEnum> cEnumList)
+    public IEnumerator SetItemGroupCor(List<CoinEnum> cEnumList, bool isAnim = true)
     {
         for(int i=0;i<cEnumList.Count;i++)
         {
             int n = (int)cEnumList[i];
             itemGroup[i].SetSprite(coinSp[n]);
-            yield return new WaitForSeconds(0.2f);
+            if(isAnim)
+                yield return new WaitForSeconds(0.2f);
         }
         yield return null;
     }

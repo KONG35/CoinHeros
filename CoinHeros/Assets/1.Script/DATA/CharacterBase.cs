@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(GASTagComponent))]
@@ -9,8 +10,11 @@ using UnityEngine;
 [RequireComponent(typeof(GASAbilityComponent))]
 [RequireComponent(typeof(GASCueComponent))]
 [RequireComponent(typeof(Rigidbody))]
-public class CharacterBase : MonoBehaviour
+public class CharacterBase : MonoBehaviour, IPoolable
 {
+
+    public PoolDataSO PoolSO;
+
     public bool isInit = false;
     public string _name;
     public Texture2D Image;
@@ -20,11 +24,15 @@ public class CharacterBase : MonoBehaviour
     protected GASTagComponent _tag;
     protected Rigidbody _rig;
     public Animator _anim;
-    
-    public bool isBattle=false;
-    public bool isDead=false;
+
+    public bool isBattle = false;
+    public bool isDead = false;
 
     protected virtual void Start()
+    {
+        Init(true);
+    }
+    public void Init(bool isTexture=false)
     {
         _ability = GetComponent<GASAbilityComponent>();
         _state = GetComponent<GASAttributeSetComponent>();
@@ -41,35 +49,39 @@ public class CharacterBase : MonoBehaviour
 
         isInit = false;
 
-        if (UserData.Instance)
-        {
-            UserData.Instance.CopyQueue.Enqueue(this);
-        }
         StartCoroutine(TextureInit());
-        isDead=false;
+        isDead = false;
+    }
+    public void OnSpawn()
+    {
+        Init(true);
+    }
+    public void OnDespawn()
+    {
+
     }
     public void Update()
     {
-        if(isDead)
+        if (isDead)
             return;
-        if(_anim)
+        if (_anim)
             _anim.SetFloat("Speed", _rig.velocity.magnitude);
     }
     public void Tick()
     {
-        if(isDead)
+        if (isDead)
             return;
-        if(_ability)
+        if (_ability)
             _ability.Action();
     }
-    public void toMove(Vector3 Pos,float Speed)
+    public void toMove(Vector3 Pos, float Speed)
     {
         StartCoroutine(eMove(Pos, Speed));
     }
 
-    IEnumerator eMove(Vector3 Pos,float Speed)
+    IEnumerator eMove(Vector3 Pos, float Speed)
     {
-        if(_rig ==null)
+        if (_rig == null)
             _rig = GetComponent<Rigidbody>();
         while (true)
         {
@@ -91,7 +103,7 @@ public class CharacterBase : MonoBehaviour
         switch (State)
         {
             case eAnimState.Attack:
-                _anim.CrossFade("Attack",0.1f);
+                _anim.CrossFade("Attack", 0.1f);
                 break;
             case eAnimState.Ability:
                 _anim.CrossFade("Ability", 0.1f);
@@ -102,7 +114,7 @@ public class CharacterBase : MonoBehaviour
             case eAnimState.Hit:
                 _anim.CrossFade("Hit", 0.1f);
                 break;
-            case eAnimState.Dizzy:  
+            case eAnimState.Dizzy:
                 _anim.CrossFade("Dizzy", 0.1f);
                 break;
             case eAnimState.Die:
@@ -116,46 +128,53 @@ public class CharacterBase : MonoBehaviour
 
     public IEnumerator TextureInit()
     {
-        yield return new WaitForEndOfFrame();
-        while (UserData.Instance == null)
+        if(this.Image==null)
+        {
             yield return new WaitForEndOfFrame();
-        while (UserData.Instance.CopyQueue.First() != this)
+            if (UserData.Instance)
+            {
+                UserData.Instance.CopyQueue.Enqueue(this);
+            }
+            while (UserData.Instance == null)
+                yield return new WaitForEndOfFrame();
+            while (UserData.Instance.CopyQueue.First() != this)
+                yield return new WaitForEndOfFrame();
+            transform.localPosition = UserData.Instance.RenderTextureCamera.transform.localPosition - new Vector3(0.97f, 2f, 5.5f);
             yield return new WaitForEndOfFrame();
-        transform.localPosition = UserData.Instance.RenderTextureCamera.transform.localPosition - new Vector3(0.97f, 1.06f, 5.5f);
-        yield return new WaitForEndOfFrame();
-        UserData.Instance.CopyQueue.Dequeue();
-        SetTextureCopyToImage();
-        transform.localPosition = Vector3.zero;
-        isInit = true;
+            UserData.Instance.CopyQueue.Dequeue();
+            SetTextureCopyToImage();
+            transform.localPosition = Vector3.zero;
+            isInit = true;
+        }
     }
 
     public float GetState(AttributeDefSO SO)
     {
-        if(_state==null)
+        if (_state == null)
             _state = GetComponent<GASAttributeSetComponent>();
         return _state.GetValue(SO);
     }
     public void SetModifyState(AttributeDefSO SO, string Key, float value, StackPolicy policy)
     {
-        if(_state==null)
+        if (_state == null)
             _state = GetComponent<GASAttributeSetComponent>();
         _state.ModifyValue(SO, Key, value, policy);
     }
     public void SetBaseState(AttributeDefSO SO, float value)
     {
-        if(_state==null)
+        if (_state == null)
             _state = GetComponent<GASAttributeSetComponent>();
         _state.SetBaseValue(SO, value);
     }
     public void SetBaseState(
-        AttributeDefSO strSO, float strvalue, 
-        AttributeDefSO magSO, float magvalue, 
-        AttributeDefSO conSO, float convalue, 
-        AttributeDefSO agiSO, float agivalue, 
-        AttributeDefSO sprSO, float sprvalue, 
+        AttributeDefSO strSO, float strvalue,
+        AttributeDefSO magSO, float magvalue,
+        AttributeDefSO conSO, float convalue,
+        AttributeDefSO agiSO, float agivalue,
+        AttributeDefSO sprSO, float sprvalue,
         AttributeDefSO lukSO, float lukvalue)
     {
-        if(_state==null)
+        if (_state == null)
             _state = GetComponent<GASAttributeSetComponent>();
         _state.SetBaseValue(strSO, strvalue);
         _state.SetBaseValue(magSO, magvalue);
@@ -168,7 +187,7 @@ public class CharacterBase : MonoBehaviour
 
     public void SetCoinCost(float value)
     {
-        if(_state==null)
+        if (_state == null)
             _state = GetComponent<GASAttributeSetComponent>();
         _state.SetBaseValue(GASAttributeData.Instance.MaxActionCoin, value);
 
@@ -219,25 +238,26 @@ public class CharacterBase : MonoBehaviour
         SetModifyState(gasSOdata.HP, "CalcBase", GetState(gasSOdata.MaxHP), StackPolicy.Override);
         SetModifyState(gasSOdata.MP, "CalcBase", 0, StackPolicy.Override);
         SetModifyState(gasSOdata.ActionCoin, "CalcBase", 0, StackPolicy.Override);
-        isDead=false;
+        isDead = false;
+        SetAbilityCost(gasSOdata.ActionCoin, GetState(gasSOdata.MaxActionCoin));
     }
-    
+
     public void Hit(float damage, AttributeDefSO damageType, float penetration = 0f, float penetrationPercent = 0f)
     {
-        if(isDead)
+        if (isDead)
             return;
         var gasSOdata = GASAttributeData.Instance;
         float currentHP = GetState(gasSOdata.HP);
-        
+
         // 데미지 타입에 따른 방어력 적용 (관통력 포함)
         float finalDamage = CalculateDamage(damage, damageType, penetration, penetrationPercent);
         float newHP = Mathf.Max(0, currentHP - finalDamage);
-        
+
         SetModifyState(gasSOdata.HP, "CalcBase", newHP, StackPolicy.Override);
-        
+
         // 히트 애니메이션 재생
         PlayAnim(eAnimState.Hit);
-        
+
         // 데미지 타입에 따른 로그 메시지
         string damageTypeName = (damageType == gasSOdata.AttackDamage) ? "물리" : "마법";
         string penetrationText = "";
@@ -250,46 +270,48 @@ public class CharacterBase : MonoBehaviour
             penetrationText += ")";
         }
         Debug.Log($"{_name}이(가) {damageTypeName} 데미지 {damage}를 받았습니다.{penetrationText} (방어력 적용 후: {finalDamage}, HP: {currentHP} -> {newHP})");
-        
+
         // HP가 0 이하가 되면 사망 처리
         if (newHP <= 0)
         {
             Die();
         }
     }
-    
 
-    
+
+
     // 특정 어빌리티를 추가하는 함수
     public void AddAbility(AbilityDefSO abilityDef)
     {
         if (_ability == null)
         {
-            Debug.LogError($"{_name}: 어빌리티 컴포넌트가 없습니다.");
-            return;
+            _ability = GetComponent<GASAbilityComponent>();
+            if(_ability)
+                Debug.Log($"{_name}: 어빌리티 컴포넌트가 없습니다.");
         }
-        
+
         _ability.AddAbility(abilityDef);
         Debug.Log($"{_name}에게 {abilityDef.abilityName} 어빌리티가 추가되었습니다.");
     }
-    
+
     // 어빌리티 비용을 설정하는 함수
     public void SetAbilityCost(AttributeDefSO costSO, float value)
     {
         if (_ability == null)
         {
-            Debug.LogError($"{_name}: 어빌리티 컴포넌트가 없습니다.");
-            return;
+            _ability = GetComponent<GASAbilityComponent>();
+            if(_ability)
+                Debug.Log($"{_name}: 어빌리티 컴포넌트가 없습니다.");
         }
-        
+
         _ability.SetCost(costSO, value);
         Debug.Log($"{_name}의 어빌리티 비용이 설정되었습니다: {costSO.name} = {value}");
     }
-    
+
     private float CalculateDamage(float baseDamage, AttributeDefSO damageType, float penetration = 0f, float penetrationPercent = 0f)
     {
         var gasSOdata = GASAttributeData.Instance;
-        
+
         // 데미지 타입에 따른 방어력 결정
         float defence = 0f;
         if (damageType == gasSOdata.AttackDamage)
@@ -302,47 +324,47 @@ public class CharacterBase : MonoBehaviour
             // 마법 데미지 -> 마법 방어력 적용
             defence = GetState(gasSOdata.MagicDefence);
         }
-        
+
         // 관통력에 따른 방어력 감소 (고정값 + 퍼센트)
         float flatPenetration = penetration; // 고정 관통력
         float percentPenetration = defence * (penetrationPercent / 100f); // 퍼센트 관통력
         float totalPenetration = flatPenetration + percentPenetration;
-        
+
         float effectiveDefence = Mathf.Max(0f, defence - totalPenetration);
-        
+
         // 방어력에 따른 데미지 감소 계산
         // 방어력이 높을수록 데미지가 감소하도록 계산
         float damageReduction = effectiveDefence / (effectiveDefence + 100f); // 방어력 공식 (필요에 따라 조정 가능)
         float finalDamage = baseDamage * (1f - damageReduction);
-        
+
         return Mathf.Max(1f, finalDamage); // 최소 1 데미지는 보장
     }
-    
+
     private void Die()
     {
         // 사망 애니메이션 재생
         PlayAnim(eAnimState.Die);
-        
+
         Debug.Log($"{_name}이(가) 사망했습니다.");
-        isDead=true;
+        isDead = true;
         // 사망 시 추가 처리 (필요에 따라 확장)
         // 예: 경험치 지급, 아이템 드롭 등
     }
-    
+
     // 현재 장착된 아이템에 따라 적절한 어빌리티를 반환하는 함수 (플레이어 캐릭터 전용)
     public virtual AbilityDefSO GetCurrentAbility()
     {
         // 기본 구현은 null 반환 (몬스터는 아이템을 사용하지 않음)
         return null;
     }
-    
+
     // 어빌리티 이름으로 찾는 헬퍼 함수 (플레이어 캐릭터 전용)
     protected virtual AbilityDefSO GetAbilityByName(string abilityName)
     {
         // 기본 구현은 null 반환 (몬스터는 아이템을 사용하지 않음)
         return null;
     }
-    
+
 
 
     public enum eAnimState

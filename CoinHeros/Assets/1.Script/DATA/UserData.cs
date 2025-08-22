@@ -9,6 +9,7 @@ using System.Linq;
 public class UserData : Singleton<UserData>
 {
     public bool isInit = false;
+    public string _Name;
     public List<CharacterData> UnitList;
 
     public CharacterData[] BattleUnit = new CharacterData[6];
@@ -60,6 +61,83 @@ public class UserData : Singleton<UserData>
             BattleUnit[0] = UnitList.First();
         }
         isInit = true;
+
+    }
+
+    // 캐릭터 고유 ID 중복 검사 및 수정
+    public void ValidateCharacterUniqueIds()
+    {
+        var usedIds = new HashSet<string>();
+        var duplicates = new List<CharacterData>();
+
+        foreach (var character in UnitList)
+        {
+            if (character == null) continue;
+
+            if (usedIds.Contains(character.UniqueId))
+            {
+                // 중복된 ID 발견
+                duplicates.Add(character);
+                Debug.LogWarning($"[UserData] 중복된 캐릭터 ID 발견: {character._name} - {character.UniqueId}");
+            }
+            else
+            {
+                usedIds.Add(character.UniqueId);
+            }
+        }
+
+        // 중복된 캐릭터들의 ID 재생성
+        foreach (var duplicate in duplicates)
+        {
+            var oldId = duplicate.UniqueId;
+            duplicate.UniqueId = GenerateNewUniqueId(usedIds);
+            usedIds.Add(duplicate.UniqueId);
+            Debug.Log($"[UserData] 캐릭터 ID 재생성: {duplicate._name} - {oldId} → {duplicate.UniqueId}");
+        }
+    }
+
+    // 새로운 고유 ID 생성 (중복 방지)
+    private string GenerateNewUniqueId(HashSet<string> existingIds)
+    {
+        string newId;
+        int attempts = 0;
+        const int maxAttempts = 100;
+
+        do
+        {
+            var timestamp = System.DateTime.Now.Ticks + attempts;
+            var random = UnityEngine.Random.Range(1000, 9999);
+            newId = $"char_{timestamp}_{random}";
+            attempts++;
+        } while (existingIds.Contains(newId) && attempts < maxAttempts);
+
+        if (attempts >= maxAttempts)
+        {
+            Debug.LogError("[UserData] 고유 ID 생성 실패 - 최대 시도 횟수 초과");
+            newId = $"char_emergency_{System.DateTime.Now.Ticks}_{UnityEngine.Random.Range(10000, 99999)}";
+        }
+
+        return newId;
+    }
+
+    // 디버깅용: 모든 캐릭터의 고유 ID 출력
+    [Button]
+    public void DebugAllCharacterIds()
+    {
+        Debug.Log("=== 모든 캐릭터의 고유 ID ===");
+        for (int i = 0; i < UnitList.Count; i++)
+        {
+            var character = UnitList[i];
+            if (character != null)
+            {
+                Debug.Log($"[{i}] {character._name}: {character.UniqueId}");
+            }
+            else
+            {
+                Debug.Log($"[{i}] null");
+            }
+        }
+        Debug.Log("==========================");
     }
 
     // 전역 인벤토리 관리 함수들 (단일 아이템 인스턴스)
@@ -118,7 +196,11 @@ public class UserData : Singleton<UserData>
     {
         var CharacterList = DataTableManager.Instance.characterPrefabList;
         int index = UnityEngine.Random.Range(0,CharacterList.Count);
-        var Unit = Instantiate(CharacterList[index], this.transform);
+        //var Unit = Instantiate(CharacterList[index], this.transform);
+        var Unit = ObjectManager.Instance.Get<CharacterData>(CharacterList[index].PoolSO);
+        // 고유 ID 중복 검사 및 수정
+        ValidateCharacterUniqueIds();
+        
         UnitList.Add(Unit);
 
         await WaitUntilAsync(() => Unit.isInit);
