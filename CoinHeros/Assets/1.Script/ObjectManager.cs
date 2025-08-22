@@ -27,7 +27,7 @@ public class ObjectManager : Singleton<ObjectManager>
             return pool.Get();
         }
 
-        Debug.LogError($"Pool for {key} not found");
+        Debug.LogError($"'{key}'에 대한 풀을 찾을 수 없습니다.");
         return null;
     }
 
@@ -39,7 +39,7 @@ public class ObjectManager : Singleton<ObjectManager>
         }
         else
         {
-            Debug.LogError($"Pool for {key} not found");
+            Debug.LogError($"'{key}'에 대한 풀을 찾을 수 없습니다.");
         }
     }
 
@@ -55,7 +55,7 @@ public class ObjectManager : Singleton<ObjectManager>
         {
             if (data==null||data.prefab == null)
             {
-                Debug.LogError("Prefab is null");
+                Debug.LogError("프리팹이 null입니다.");
                 continue;
             }
             var poolables = data.prefab.GetComponents<MonoBehaviour>()
@@ -64,13 +64,13 @@ public class ObjectManager : Singleton<ObjectManager>
 
             if (poolables.Length == 0)
             {
-                Debug.LogError($"Prefab '{data.prefab.name}'�� IPoolable�� ������ ������Ʈ�� �������� ����");
+                Debug.LogError($"Prefab '{data.prefab.name}'에 IPoolable을 구현한 컴포넌트가 존재하지 않습니다.");
                 continue;
             }
 
             if (poolables.Length > 1)
             {
-                Debug.LogWarning($"Prefab '{data.prefab.name}'�� IPoolable ����ü�� ���� �� ����. ù ��°�� ���");
+                Debug.LogWarning($"Prefab '{data.prefab.name}'에 IPoolable 구현체가 여러 개 있습니다. 첫 번째만 사용합니다.");
             }
 
             var poolable = poolables[0];
@@ -82,5 +82,25 @@ public class ObjectManager : Singleton<ObjectManager>
 
             createPoolMethod.Invoke(this, new object[] { data, poolable });
         }
+    }
+    public void AllReturn()
+    {
+        Debug.Log("모든 풀의 오브젝트들을 반환합니다.");
+        
+        foreach (var kvp in pools)
+        {
+            var pool = kvp.Value;
+            
+            // GenericObjectPool의 ReturnAll 메서드 호출
+            var poolType = pool.GetType();
+            var returnAllMethod = poolType.GetMethod("ReturnAll");
+            
+            if (returnAllMethod != null)
+            {
+                returnAllMethod.Invoke(pool, null);
+            }
+        }
+        
+        Debug.Log("모든 풀의 오브젝트 반환 완료");
     }
 }

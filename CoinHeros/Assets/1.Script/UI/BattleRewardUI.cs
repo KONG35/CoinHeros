@@ -30,6 +30,9 @@ public class BattleRewardUI : MonoBehaviour
 
     public void OnclickExit()
     {
+        // objectmanager가 관리하는 오브젝트  all return
+        ObjectManager.Instance.AllReturn();
+        
         SceneManager.Instance.LoadLobby();
     }
 }
