@@ -1,38 +1,42 @@
+using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class TicketUI : MonoBehaviour
 {
-    [SerializeField] private Image[] signalImgArr;
     [SerializeField] private TextMeshProUGUI ticketCountTxt;
 
-    Animation ticketAnim;
-    private int animCount;
+    [SerializeField] private StarIcon[] starIconArr;
+    [SerializeField] private RectTransform targetTr;
+
+    [SerializeField] private LightingEffect effect;
     private int ticketCount;
 
     private int offset; // 현재 활성화된 signal index
     private int count;  // 활성화된 신호 개수
+    private Vector2[] originPosArr;
+
     object lockObj = new object(); // null 대신 new object()로 초기화
     private void Awake()
     {
-        foreach (var s in signalImgArr)
-        {
-            s.color = Color.black;
-        }
         SetCount(0);
         offset = 0;
-        animCount = 0;
         ticketCount = 0;
     }
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(Loop());
+        foreach (var s in starIconArr)
+        {
+            s.Set(targetTr.position);
+        }
     }
 
     // Update is called once per frame
@@ -46,19 +50,19 @@ public class TicketUI : MonoBehaviour
         {
             if(HasCount()) // lock을 사용하는 메서드로 변경
             {
-                signalImgArr[offset].color = Color.white;
-                offset = (offset + 1) % signalImgArr.Length;
+                starIconArr[offset].SetWhite();
+                offset = (offset + 1) % starIconArr.Length;
                 PlusCount(-1);
                 if(offset==0)
                 {
-                    foreach (var s in signalImgArr)
+                    foreach(var s in starIconArr)
                     {
-                        s.color = Color.black;
+                        s.Move();
                     }
-                    ++animCount;
-                    //yield return ticketAnim.Play();
+                    effect.Show();
                     ++ticketCount;
                     ticketCountTxt.text = string.Format("{0:D4}", ticketCount);
+                    yield return new WaitForSeconds(0.1f);
                 }
             }
             yield return null;
@@ -96,6 +100,16 @@ public class TicketUI : MonoBehaviour
         lock (lockObj)
         {
             return count > 0;
+        }
+    }
+    [Button]
+    private void EditStarMove()
+    {
+        effect.Show();
+        
+        foreach (var s in starIconArr)
+        {
+            s.Move();
         }
     }
 }
