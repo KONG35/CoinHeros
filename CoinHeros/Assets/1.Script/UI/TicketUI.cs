@@ -15,10 +15,10 @@ public class TicketUI : MonoBehaviour
     [SerializeField] private StarIcon[] starIconArr;
     [SerializeField] private RectTransform targetTr;
 
-    [SerializeField] private LightingEffect effect;
+    [SerializeField] private StarImageEffect effect;
     private int ticketCount;
 
-    private int offset; // 현재 활성화된 signal index
+    private int curCount; // 현재 활성화된 signal index
     private int count;  // 활성화된 신호 개수
     private Vector2[] originPosArr;
 
@@ -26,7 +26,7 @@ public class TicketUI : MonoBehaviour
     private void Awake()
     {
         SetCount(0);
-        offset = 0;
+        curCount = 0;
         ticketCount = 0;
     }
     // Start is called before the first frame update
@@ -50,10 +50,10 @@ public class TicketUI : MonoBehaviour
         {
             if(HasCount()) // lock을 사용하는 메서드로 변경
             {
-                starIconArr[offset].SetWhite();
-                offset = (offset + 1) % starIconArr.Length;
+                starIconArr[curCount].SetWhite();
+                curCount = (curCount + 1) % starIconArr.Length;
                 PlusCount(-1);
-                if(offset==0)
+                if(curCount==0)
                 {
                     foreach(var s in starIconArr)
                     {
