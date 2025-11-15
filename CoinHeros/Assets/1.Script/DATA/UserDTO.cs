@@ -37,9 +37,15 @@ public class UserDTO
     }
     
     // UserData에서 DTO로 변환
-    public static UserDTO FromUserData(UserData userData, string uid)
+    public static UserDTO FromUserData(UserData userData, string uid, string existingCreatedAt = null)
     {
         var dto = new UserDTO();
+        
+        // 기존 createdAt이 있으면 유지, 없으면 새로 생성 (생성자에서 이미 설정됨)
+        if (!string.IsNullOrEmpty(existingCreatedAt))
+        {
+            dto.createdAt = existingCreatedAt;
+        }
         
         // 기본 정보
         dto.uid = uid;
@@ -49,23 +55,23 @@ public class UserDTO
         dto.gold = userData.Gold;
         dto.maxStage = userData.MaxStage;
         
-        // 캐릭터 ID 목록
+        // 캐릭터 ID 목록 (UniqueId 사용 - GetInstanceID는 게임 재시작 시 변경됨)
         dto.characterIds.Clear();
         foreach (var character in userData.UnitList)
         {
             if (character != null)
             {
-                dto.characterIds.Add(character.GetInstanceID().ToString());
+                dto.characterIds.Add(character.UniqueId);
             }
         }
         
-        // 전투 유닛 ID 목록
+        // 전투 유닛 ID 목록 (UniqueId 사용 - GetInstanceID는 게임 재시작 시 변경됨)
         dto.battleUnitIds.Clear();
-        foreach (var battleUnit in userData.BattleUnit)
+        for (int i = 0; i < userData.BattleUnit.Length; i++)
         {
-            if (battleUnit != null)
+            if (userData.BattleUnit[i] != null)
             {
-                dto.battleUnitIds.Add(battleUnit.GetInstanceID().ToString());
+                dto.battleUnitIds.Add(userData.BattleUnit[i].UniqueId);
             }
         }
         

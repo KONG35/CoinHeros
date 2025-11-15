@@ -237,7 +237,26 @@ public class FireBaseManager : Singleton<FireBaseManager>
                 return false;
             }
 
-            var userDto = UserDTO.FromUserData(userData, UID);
+            // 기존 데이터에서 createdAt 가져오기
+            string existingCreatedAt = null;
+            try
+            {
+                var existingSnapshot = await FirebaseDatabase.DefaultInstance.RootReference
+                    .Child("users").Child(UID)
+                    .Child("createdAt")
+                    .GetValueAsync();
+                
+                if (existingSnapshot.Exists && existingSnapshot.Value != null)
+                {
+                    existingCreatedAt = existingSnapshot.Value.ToString();
+                }
+            }
+            catch
+            {
+                // 기존 데이터가 없으면 null로 유지 (새로 생성)
+            }
+
+            var userDto = UserDTO.FromUserData(userData, UID, existingCreatedAt);
             var dict = userDto.ToDictionary();
             
             // SetValueAsync 대신 UpdateChildrenAsync 사용하여 기존 캐릭터 데이터 보존
@@ -377,8 +396,8 @@ public class FireBaseManager : Singleton<FireBaseManager>
             Unit.SetCalcBaseStateToDetailState();
             Unit.gameObject.SetActive(false);
 
-            // 기본 캐릭터를 Firebase에 저장
-            var characterDto = CharacterDTO.FromCharacterData(Unit);
+            // 기본 캐릭터를 Firebase에 저장 (새로 생성되므로 createdAt은 새로 생성됨)
+            var characterDto = CharacterDTO.FromCharacterData(Unit, null);
             var dict = characterDto.ToDictionary();
             
             await FirebaseDatabase.DefaultInstance.RootReference
@@ -424,7 +443,27 @@ public class FireBaseManager : Singleton<FireBaseManager>
                 return false;
             }
 
-            var characterDto = CharacterDTO.FromCharacterData(characterData);
+            // 기존 데이터에서 createdAt 가져오기
+            string existingCreatedAt = null;
+            try
+            {
+                var existingSnapshot = await FirebaseDatabase.DefaultInstance.RootReference
+                    .Child("users").Child(UID)
+                    .Child("characters").Child(characterData.UniqueId)
+                    .Child("createdAt")
+                    .GetValueAsync();
+                
+                if (existingSnapshot.Exists && existingSnapshot.Value != null)
+                {
+                    existingCreatedAt = existingSnapshot.Value.ToString();
+                }
+            }
+            catch
+            {
+                // 기존 데이터가 없으면 null로 유지 (새로 생성)
+            }
+
+            var characterDto = CharacterDTO.FromCharacterData(characterData, existingCreatedAt);
             var dict = characterDto.ToDictionary();
             
             await FirebaseDatabase.DefaultInstance.RootReference
@@ -460,7 +499,27 @@ public class FireBaseManager : Singleton<FireBaseManager>
             {
                 if (character != null)
                 {
-                    var characterDto = CharacterDTO.FromCharacterData(character);
+                    // 기존 캐릭터 데이터에서 createdAt 가져오기
+                    string existingCreatedAt = null;
+                    try
+                    {
+                        var existingSnapshot = await FirebaseDatabase.DefaultInstance.RootReference
+                            .Child("users").Child(UID)
+                            .Child("characters").Child(character.UniqueId)
+                            .Child("createdAt")
+                            .GetValueAsync();
+                        
+                        if (existingSnapshot.Exists && existingSnapshot.Value != null)
+                        {
+                            existingCreatedAt = existingSnapshot.Value.ToString();
+                        }
+                    }
+                    catch
+                    {
+                        // 기존 데이터가 없으면 null로 유지 (새로 생성)
+                    }
+                    
+                    var characterDto = CharacterDTO.FromCharacterData(character, existingCreatedAt);
                     var dict = characterDto.ToDictionary();
                     updates[$"users/{UID}/characters/{characterDto.instanceId}"] = dict;
                 }
@@ -538,20 +597,59 @@ public class FireBaseManager : Singleton<FireBaseManager>
             // 사용자 데이터와 캐릭터 데이터를 한 번에 저장 (덮어쓰기 방지)
             var allUpdates = new Dictionary<string, object>();
             
+            // 기존 사용자 데이터에서 createdAt 가져오기
+            string existingUserCreatedAt = null;
+            try
+            {
+                var existingUserSnapshot = await FirebaseDatabase.DefaultInstance.RootReference
+                    .Child("users").Child(UID)
+                    .Child("createdAt")
+                    .GetValueAsync();
+                
+                if (existingUserSnapshot.Exists && existingUserSnapshot.Value != null)
+                {
+                    existingUserCreatedAt = existingUserSnapshot.Value.ToString();
+                }
+            }
+            catch
+            {
+                // 기존 데이터가 없으면 null로 유지 (새로 생성)
+            }
+            
             // 사용자 데이터 추가
-            var userDto = UserDTO.FromUserData(userData, UID);
+            var userDto = UserDTO.FromUserData(userData, UID, existingUserCreatedAt);
             var userDict = userDto.ToDictionary();
             foreach (var kvp in userDict)
             {
                 allUpdates[$"users/{UID}/{kvp.Key}"] = kvp.Value;
             }
             
-            // 캐릭터 데이터 추가
+            // 캐릭터 데이터 추가 (각 캐릭터의 기존 createdAt 확인)
             foreach (var character in userData.UnitList)
             {
                 if (character != null)
                 {
-                    var characterDto = CharacterDTO.FromCharacterData(character);
+                    // 기존 캐릭터 데이터에서 createdAt 가져오기
+                    string existingCharCreatedAt = null;
+                    try
+                    {
+                        var existingCharSnapshot = await FirebaseDatabase.DefaultInstance.RootReference
+                            .Child("users").Child(UID)
+                            .Child("characters").Child(character.UniqueId)
+                            .Child("createdAt")
+                            .GetValueAsync();
+                        
+                        if (existingCharSnapshot.Exists && existingCharSnapshot.Value != null)
+                        {
+                            existingCharCreatedAt = existingCharSnapshot.Value.ToString();
+                        }
+                    }
+                    catch
+                    {
+                        // 기존 데이터가 없으면 null로 유지 (새로 생성)
+                    }
+                    
+                    var characterDto = CharacterDTO.FromCharacterData(character, existingCharCreatedAt);
                     var characterDict = characterDto.ToDictionary();
                     foreach (var kvp in characterDict)
                     {
@@ -562,7 +660,6 @@ public class FireBaseManager : Singleton<FireBaseManager>
             
             // 한 번에 모든 데이터 저장
             await FirebaseDatabase.DefaultInstance.RootReference.UpdateChildrenAsync(allUpdates);
-            
             Debug.Log($"[FireBaseManager] 전체 게임 데이터 저장 완료 - 업데이트된 항목: {allUpdates.Count}개");
             return true;
         }
@@ -609,6 +706,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
                 Debug.Log("[FireBaseManager] test1");
                 var basePrefab = DataTableManager.Instance.characterPrefabList[0]; // 적절한 프리팹 선택 필요
                 var characterData = characterDto.ToCharacterData(basePrefab.gameObject, userData.transform);
+            Debug.Log("[FireBaseManager] test12");
                 if (characterData != null)
                 {
             Debug.Log("[FireBaseManager] test2");

@@ -55,6 +55,7 @@ public class LobbyUnitShopUI : MonoBehaviour
             CreateCharacter(eGrade.E,3);
             CreateCharacter(eGrade.D,4);
         }
+
     }
 
     public void ReRoll()
@@ -162,3 +163,4 @@ public class LobbyUnitShopUI : MonoBehaviour
         }
     }
 }
+

@@ -50,9 +50,15 @@ public class CharacterDTO
 
     
     // CharacterData에서 DTO로 변환
-    public static CharacterDTO FromCharacterData(CharacterData characterData)
+    public static CharacterDTO FromCharacterData(CharacterData characterData, string existingCreatedAt = null)
     {
         var dto = new CharacterDTO();
+        
+        // 기존 createdAt이 있으면 유지, 없으면 새로 생성 (생성자에서 이미 설정됨)
+        if (!string.IsNullOrEmpty(existingCreatedAt))
+        {
+            dto.createdAt = existingCreatedAt;
+        }
         
         // 기본 정보 - CharacterData의 고유 ID 사용
         dto.instanceId = characterData.UniqueId;
