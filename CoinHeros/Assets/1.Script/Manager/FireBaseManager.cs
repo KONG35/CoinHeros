@@ -17,8 +17,9 @@ public class FireBaseManager : Singleton<FireBaseManager>
 
     protected override void Awake()
     {
+        base.Awake();
 #if UNITY_EDITOR
-        if(!GetPlayerUID())
+        if (!GetPlayerUID())
         {
             FirebaseTask();
         }
@@ -31,11 +32,11 @@ public class FireBaseManager : Singleton<FireBaseManager>
     public IEnumerator WaitLoad()
     {
         yield return new WaitForSecondsRealtime(1.0f);
-        while(!isInitialized)
+        while (!isInitialized)
         {
             yield return new WaitForEndOfFrame();
         }
-        
+
         Debug.Log("[FireBaseManager] Firebase 초기화 완료, 게임 데이터 로드 시작...");
         StartCoroutine(LoadGameDataCoroutine());
     }
@@ -43,16 +44,16 @@ public class FireBaseManager : Singleton<FireBaseManager>
     private IEnumerator LoadGameDataCoroutine()
     {
         var loadTask = LoadAllGameDataAsync();
-        
+
         while (!loadTask.IsCompleted)
         {
             yield return null;
         }
-        
+
         if (loadTask.Result)
         {
             Debug.Log("[FireBaseManager] 게임 데이터 로드 완료");
-            
+
             // UI 업데이트
             var lobby = FindObjectOfType<LobbyUI>();
             if (lobby && lobby.UnitListUI)
@@ -69,7 +70,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
     {
         //Debug.Log("[FireBaseManager] 앱 일시정지 - 자동 저장 시작");
         //AutoSaveGameData();
-    }   
+    }
     public void OnApplicationFocus()
     {
         //Debug.Log("[FireBaseManager] 포커스 해제 - 자동 저장 시작");
@@ -85,12 +86,12 @@ public class FireBaseManager : Singleton<FireBaseManager>
     private IEnumerator SyncSaveOnQuit()
     {
         var saveTask = SaveAllGameDataAsync();
-        
+
         while (!saveTask.IsCompleted)
         {
             yield return null;
         }
-        
+
         if (saveTask.Result)
         {
             Debug.Log("[FireBaseManager] 앱 종료 시 저장 완료");
@@ -127,36 +128,30 @@ public class FireBaseManager : Singleton<FireBaseManager>
             Debug.LogError($"[FireBaseManager] 자동 저장 중 오류: {e.Message}");
         }
     }
-    
-#if UNITY_EDITOR
-    void OnDestroy()
-    {
-        SetPlayerUID(UID);
-    }
-#endif
+
 
     public bool GetPlayerUID()
     {
         try
         {
-            if(PlayerPrefs.HasKey("Edit_FirebaseUID"))
+            if (PlayerPrefs.HasKey("Edit_FirebaseUID"))
             {
                 UID = PlayerPrefs.GetString("Edit_FirebaseUID");
                 Debug.Log($"[FireBaseManager] PlayerPrefs에서 UID 로드: {UID}");
-                
+
                 // 테스트 데이터 확인
                 if (PlayerPrefs.HasKey("TestIntData"))
                 {
                     int testInt = PlayerPrefs.GetInt("TestIntData");
                     Debug.Log($"[FireBaseManager] 테스트 정수값: {testInt}");
                 }
-                
+
                 if (PlayerPrefs.HasKey("test"))
                 {
                     string testStr = PlayerPrefs.GetString("test");
                     Debug.Log($"[FireBaseManager] 테스트 문자열: {testStr}");
                 }
-                
+
                 isInitialized = true;
                 return true;
             }
@@ -191,12 +186,15 @@ public class FireBaseManager : Singleton<FireBaseManager>
     public void FirebaseTask()
     {
         Firebase.Auth.FirebaseAuth auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
-        auth.SignInAnonymouslyAsync().ContinueWith(task => {
-            if (task.IsCanceled) {
+        auth.SignInAnonymouslyAsync().ContinueWith(task =>
+        {
+            if (task.IsCanceled)
+            {
                 Debug.LogError("SignInAnonymouslyAsync was canceled.");
                 return;
             }
-            if (task.IsFaulted) {
+            if (task.IsFaulted)
+            {
                 Debug.LogError("SignInAnonymouslyAsync encountered an error: " + task.Exception);
                 return;
             }
@@ -206,7 +204,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
             UID = result.User.UserId;
             isInitialized = true;
         });
-        
+
     }
 
     // 초기화 확인
@@ -245,7 +243,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
                     .Child("users").Child(UID)
                     .Child("createdAt")
                     .GetValueAsync();
-                
+
                 if (existingSnapshot.Exists && existingSnapshot.Value != null)
                 {
                     existingCreatedAt = existingSnapshot.Value.ToString();
@@ -258,12 +256,12 @@ public class FireBaseManager : Singleton<FireBaseManager>
 
             var userDto = UserDTO.FromUserData(userData, UID, existingCreatedAt);
             var dict = userDto.ToDictionary();
-            
+
             // SetValueAsync 대신 UpdateChildrenAsync 사용하여 기존 캐릭터 데이터 보존
             await FirebaseDatabase.DefaultInstance.RootReference
                 .Child("users").Child(UID)
                 .UpdateChildrenAsync(dict);
-            
+
             Debug.Log($"[FireBaseManager] 사용자 데이터 저장 완료: {UID}");
             return true;
         }
@@ -334,7 +332,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
         try
         {
             Debug.Log("[FireBaseManager] 기본 캐릭터 생성 시작...");
-            
+
             var userData = UserData.Instance;
             if (userData == null)
             {
@@ -399,7 +397,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
             // 기본 캐릭터를 Firebase에 저장 (새로 생성되므로 createdAt은 새로 생성됨)
             var characterDto = CharacterDTO.FromCharacterData(Unit, null);
             var dict = characterDto.ToDictionary();
-            
+
             await FirebaseDatabase.DefaultInstance.RootReference
                 .Child("users").Child(UID)
                 .Child("characters").Child(characterDto.instanceId)
@@ -418,13 +416,13 @@ public class FireBaseManager : Singleton<FireBaseManager>
     {
         int maxWaitTime = 5000; // 5초 최대 대기
         int waitTime = 0;
-        
+
         while (!character.isInit && waitTime < maxWaitTime)
         {
             await Task.Delay(100);
             waitTime += 100;
         }
-        
+
         if (!character.isInit)
         {
             Debug.LogWarning("[FireBaseManager] 캐릭터 초기화 대기 시간 초과");
@@ -452,7 +450,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
                     .Child("characters").Child(characterData.UniqueId)
                     .Child("createdAt")
                     .GetValueAsync();
-                
+
                 if (existingSnapshot.Exists && existingSnapshot.Value != null)
                 {
                     existingCreatedAt = existingSnapshot.Value.ToString();
@@ -465,12 +463,12 @@ public class FireBaseManager : Singleton<FireBaseManager>
 
             var characterDto = CharacterDTO.FromCharacterData(characterData, existingCreatedAt);
             var dict = characterDto.ToDictionary();
-            
+
             await FirebaseDatabase.DefaultInstance.RootReference
                 .Child("users").Child(UID)
                 .Child("characters").Child(characterDto.instanceId)
-                .SetValueAsync(dict);
-            
+                .UpdateChildrenAsync(dict);
+
             Debug.Log($"[FireBaseManager] 캐릭터 저장 완료: {characterDto.name} ({characterDto.instanceId})");
             return true;
         }
@@ -494,7 +492,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
             }
 
             var updates = new Dictionary<string, object>();
-            
+
             foreach (var character in characters)
             {
                 if (character != null)
@@ -508,7 +506,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
                             .Child("characters").Child(character.UniqueId)
                             .Child("createdAt")
                             .GetValueAsync();
-                        
+
                         if (existingSnapshot.Exists && existingSnapshot.Value != null)
                         {
                             existingCreatedAt = existingSnapshot.Value.ToString();
@@ -518,15 +516,15 @@ public class FireBaseManager : Singleton<FireBaseManager>
                     {
                         // 기존 데이터가 없으면 null로 유지 (새로 생성)
                     }
-                    
+
                     var characterDto = CharacterDTO.FromCharacterData(character, existingCreatedAt);
                     var dict = characterDto.ToDictionary();
                     updates[$"users/{UID}/characters/{characterDto.instanceId}"] = dict;
                 }
             }
-            
+
             await FirebaseDatabase.DefaultInstance.RootReference.UpdateChildrenAsync(updates);
-            
+
             Debug.Log($"[FireBaseManager] 모든 캐릭터 저장 완료: {characters.Count}개");
             return true;
         }
@@ -555,7 +553,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
                 .GetValueAsync();
 
             var characters = new List<CharacterDTO>();
-            
+
             if (snapshot.Exists)
             {
                 foreach (var child in snapshot.Children)
@@ -568,7 +566,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
                     }
                 }
             }
-            
+
             Debug.Log($"[FireBaseManager] 캐릭터 로드 완료: {characters.Count}개");
             return characters;
         }
@@ -596,7 +594,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
 
             // 사용자 데이터와 캐릭터 데이터를 한 번에 저장 (덮어쓰기 방지)
             var allUpdates = new Dictionary<string, object>();
-            
+
             // 기존 사용자 데이터에서 createdAt 가져오기
             string existingUserCreatedAt = null;
             try
@@ -605,7 +603,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
                     .Child("users").Child(UID)
                     .Child("createdAt")
                     .GetValueAsync();
-                
+
                 if (existingUserSnapshot.Exists && existingUserSnapshot.Value != null)
                 {
                     existingUserCreatedAt = existingUserSnapshot.Value.ToString();
@@ -615,7 +613,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
             {
                 // 기존 데이터가 없으면 null로 유지 (새로 생성)
             }
-            
+
             // 사용자 데이터 추가
             var userDto = UserDTO.FromUserData(userData, UID, existingUserCreatedAt);
             var userDict = userDto.ToDictionary();
@@ -623,7 +621,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
             {
                 allUpdates[$"users/{UID}/{kvp.Key}"] = kvp.Value;
             }
-            
+
             // 캐릭터 데이터 추가 (각 캐릭터의 기존 createdAt 확인)
             foreach (var character in userData.UnitList)
             {
@@ -638,7 +636,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
                             .Child("characters").Child(character.UniqueId)
                             .Child("createdAt")
                             .GetValueAsync();
-                        
+
                         if (existingCharSnapshot.Exists && existingCharSnapshot.Value != null)
                         {
                             existingCharCreatedAt = existingCharSnapshot.Value.ToString();
@@ -648,7 +646,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
                     {
                         // 기존 데이터가 없으면 null로 유지 (새로 생성)
                     }
-                    
+
                     var characterDto = CharacterDTO.FromCharacterData(character, existingCharCreatedAt);
                     var characterDict = characterDto.ToDictionary();
                     foreach (var kvp in characterDict)
@@ -657,7 +655,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
                     }
                 }
             }
-            
+
             // 한 번에 모든 데이터 저장
             await FirebaseDatabase.DefaultInstance.RootReference.UpdateChildrenAsync(allUpdates);
             Debug.Log($"[FireBaseManager] 전체 게임 데이터 저장 완료 - 업데이트된 항목: {allUpdates.Count}개");
@@ -688,35 +686,35 @@ public class FireBaseManager : Singleton<FireBaseManager>
             // 사용자 데이터 로드
             var userDto = await LoadUserDataAsync();
             if (userDto == null) return false;
-            
+
             userDto.ApplyToUserData(userData);
 
             // 캐릭터 데이터 로드
             var characterDtos = await LoadAllCharactersAsync();
-            
+
             // 기존 캐릭터들을 백업
             var existingCharacters = new List<CharacterData>(userData.UnitList);
-            Debug.Log($"[FireBaseManager] 기존 캐릭터 백업: {existingCharacters.Count}개");
+            var existingBattleUnits = userData.BattleUnit;
             
+            Debug.Log($"[FireBaseManager] 기존 캐릭터 백업: {existingCharacters.Count}개");
+
+
             // Firebase에서 로드된 캐릭터들로 교체
-            if(userData&&userData.UnitList!=null)
+            if (userData && userData.UnitList != null)
+            {
                 userData.UnitList.Clear();
+                userData.BattleUnit = new CharacterData[6];
+            }
             foreach (var characterDto in characterDtos)
             {
-                Debug.Log("[FireBaseManager] test1");
                 var basePrefab = DataTableManager.Instance.characterPrefabList[0]; // 적절한 프리팹 선택 필요
                 var characterData = characterDto.ToCharacterData(basePrefab.gameObject, userData.transform);
-            Debug.Log("[FireBaseManager] test12");
                 if (characterData != null)
                 {
-            Debug.Log("[FireBaseManager] test2");
-                    if(userData&&userData.UnitList!=null)
+                    if (userData && userData.UnitList != null)
                         userData.UnitList.Add(characterData);
-                Debug.Log("[FireBaseManager] test3");
                 }
             }
-            
-            Debug.Log("[FireBaseManager] test4");
             // 고유 ID 중복 검사 및 수정
             userData.ValidateCharacterUniqueIds();
 
@@ -727,11 +725,6 @@ public class FireBaseManager : Singleton<FireBaseManager>
                 userData.UnitList.AddRange(existingCharacters);
             }
 
-            // 전투 유닛 설정 (첫 번째 캐릭터를 기본으로)
-            if (userData.UnitList.Count > 0)
-            {
-                userData.BattleUnit[0] = userData.UnitList[0];
-            }
 
             Debug.Log($"[FireBaseManager] 전체 게임 데이터 로드 완료 - 최종 캐릭터 수: {userData.UnitList.Count}");
             return true;
@@ -751,7 +744,7 @@ public class FireBaseManager : Singleton<FireBaseManager>
         Debug.Log("[FireBaseManager] 테스트 저장 시작...");
         var userData = UserData.Instance;
         Debug.Log($"[FireBaseManager] 저장 전 캐릭터 수: {userData.UnitList.Count}");
-        
+
         var success = await SaveAllGameDataAsync();
         Debug.Log($"[FireBaseManager] 테스트 저장 결과: {(success ? "성공" : "실패")}");
         Debug.Log($"[FireBaseManager] 저장 후 캐릭터 수: {userData.UnitList.Count}");

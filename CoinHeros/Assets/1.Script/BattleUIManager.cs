@@ -47,5 +47,13 @@ public class BattleUIManager : Singleton<BattleUIManager>
     public void RewardAction()
     {
         RewardPopupPanel.gameObject.SetActive(true);
+        UserData.Instance.Gold += BattleManager.Instance.reward.Gold;
+
+        foreach(var c in UserData.Instance.BattleUnit)
+        {
+            if(c==null)
+                continue;
+            c.SetExp(BattleManager.Instance.reward.Exp);
+        }
     }
 }

@@ -25,7 +25,9 @@ public class BattleRewardUI : MonoBehaviour
 
     public void OnEnable()
     {
-        
+        RewardGoldText.text = BattleManager.Instance.reward.Gold.ToString();
+        RewardExpText.text = BattleManager.Instance.reward.Exp.ToString();
+        MaxFloor.text = BattleManager.Instance.CurStage.ToString();
     }
 
     public void OnclickExit()

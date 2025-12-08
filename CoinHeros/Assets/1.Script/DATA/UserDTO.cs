@@ -55,23 +55,23 @@ public class UserDTO
         dto.gold = userData.Gold;
         dto.maxStage = userData.MaxStage;
         
-        // 캐릭터 ID 목록 (UniqueId 사용 - GetInstanceID는 게임 재시작 시 변경됨)
+        // 캐릭터 ID 목록
         dto.characterIds.Clear();
         foreach (var character in userData.UnitList)
         {
             if (character != null)
             {
-                dto.characterIds.Add(character.UniqueId);
+                dto.characterIds.Add(character.GetInstanceID().ToString());
             }
         }
         
-        // 전투 유닛 ID 목록 (UniqueId 사용 - GetInstanceID는 게임 재시작 시 변경됨)
+        // 전투 유닛 ID 목록
         dto.battleUnitIds.Clear();
-        for (int i = 0; i < userData.BattleUnit.Length; i++)
+        foreach (var battleUnit in userData.BattleUnit)
         {
-            if (userData.BattleUnit[i] != null)
+            if (battleUnit != null)
             {
-                dto.battleUnitIds.Add(userData.BattleUnit[i].UniqueId);
+                dto.battleUnitIds.Add(battleUnit.GetInstanceID().ToString());
             }
         }
         

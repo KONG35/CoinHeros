@@ -59,7 +59,9 @@ public class LobbyBattleUI : MonoBehaviour
         {
             Item[i].SetData(BattleUnits[i]);
         }
+        OnEnable();
         SetStartBtnInteract();
+        
     }
 
     public async Task WaitUntilAsync(Func<bool> condition, int checkIntervalMs = 100)

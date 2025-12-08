@@ -110,6 +110,7 @@ public class UnitListItem : MonoBehaviour
             Battle.gameObject.SetActive(false);
             Rest.gameObject.SetActive(false);
         }
+        
     }
 
 

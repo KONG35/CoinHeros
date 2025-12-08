@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NaughtyAttributes;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -182,6 +183,43 @@ public class CharacterBase : MonoBehaviour, IPoolable
         _state.SetBaseValue(agiSO, agivalue);
         _state.SetBaseValue(sprSO, sprvalue);
         _state.SetBaseValue(lukSO, lukvalue);
+        SetCalcBaseStateToDetailState();
+    }
+    public void SetExp(int value)
+    {
+        var gasSOdata = GASAttributeData.Instance;
+        SetModifyState(gasSOdata.EXP,"CalcBase",value,StackPolicy.Add);
+        SetLvUp();
+    }
+    [Button]
+    public void TestSetExp()
+    {
+        var gasSOdata = GASAttributeData.Instance;
+        SetModifyState(gasSOdata.EXP,"CalcBase",100,StackPolicy.Add);
+        SetLvUp();
+    }
+
+    public void SetLvUp()
+    {
+        var table = DataTableManager.Instance.ExpTable;
+        var gasSOdata = GASAttributeData.Instance;
+        float curExp = GetState(gasSOdata.EXP);
+        float curLv = GetState(gasSOdata.LV);
+
+        while(table[(int)curLv - 1] < curExp)
+        {
+            curExp = curExp - table[(int)curLv - 1] ;
+            curLv +=1;
+
+            SetModifyState(gasSOdata.STR,"CalcBase",GetState(gasSOdata.STR) + Random.Range(5.0f,10.0f),StackPolicy.Override);
+            SetModifyState(gasSOdata.MAG,"CalcBase",GetState(gasSOdata.MAG) + Random.Range(5.0f,10.0f),StackPolicy.Override);
+            SetModifyState(gasSOdata.CON,"CalcBase",GetState(gasSOdata.CON) + Random.Range(5.0f,10.0f),StackPolicy.Override);
+            SetModifyState(gasSOdata.AGI,"CalcBase",GetState(gasSOdata.AGI) + Random.Range(5.0f,10.0f),StackPolicy.Override);
+            SetModifyState(gasSOdata.SPR,"CalcBase",GetState(gasSOdata.SPR) + Random.Range(5.0f,10.0f),StackPolicy.Override);
+            SetModifyState(gasSOdata.LUK,"CalcBase",GetState(gasSOdata.LUK) + Random.Range(5.0f,10.0f),StackPolicy.Override);
+            SetModifyState(gasSOdata.EXP,"CalcBase",curExp,StackPolicy.Override);
+            SetModifyState(gasSOdata.LV,"CalcBase",curLv,StackPolicy.Override);
+        }
         SetCalcBaseStateToDetailState();
     }
 

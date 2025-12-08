@@ -19,9 +19,17 @@ public class BattleManager : Singleton<BattleManager>
 
     public float StageStartDelayTime = 3.0f;
 
+    public struct stReward
+    {
+        public int Gold;
+        public int Exp;
+    }
+    public stReward reward;
+
     public void Start()
     {
         BattleStart(2.0f);
+        reward = new stReward();
     }
 
     public void BattleStart(float DelayTime)
@@ -421,7 +429,16 @@ public class BattleManager : Singleton<BattleManager>
     {
         // TODO: 나중에 데이터테이블에서 스테이지별 몬스터 수를 읽어올 예정
         // 현재는 랜덤으로 3~6마리 생성
-        return Random.Range(3, 7);
+        if(CurStage<20)
+            return Random.Range(2, 3);
+        if(CurStage<40)
+            return Random.Range(3, 4);
+        if(CurStage<60)
+            return Random.Range(3, 5);
+        if(CurStage<80)
+            return Random.Range(3, 6);
+
+        return Random.Range(4, 7);
     }
 
     private void ClearAllMonsters()
@@ -496,6 +513,8 @@ public class BattleManager : Singleton<BattleManager>
     {
         CurStage++;
 
+        AddReward();
+
         // 코인 떨어지는거 리셋
         CoinSpawnManager.Instance.NextStageReady();
         
@@ -517,7 +536,11 @@ public class BattleManager : Singleton<BattleManager>
         BattleUIManager.Instance.UnitPanel.SetItemList(UnitPositions.LeftSlot);
         Debug.Log($"스테이지 {CurStage}로 진행되었습니다. {GetActiveMonsterCount()}개의 몬스터가 새로 배치되었습니다.");
     }
-
+    public void AddReward()
+    {
+        reward.Gold += CurStage *100;
+        reward.Exp += CurStage;
+    }
 
     private void CheckMonsterStatus()
     {

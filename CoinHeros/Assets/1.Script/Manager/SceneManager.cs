@@ -21,6 +21,12 @@ public class SceneManager : Singleton<SceneManager>
     public void LoadSceneWithLoading(string sceneName)
     {
         Debug.Log($"로딩씬을 통해 '{sceneName}' 씬으로 이동합니다.");
+        foreach(var c in UserData.Instance.BattleUnit)
+        {
+            if(c==null)
+            continue;
+                c.transform.parent = UserData.Instance.transform;
+        }
         targetSceneName = sceneName;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Loading");
     }
@@ -85,6 +91,7 @@ public class SceneManager : Singleton<SceneManager>
     {
         isBattleLoading=false;
         LoadSceneWithLoading("Lobby");
+        FireBaseManager.Instance.SaveAllGameDataAsync();
     }
     
     public void LoadBattleScene()

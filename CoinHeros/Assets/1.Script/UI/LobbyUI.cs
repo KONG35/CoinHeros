@@ -35,7 +35,10 @@ public class LobbyUI : MonoBehaviour
         UnitShopUI.Init();
         UnitListUI.Init();
     }
-
+    public void OnEnable()
+    {
+        TextMoney.text = UserData.Instance.Gold.ToString();
+    }
 
     public void PosInit()
     {

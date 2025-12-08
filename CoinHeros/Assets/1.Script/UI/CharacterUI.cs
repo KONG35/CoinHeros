@@ -49,7 +49,7 @@ public class CharacterUI : MonoBehaviour
         int curLv = (int)data.GetState(GASAttributeData.Instance.LV);
         LV.text = curLv.ToString()+ "/" + 
             DataTableManager.Instance.RankMaxLvTable[(int)data.GetState(GASAttributeData.Instance.Rank)];
-        Exp.text = ((long)data.GetState(GASAttributeData.Instance.EXP) - DataTableManager.Instance.GetTotalPrevExp(curLv)).ToString() + "/" +
+        Exp.text = ((long)data.GetState(GASAttributeData.Instance.EXP)).ToString()  + "/" +
             DataTableManager.Instance.ExpTable[(int)data.GetState(GASAttributeData.Instance.Rank)];
         StateUI[(int)eStateUI.STR].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.STR), (int)data.GetState(GASAttributeData.Instance.Grade_STR)), this);
         StateUI[(int)eStateUI.MAG].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.MAG), (int)data.GetState(GASAttributeData.Instance.Grade_MAG)), this);
@@ -79,7 +79,7 @@ public class CharacterUI : MonoBehaviour
         int curLv = (int)data.GetState(GASAttributeData.Instance.LV);
         LV.text = curLv.ToString() + "/" +
             DataTableManager.Instance.RankMaxLvTable[(int)data.GetState(GASAttributeData.Instance.Rank)];
-        Exp.text = ((long)data.GetState(GASAttributeData.Instance.EXP) - DataTableManager.Instance.GetTotalPrevExp(curLv)).ToString() + "/" +
+        Exp.text = ((long)data.GetState(GASAttributeData.Instance.EXP)).ToString() + "/" +
             DataTableManager.Instance.ExpTable[(int)data.GetState(GASAttributeData.Instance.Rank)];
         StateUI[(int)eStateUI.STR].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.STR), (int)data.GetState(GASAttributeData.Instance.Grade_STR)), this);
         StateUI[(int)eStateUI.MAG].SetState(new BaseState((int)data.GetState(GASAttributeData.Instance.MAG), (int)data.GetState(GASAttributeData.Instance.Grade_MAG)), this);
