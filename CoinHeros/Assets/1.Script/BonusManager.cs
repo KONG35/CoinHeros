@@ -25,26 +25,30 @@ public class BonusManager : Singleton<BonusManager>
                 earthquakeAction.Show();
             }
             break;
+
             case BonusEnum.WaterSpout:
             {
                 waterSpoutAction.Show();
             }
             break;
+
             case BonusEnum.CoinTower:
             {
                 coinTowerAction.Show();
             }
             break;
+
             case BonusEnum.BonusCapsule:
-                {
-                    bonusCapsuleAction.Show();
-                }
-                break;
+            {
+                bonusCapsuleAction.Show();
+            }
+            break;
+            
             case BonusEnum.Artifact:
-                {
-                    artifactAction.Show();
-                }
-                break;
+            {
+                artifactAction.Show();
+            }
+            break;
         }
     }
     

@@ -35,6 +35,7 @@ public class BonusRoulette : MonoBehaviour
     private Vector3 intervalVec;
     private int head;
     private int tail => (head + items.Length-1) % items.Length;
+    public CoinMoveUI coinmoveUI;
     private BonusManager bonusManager;
     private RouletteManager rouletteManager;
     private void Start()
@@ -51,7 +52,10 @@ public class BonusRoulette : MonoBehaviour
     }
     public IEnumerator SpinCor(CoinEnum _cEnum)
     {
+        // 코인 종류에 맞춰서 룰렛 item 다시 init
         SpinInit(_cEnum);
+
+        // 룰렛 돌리는 시간
         float period = UnityEngine.Random.Range(3f, 3.5f);
 
         remainCntTxt.text = "";

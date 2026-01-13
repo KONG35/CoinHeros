@@ -300,7 +300,7 @@ public class BattleManager : Singleton<BattleManager>
 
     }
 
-    public void CharacterAction(int CoinIndex)
+    public int CharacterAction(int CoinIndex)
     {
         int TryCount = 0;
         while (currentCharacterIndex < UnitPositions.LeftSlot.Length)
@@ -323,7 +323,7 @@ public class BattleManager : Singleton<BattleManager>
                     BattleUIManager.Instance.MonsterPanel.UpdateItemList(UnitPositions.RightSlot);
                     BattleUIManager.Instance.UnitPanel.UpdateItemList(UnitPositions.LeftSlot);
 
-                    return;
+                    return currentCharacterIndex;
                 }
             }
             TryCount++;
@@ -331,8 +331,9 @@ public class BattleManager : Singleton<BattleManager>
             currentCharacterIndex %= UnitPositions.LeftSlot.Length;
 
             if (TryCount > UnitPositions.LeftSlot.Length)
-                return;
+                return currentCharacterIndex;
         }
+        return currentCharacterIndex;
     }
 
     /// <summary>

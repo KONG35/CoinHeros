@@ -10,7 +10,7 @@ public class BattleUIManager : Singleton<BattleUIManager>
     public BattleUnitInfoPanel MonsterPanel;
     public BattleRewardUI RewardPopupPanel;
     public TicketUI ticketUI;
-    
+    public CoinMoveUI coinMoveUI;
     protected override void Awake()
     {
         base.isDone = false;

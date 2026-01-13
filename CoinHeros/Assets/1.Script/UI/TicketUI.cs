@@ -22,7 +22,7 @@ public class TicketUI : MonoBehaviour
     private int count;  // 활성화된 신호 개수
     private Vector2[] originPosArr;
 
-    object lockObj = new object(); // null 대신 new object()로 초기화
+    object lockObj = new object(); 
     private void Awake()
     {
         SetCount(0);
@@ -102,14 +102,14 @@ public class TicketUI : MonoBehaviour
             return count > 0;
         }
     }
-    [Button]
-    private void EditStarMove()
-    {
-        effect.Show();
+    //[Button]
+    //private void EditStarMove()
+    //{
+    //    effect.Show();
         
-        foreach (var s in starIconArr)
-        {
-            s.Move();
-        }
-    }
+    //    foreach (var s in starIconArr)
+    //    {
+    //        s.Move();
+    //    }
+    //}
 }

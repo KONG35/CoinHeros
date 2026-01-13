@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
@@ -47,8 +48,10 @@ public class Coin : MonoBehaviour, IPoolable
         }
         else if (col.gameObject.tag == "Outside")
         {
-            BattleManager.Instance.CharacterAction((int)coinEnum);
-            BattleUIManager.Instance.ticketUI.PlusCount(1);
+            int index = BattleManager.Instance.CharacterAction((int)coinEnum);
+            BattleUIManager.Instance.ticketUI.PlusCount((int)coinEnum);
+            BattleUIManager.Instance.coinMoveUI.CoinMove((int)coinEnum, index, gameObject.transform.position.x);
+            //StartCoroutine(MoveToCharacterCor(index));
             CoinSpawnManager.Instance.ReturnCoin(PoolData, this);
         }
     }
@@ -151,4 +154,67 @@ public class Coin : MonoBehaviour, IPoolable
         rigid.rotation = Quaternion.identity;
         rigid.MovePosition(targetPos);
     }
+    //[Button]
+    //void editMove()
+    //{
+    //    StartCoroutine(MoveToCharacterCor(0));
+    //}
+    //private IEnumerator MoveToCharacterCor(int n)
+    //{
+    //    // ! 6개 위치 저장해놓기
+    //    float elapsed = 0f;
+    //    float duration = 1f;
+
+    //    ResetRigidbody();
+    //    gameObject.GetComponent<Collider>().enabled = false;
+
+    //    Vector3 startPos = new Vector3(transform.position.x, 1f, transform.position.z);
+    //    Vector3 targetPos = new Vector3(startPos.x, 8.5f, startPos.z);
+
+    //    Quaternion startRot = transform.rotation;
+    //    Vector3 dir = Camera.main.transform.position - targetPos;
+    //    dir.y = 0f; // 위아래 기울어지지 않게
+
+    //    Quaternion look = Quaternion.LookRotation(dir);
+    //    // Z-forward를 Y-forward로 치환
+    //    look *= Quaternion.Euler(90f, 0f, 0f);
+
+    //    while (elapsed < duration)
+    //    {
+    //        gameObject.transform.position = Vector3.Lerp(startPos, targetPos, elapsed / duration);
+    //        gameObject.transform.rotation = Quaternion.Slerp(startRot, look, elapsed / duration);
+
+    //        elapsed += Time.fixedDeltaTime;
+    //        yield return new WaitForFixedUpdate();
+    //    }
+
+
+
+    //    //Vector3 dir = Camera.main.transform.position - transform.position;
+    //    //dir.y = 0f; // 위아래 기울어지지 않게
+
+    //    //Quaternion look = Quaternion.LookRotation(dir);
+
+    //    // Z-forward를 Y-forward로 치환
+    //    //transform.rotation = look * Quaternion.Euler(90f, 0f, 0f);
+
+    //    elapsed = 0f;
+    //    duration = 2f;
+
+    //    startPos = transform.position;
+    //    targetPos = new Vector3(8.7f, 26f, -59f);
+    //    while (elapsed < duration)
+    //    {
+    //        gameObject.transform.position = Vector3.Lerp(startPos, targetPos, elapsed / duration);
+
+    //        elapsed += Time.fixedDeltaTime;
+    //        yield return new WaitForFixedUpdate();
+    //    }
+
+    //    gameObject.GetComponent<Collider>().enabled = true;
+    //    CoinSpawnManager.Instance.ReturnCoin(PoolData, this);
+
+    //    yield return null;
+    //}
+    
 }
