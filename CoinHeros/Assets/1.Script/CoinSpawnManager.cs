@@ -39,50 +39,28 @@ public class CoinSpawnManager :Singleton<CoinSpawnManager>
     {
         while(true)
         {
-            if(Input.GetKeyDown("1"))
+            if(Input.GetKeyDown("2"))
             {
                 if (battleManager == null)
                     battleManager = BattleManager.Instance;
 
-                if(remainCoinList.Count == 0 || !battleManager.IsUpdate)
+                if(remainCoinCount == 0 || !battleManager.IsUpdate)
                 {
                     yield return null;
                     continue;
                 }
                 int idx = remainCoinList.Count-1;
                 yield return StartCoroutine(coinRemainUI.PopCor(idx));
+
                 coinLaunchMachine.InsertCoin(remainCoinList[idx]);
                 remainCoinList.RemoveAt(idx);
                 
-                if(remainCoinList.Count==0)
+                if(remainCoinCount == 0)
                 {
                     battleManager.MonsterAction();
                     yield return StartCoroutine(ResetCoinCor());
                 }
             }
-#if UNITY_EDITOR
-            if (Input.GetKeyDown("2"))
-            {
-                if (remainCoinList.Count == 0 )
-                {
-                    yield return null;
-                    continue;
-                }
-                int idx = remainCoinList.Count - 1;
-                coinRemainUI.PopCor(idx);
-                coinLaunchMachine.InsertCoin(remainCoinList[idx]);
-                remainCoinList.RemoveAt(idx);
-
-                if (remainCoinList.Count == 0)
-                {
-                    battleManager.MonsterAction();
-                }
-                if (remainCoinList.Count == 0)
-                {
-                    yield return StartCoroutine(ResetCoinCor());
-                }
-            }
-#endif
             yield return null; // 프레임 대기 추가
         }
     }
@@ -92,6 +70,8 @@ public class CoinSpawnManager :Singleton<CoinSpawnManager>
     /// </summary>
     private IEnumerator ResetCoinCor(bool isAnim = true)
     {
+        remainCoinList = new List<CoinEnum>();
+
         for(int i=0;i<maxCoinCount;i++)
         {
             int n = Random.Range(0,100);
