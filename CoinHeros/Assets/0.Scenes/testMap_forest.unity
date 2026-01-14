@@ -106183,6 +106183,10 @@ PrefabInstance:
       propertyPath: coinRemainUI
       value: 
       objectReference: {fileID: 1327077373041892833}
+    - target: {fileID: 3162981279616930998, guid: 4fb4d30bff4fd7e4ca48ed2d96cc768a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4594782651405767129, guid: 4fb4d30bff4fd7e4ca48ed2d96cc768a, type: 3}
       propertyPath: m_Name
       value: Main

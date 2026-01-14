@@ -18,15 +18,23 @@ public class CoinMoveUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        areaWidth = area.rectTransform.rect.width;
-        areaHeight = area.rectTransform.rect.height;
-        areaMinVec = new Vector3(area.rectTransform.anchoredPosition.x - areaWidth / 2f, area.rectTransform.anchoredPosition.y - areaHeight / 2f);
+        StartCoroutine(InitAreaLate());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator InitAreaLate()
     {
-        
+        yield return null; // 1프레임 대기 (UI 레이아웃 확정)
+        SetArea();
+    }
+
+    void SetArea()
+    {
+        areaWidth = area.rectTransform.rect.width;
+        areaHeight = area.rectTransform.rect.height;
+        areaMinVec = new Vector3(
+            area.rectTransform.anchoredPosition.x - areaWidth / 2f,
+            area.rectTransform.anchoredPosition.y - areaHeight / 2f
+        );
     }
 
     public void CoinMove(int coinIndex, int moveIndex, float posX)
